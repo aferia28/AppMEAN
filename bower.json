@@ -1,0 +1,13 @@
+{
+	"name":"MiniMEAN",
+	"version":"0.0.1",
+	"author":"Adrian Feria",
+	"license":"MIT",
+	"dependencies":{
+		"angular":"1.4.5",
+		"angular-route": "1.2.6",
+		"font-awesome":"latest",
+		"requirejs":"latest",
+		"normalize-css":"latest"
+	}
+}
