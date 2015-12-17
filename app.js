@@ -3,10 +3,18 @@
 //Loading dependencies
 var express = require('express');
 var path = require('path');
+var mongoose  = require('mongoose');
 
 //Iniciamos express
 var app = express();
-
+mongoose.connect('mongodb://localhost:27017/DBpersonas', function(error){
+	if(error){
+		throw error;
+		console.log(error);
+	}else{
+		console.log('Conectado a MongoDB. BD MeanExample');
+	}
+});
 
 var logger = require('morgan');
 
@@ -30,51 +38,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 //Routes
-var home = require(__dirname + '/app/routes/home');
-var users = require(__dirname +'/app/routes/users');
+require('./app/routes/route.registro.api.js')(app);
 
-//app.use('/', home); //Cuando estemos en '/', se ejecutara routes, que esta definido mas arriba.
-//app.use('/users', users);
 app.get('/', function(req, res){
-   res.sendfile('./public/views/layouts/main.html');
+   //res.sendFile('./public/views/layouts/main.html');
+   res.sendFile(__dirname + '/public/views/layouts/main.html');
 });
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
 
 //Export/inicializar servidor
 if(!!module.parent){
   module.exports = app;
 }else{
-  app.listen(3000);
+  app.listen(8080);
+  console.log("Puerto 8080")
 }
 
 
