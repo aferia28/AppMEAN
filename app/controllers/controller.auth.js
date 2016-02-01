@@ -56,6 +56,7 @@ exports.emailLogin = function(req, res){
 				if (tokenPlayload.adm) {
 					console.log('El Usuario registrado es administrador.');
 					console.log(tokenPlayload.adm);
+
 				}else{
 					console.log('El Usuario registrado NO es administrador.');
 				}

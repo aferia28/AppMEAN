@@ -76,3 +76,7 @@ app.config(function($routeProvider, $authProvider)
   		redirectTo: '/'
   });
 });
+
+app.run(function() {
+  console.log("RUN");
+});

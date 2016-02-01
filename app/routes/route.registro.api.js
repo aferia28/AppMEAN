@@ -26,6 +26,10 @@ module.exports = function(app) {
 
 	app.delete('/eliminarVino/:id', wineController.deleteWine);
 
+	app.get('/admin', middleware.ensureAuthenticated, function() {
+		res.render('layouts/admin.html');
+	})
+
 	// Ruta solo accesible si estás autenticado
  	//app.get('/private',middleware.ensureAuthenticated, function(req, res) {res.send('HELLO WORLD')} );
 

@@ -13,6 +13,17 @@ app.controller('homeController', ['$scope','$auth','$http', function($scope, $au
 			$http.get('persona')
 				.success(function(data) {
 					$scope.persona = data;
+
+					if(data.isAdmin){
+
+						console.log('El usuario ' + data.nombre + ' es administrador');
+
+						var element = angular.element(document.querySelector('#listitem'));
+						element.append('<li><a href="/admin">ADMIN</a></li>');
+
+					}else{
+						console.log('El usuario ' + data.nombre + ' no es administrador')
+					}
 					console.log(data);
 				})
 		}
