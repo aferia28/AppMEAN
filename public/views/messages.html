@@ -1,0 +1,23 @@
+<div class="messages">
+    <div ng-message="required">Required</div>
+    <div ng-message="email">Invalid email address</div>
+    <div ng-message="compareTo">Must match the previous entry</div>
+</div>
+<style type="text/css">
+.ng-invalid {
+    border-color: red;
+    outline-color: red;
+}
+
+.ng-valid {
+    border-color: green;;
+    outline-color: green;
+}
+
+.messages {
+  font-size: x-small;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  color: red;
+}
+</style>

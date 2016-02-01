@@ -42,7 +42,7 @@ require('./app/routes/route.registro.api.js')(app);
 
 app.get('/', function(req, res){
    //res.sendFile('./public/views/layouts/main.html');
-   res.sendFile(__dirname + '/public/views/layouts/main.html');
+   res.sendFile(__dirname + '/public/views/layouts/index.html');
 });
 
 

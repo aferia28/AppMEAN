@@ -1,0 +1,83 @@
+<div class="row">
+	<div class="col-sm-2 search-box">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="search-box-top">
+					<h1>Search</h1>
+				</div>
+				<div class="search-box-bottom">
+					<div class="wineTypeCheck">
+						<h5>Tipos de Vino</h5>
+						<div class="form-group">
+					        <div>
+							  <form name="formWineType">
+							    <p for="repeatSelect"> Repeat select: </p>
+							    <select name="repeatSelect" id="repeatSelect" ng-model="types.repeatSelect">
+							      <option ng-repeat="option in types.availableOptions" value="{{option.id}}">{{option.name}}</option>
+							    </select>
+							  </form>
+							  <p>repeatSelect = {{types.repeatSelect}}</p>
+							  <br/>
+							</div>
+					    </div>
+					</div>
+					<hr>
+					<div class="wineYearCheck">
+						<h5>Añada</h5>
+						<div class="col-sm-12 checkbox-holder" ng-repeat="year in years.availableYears">
+							<label>
+								<input type="checkbox">
+								{{year.name}}
+							</label>
+						</div>
+					</div>
+					<hr>
+					<div class="wineDOCheck">
+						<h5>DO</h5>
+						<div class="col-sm-12 checkbox-holder" ng-repeat="do in DOs.availableDO">
+							<label style="padding-left:4px;">
+								<input type="checkbox">
+								{{do.name}}
+							</label>
+						</div>
+					</div>
+					<hr>
+					<input ng-model="query" id="query"> <!-- INPUT PARA FILTRAR POR NOMBRE-->
+					<button type="submit" ng-click="buscar()">Aplicar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-10 box-content">
+		<div class="row">
+			<div class="box-content-top">
+				<h2>Vinos</h2>
+			</div>
+			<div class="col-sm-12 box-content-bottom">
+	            <div class="row">
+	            	<div ng-repeat="wine in fiveDay.wines | filter:query" class="col-sm-4">
+	            		<div class="row wine-box">
+	            			<div class="col-sm-12">
+	            				<p style="font-weight:bold;" data-code="{{wine.code}}">
+									<a href="#product/{{wine.code}}">
+					              	{{wine.name}}
+					              	</a>
+				            	</p>
+	            			</div>
+			            	<div class="col-sm-12 image-box">
+			                	<img ng-src="{{ wine.image }}">
+			              	</div>
+				            <div class="col-sm-12 wine-text">
+				            	{{wine.type}}
+				            </div>
+				            <!-- low -->
+				            <div class="col-sm-12 wine-vintage">
+								{{wine.vintage}}
+				            </div>
+	            		</div>
+					</div>
+	            </div>
+			</div>
+		</div>
+	</div>
+</div>

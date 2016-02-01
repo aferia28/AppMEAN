@@ -1,0 +1,147 @@
+<div class="row" ng->
+	<div class="col-sm-3">
+		<div class="row">
+			<div class="col-sm-12 product-photo">
+				<img ng-src="{{product.image}}">
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-8">
+		<div class="row">
+			<div class="col-sm-12 product-title">
+				<h2>{{product.name}}</h2>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-6 product-price">
+						<span ng-if="product.price > 0">{{product.price | number}} €</span>
+						<span ng-if="product.price < 0.1">Precio no disponible</span>
+					</div>
+					<div class="col-sm-6 product-share"></div>
+				</div>
+				<hr style="bacground-color: black; top-width: 3px;">
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-4 product-rate">
+						<span ng-if="product.snoothrank > 0.5 && product.snoothrank < 2">*</span>
+						<span ng-if="product.snoothrank > 1.5 && product.snoothrank < 3">**</span>
+						<span ng-if="product.snoothrank > 2.5 && product.snoothrank < 4">***</span>
+						<span ng-if="product.snoothrank > 3.5 && product.snoothrank < 5">****</span>
+						<span ng-if="product.snoothrank > 4.5 && product.snoothrank < 6">*****</span>
+						<span>{{product.snoothrank}}</span>
+					</div>
+					<div class="col-sm-4 product-add"></div>
+					<div class="col-sm-4 product-btn-add"></div>
+				</div>
+			</div>
+			<div class="col-sm-12 product-box-content-header">
+				<ul class="nav nav-tabs">
+				  <li><a data-toggle="tab" data-target="#ficha">Ficha Técnica</a></li>
+				  <li><a data-toggle="tab" data-target="#comentarios">Comentarios</a></li>
+				  <li><a data-toggle="tab" data-target="#menu2">Menu 2</a></li>
+				</ul>
+				<div class="tab-content product-box-content-body">
+				  <div id="ficha" class="tab-pane fade in active">
+				  		<div class="row">
+				  			<div class="col-sm-12">
+				  				<div class="row">
+				  					<div class="col-sm-3">
+						  				<p>Tipus de vi: </p>
+						  			</div>
+						  			<div class="col-sm-9">
+						  				<p>
+						  					{{product.type}}
+						  				</p>
+						  			</div>
+				  				</div>
+				  			</div>
+				  			<div class="col-sm-12">
+				  				<div class="row">
+				  					<div class="col-sm-3">
+						  				<p>Denominació: </p>
+						  			</div>
+						  			<div class="col-sm-9">
+						  				<p>
+						  					{{product.region}}
+						  				</p>
+						  			</div>
+				  				</div>
+				  			</div>
+				  			<div class="col-sm-12">
+				  				<div class="row">
+				  					<div class="col-sm-3">
+						  				<p>Celler: </p>
+						  			</div>
+						  			<div class="col-sm-9">
+							  			<p>
+							  				{{product.winery}}
+							  			</p>
+						  			</div>
+				  				</div>
+				  			</div>
+				  			<div class="col-sm-12">
+				  				<div class="row">
+				  					<div class="col-sm-3">
+						  				<p>Varietat de raïm: </p>
+						  			</div>
+						  			<div class="col-sm-9">
+						  				<p>
+						  					{{product.varietal}}
+						  				</p>
+						  			</div>
+				  				</div>
+				  			</div>
+				  			<div class="col-sm-12">
+				  				<div class="row">
+				  					<div class="col-sm-3">
+						  				<p>Anyada: </p>
+						  			</div>
+						  			<div class="col-sm-9">
+						  				<p>
+						  					{{product.vintage}}
+						  				</p>
+						  			</div>
+				  				</div>
+				  			</div>
+				  			<div class="col-sm-12">
+				  				<div class="row">
+				  					<div class="col-sm-3">
+						  				<p>Alcohol: </p>
+						  			</div>
+						  			<div class="col-sm-9">
+							  			<p>
+							  				{{product.alcohol}}
+							  			</p>
+						  			</div>
+				  				</div>
+				  			</div>
+				  		</div>
+				  </div>
+				  <div id="comentarios" class="tab-pane fade">
+				    <h4>Comentarios:</h4>
+					<div class="reviews" ng-repeat="comment in product.reviews">
+						<p>
+							{{comment.name}} on: {{comment.date | date}}
+						</p>
+						<p>
+							{{comment.body}}
+						</p>
+						<hr>
+					</div>
+				  </div>
+				  <div id="menu2" class="tab-pane fade">
+				    <div class="wine-notes">
+						<p ng-if="product.wm_notes == ''">
+							No hay notas sobre este vino.
+						</p>
+						<p>
+							{{product.wm_notes}}
+						</p>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

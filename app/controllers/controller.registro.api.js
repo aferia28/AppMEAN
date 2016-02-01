@@ -1,34 +1,58 @@
 
 var Persona = require('../models/persona');
+var jwt = require('jwt-simple');
+var config = require('../config');
 
-exports.getPersona = function(req, res){ //definicion de las funciones de la API ..
-	console.log(req);
-	Persona.find(function(err, persona){
-		if(err)
-		{
+
+//
+exports.getPersona = function(req, res){
+
+	var token 		= req.headers.authorization.split(' ')[1];
+	console.log(token);
+
+	var playload	= jwt.decode(token, config.TOKEN_SECRET);
+	console.log(playload);
+
+	Persona.findById(playload.sub, function(err, persona){
+		if(err){
+			console.log("Error recuperando a las personas...");
 			res.send(err);
 		}else{
 			res.json(persona);
+			console.log(persona);
 		}
 	});
 }
 
-exports.setPersona = function(request, res){
-	console.log(request.body);
-	Persona.create(
-		{
-			nombre : request.body.nombre,
-			apellido : request.body.apellido,
-			edad : request.body.edad
-		},
-			function(err, persona){
-				if(err){
-					res.send(err);
-				}else{
-					res.json(persona);
-					console.log("persona creada: " + persona);
-				}
-			})
+exports.getUserProfile = function(req, res) {
+
+	Persona.findById(req.params.userId, function(err, persona) {
+		if(err) res.send(err);
+		else res.json(persona);
+	})
+}
+
+exports.setPersona = function(req, res){
+
+	console.log('POST');
+    console.log(req.body);
+
+    var persona = new Persona({
+		nombre: 		req.body.nombre,
+		apellidos: 		req.body.apellidos,
+		email: 			req.body.email,
+		contraseña: 	req.body.contraseña,
+		r_contraseña: 	req.body.r_contraseña,
+
+	});
+
+    persona.save(function(err, persona){
+    	if(err){
+    		return res.status(500).send(err.message);
+    	}else{
+    		res.status(200).jsonp(persona);
+    	}
+    })
 }
 
 exports.updatePersona = function(req, res){

@@ -1,17 +1,42 @@
-var Persona 	= require('../models/persona');
+//var Persona 	= require('../models/persona');
 var Controller 	= require('../controllers/controller.registro.api');
+var wineController 	= require('../controllers/controller.wines');
+var auth		= require('../controllers/controller.auth');
+var middleware = require('../middleware');
 
 module.exports = function(app) {
 
+	app.get('/persona', Controller.getPersona); //
 
-	app.get('/api/persona', Controller.getPersona); //el servidor recibe la peticion con la url que le manda angular
+	app.get('/perfil/:userId', Controller.getUserProfile);
+
+	app.post('/auth/signup', auth.emailSignup);
+
+	app.post('/auth/login', auth.emailLogin);
+
+
+
+	app.get('/vinos', wineController.findAllWines);
+
+	app.get('/vinos/:id', wineController.findWineById);
+
+	app.post('/addVino', wineController.addWine);
+
+	app.put('/modificarVino/:id', wineController.updateWine);
+
+	app.delete('/eliminarVino/:id', wineController.deleteWine);
+
+	// Ruta solo accesible si estás autenticado
+ 	//app.get('/private',middleware.ensureAuthenticated, function(req, res) {res.send('HELLO WORLD')} );
+
+	//app.get('/api/persona', Controller.getPersona); //el servidor recibe la peticion con la url que le manda angular
 													//y ejecuta la funcion del contorlador..
 
-	app.post('/api/persona', Controller.setPersona);
+	//app.post('/api/persona', Controller.setPersona);
 
-	app.put('/api/persona/:persona_id', Controller.updatePersona);
+	//app.put('/api/persona/:persona_id', Controller.updatePersona);
 
-	app.delete('/api/persona/:persona_id', Controller.deletePersona);
+	//app.delete('/api/persona/:persona_id', Controller.deletePersona);
 
 	/*app.get('*', function(req, res){
 		res.sendFile(__dirname + './public/views/layouts/main.html');

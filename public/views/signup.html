@@ -1,0 +1,67 @@
+<!-- views/signup.html -->
+
+<!--
+<form ng-submit="signup()" method="post">
+    <input type="email" ng-model="persona.email"/>
+    <input type="text" ng-model="persona.nombre"/>
+    <input type="text" ng-model="persona.apellidos"/>
+    <input type="password" ng-model="persona.contrasena"/>
+    <input type="password" ng-model="persona.r_contrasena"/>
+    <button type="submit">Registrarse</button>
+</form>
+-->
+<div class="row">
+	<div class="col-sm-3"></div>
+	<div class="col-sm-6 form-box">
+		<div class="form-top">
+			<div class="form-top-left">
+				<h3>Get your account</h3>
+				<p></p>
+			</div>
+		</div>
+		<div class="form-bottom">
+			<form role="form" method="post" class="registration-form" ng-submit="signup(signupForm.$valid)" name="signupForm">
+				<div class="form-group">
+					<input type="text" ng-model="persona.nombre" name="name" placeholder="Nombre" class="form-control form-first-name" required id="form-first-name">
+					<div ng-messages="signupForm.name.$error">
+						<div ng-messages-include="../views/messages.html">
+
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="text" ng-model="persona.apellidos" name="lastname" placeholder="Apellidos" class="form-control form-last-name" required id="form-last-name">
+					<div ng-messages="signupForm.lastname.$error">
+						<div ng-messages-include="../views/messages.html">
+
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="email" ng-model="persona.email" name="email" placeholder="Email" class="form-control form-email" required id="form-email">
+					<div ng-messages="signupForm.email.$error">
+						<div ng-messages-include="../views/messages.html">
+
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="password" ng-model="persona.contrasena" name="password" placeholder="Contraseña" class="form-control form-password" required id="form-password">
+					<div ng-messages="signupForm.password.$error">
+						<div ng-messages-include="../views/messages.html"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="password" ng-model="persona.r_contrasena" name="password_r" placeholder="Confirmar contraseña" class="form-control form-password" id="password_r" required compare-to="persona.contrasena">
+					<div ng-messages="signupForm.password_r.$error">
+						<div ng-messages-include="../views/messages.html">
+
+						</div>
+					</div>
+				</div>
+				<button class="btn-signup btn" type="submit">Registrar</button>
+			</form>
+		</div>
+	</div>
+	<div class="col-sm-3"></div>
+</div>
