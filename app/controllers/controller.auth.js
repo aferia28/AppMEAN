@@ -4,6 +4,8 @@
 
 var Persona = require('../models/persona.js');
 var service = require('../services/service.tokens.js');
+var jwt = require('jwt-simple');
+var config = require('../config');
 
 exports.emailSignup = function(req, res){
 
@@ -14,7 +16,8 @@ exports.emailSignup = function(req, res){
 		apellidos	:req.body.apellidos,
 		email 		:req.body.email,
 		contraseña 	:req.body.contrasena,
-		r_contraseña:req.body.r_contrasena
+		r_contraseña:req.body.r_contrasena,
+		isAdmin: false
 	});
 
 	persona.save(function(err, persona){
@@ -44,8 +47,20 @@ exports.emailLogin = function(req, res){
 
 				//res.status(200).jsonp(persona);
 
-				console.log("Persona logeada correctamente")
-				res.send({token: service.createToken(persona)});
+				console.log("Persona logeada correctamente");
+
+				var token = service.createToken(persona);
+				res.send({token: token});
+
+				var tokenPlayload = jwt.decode(token, config.TOKEN_SECRET);
+				if (tokenPlayload.adm) {
+					console.log('El Usuario registrado es administrador.');
+					console.log(tokenPlayload.adm);
+				}else{
+					console.log('El Usuario registrado NO es administrador.');
+				}
+
+
 			}else{
 				console.log("Contraseña incorrecta para: " + persona.email);
 			}

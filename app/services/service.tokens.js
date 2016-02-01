@@ -23,8 +23,9 @@ exports.createToken = function(persona){
 		sub: persona._id,
 		iat: moment().unix(),
 		exp: moment().add(14, 'days').unix(),
+		adm: persona.isAdmin
 	};
-	console.log("Persona: " + persona.nombre + "Playload: " + playload.sub + " " + playload.iat + " " + playload.exp);
+	console.log("Persona: " + persona.nombre + "Playload: " + playload.sub + " " + playload.iat + " " + playload.exp + " " + playload.adm);
 	//console.log(jwt.encode(playload));
 	//Por úlitmo devolvemos el JSON Web Token, codificando el payload con nuestra clave secreta.
 	return jwt.encode(playload, config.TOKEN_SECRET);
