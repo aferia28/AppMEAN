@@ -9,10 +9,10 @@ app.controller('wineSearcherController', ['$scope', '$http', function($scope, $h
 
 		$scope.types = {
 	    	availableOptions: [
-	    		{id: 'all', name: 'Todos'},
-	      		{id: 'red', name: 'Tinto'},
-	      		{id: 'white', name: 'Blanco'},
-	      		{id: 'rose', name: 'Rosado'}
+	    		{id: '', name: 'Tots'},
+	      		{id: 'red', name: 'Negre'},
+	      		{id: 'white', name: 'Blanc'},
+	      		{id: 'rose', name: 'Rosat'}
 	    	],
 	   };
 
@@ -22,7 +22,7 @@ app.controller('wineSearcherController', ['$scope', '$http', function($scope, $h
 	   			{id: '2014', name: '2014'},
 	   			{id: '2013', name: '2013'},
 	   			{id: '2012', name: '2012'},
-	   			{id: '2011', name: '2012'},
+	   			{id: '2011', name: '2011'},
 	   			{id: '2010', name: '2010'}
 	   		],
 	   };
@@ -106,10 +106,9 @@ app.controller('wineSearcherController', ['$scope', '$http', function($scope, $h
 
 			console.log(tipo);
 
-			$http.get('http://api.snooth.com/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&color=' + tipo + '&lang=es&c=ES')
+			$http.get('http://api.snooth.com/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&a=0&t=wine&color=' + tipo + '&lang=es&c=ES&z=08360&s=qpr')
 			.success(function(data){
 	  			$scope.fiveDay = data;
-
 	  			//console.log(resultado);
 	  		})
 
