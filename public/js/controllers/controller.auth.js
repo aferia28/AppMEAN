@@ -35,15 +35,12 @@ app.controller('SignUpController', ['$auth','$location','$scope', function($auth
 	$scope.pageClass = 'page-signup';
 }]);
 
-app.controller('LoginController', ['$auth', '$location','$scope', function($auth, $location, $scope){
+app.controller('LoginController', ['$auth', '$location','$scope','$http', function($auth, $location, $scope, $http){
 
 	var vm = this;
 	console.log("Dentro LoginController Cliente");
 	$scope.login = function(){
-		/*$auth.login({
-			email 		: vm.email,
-			password 	: vm.password
-		})*/
+
 		$auth.login($scope.persona)
 		.then(function(){
 
@@ -51,15 +48,31 @@ app.controller('LoginController', ['$auth', '$location','$scope', function($auth
             // Podemos también redirigirle a una ruta
             $location.path("/");
             console.log("Persona logeada: " + $scope.persona.email);
-            console.log("Usuario logeado correctamente");
+
             var token = $auth.getToken();
             console.log("Token recuperado: " + token);
 
+            $http.get('persona')
+				.success(function(data) {
+					$scope.persona = data;
+
+					if(data.isAdmin){
+
+						console.log('El usuario ' + data.nombre + ' es administrador');
+
+						var element = angular.element(document.querySelector('#listitem'));
+						element.append('<li><a href="/admin">ADMIN</a></li>');
+
+					}else{
+						console.log('El usuario ' + data.nombre + ' no es administrador')
+					}
+					console.log(data);
+				});
 		})
 		.catch(function(response){
 			response.send(500);
 			console.log("Ha habido algun error en el login.");
-		})
+		});
 	}
 	$scope.pageClass = 'page-login';
 }]);

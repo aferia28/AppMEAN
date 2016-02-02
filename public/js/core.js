@@ -72,11 +72,11 @@ app.config(function($routeProvider, $authProvider)
       controller: 'LogoutController',
       templateUrl: 'views/login.html'
   })
+    .when('/admin/perfiles',{
+      controller: '',
+      templateUrl: 'views/adminperfiles.html'
+  })
   	.otherwise({
   		redirectTo: '/'
   });
-});
-
-app.run(function() {
-  console.log("RUN");
 });

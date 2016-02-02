@@ -7,6 +7,9 @@ var config = require('../config');
 //
 exports.getPersona = function(req, res){
 
+	//Recupera el token de autenticación y
+	//Recupera la persona que hay logeada.
+
 	var token 		= req.headers.authorization.split(' ')[1];
 	console.log(token);
 
