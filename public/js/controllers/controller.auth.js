@@ -35,7 +35,7 @@ app.controller('SignUpController', ['$auth','$location','$scope', function($auth
 	$scope.pageClass = 'page-signup';
 }]);
 
-app.controller('LoginController', ['$auth', '$location','$scope','$http', function($auth, $location, $scope, $http){
+app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies', function($auth, $location, $scope, $http, $cookies){
 
 	var vm = this;
 	console.log("Dentro LoginController Cliente");
@@ -52,21 +52,11 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http', functi
             var token = $auth.getToken();
             console.log("Token recuperado: " + token);
 
+            $cookies.put('authenticationApp', token);
+
             $http.get('persona')
 				.success(function(data) {
 					$scope.persona = data;
-
-					if(data.isAdmin){
-
-						console.log('El usuario ' + data.nombre + ' es administrador');
-
-						var element = angular.element(document.querySelector('#listitem'));
-						element.append('<li><a href="/admin">ADMIN</a></li>');
-
-					}else{
-						console.log('El usuario ' + data.nombre + ' no es administrador')
-					}
-					console.log(data);
 				});
 		})
 		.catch(function(response){
@@ -77,10 +67,11 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http', functi
 	$scope.pageClass = 'page-login';
 }]);
 
-app.controller('LogoutController',['$auth', '$location', function($auth, $location){
+app.controller('LogoutController',['$auth', '$location','$cookies', function($auth, $location, $cookies){
 
 
 		$auth.logout();
+		$cookies.remove('authenticationApp');
 		//localStorage.clear();
 		$location.path("/login");
 

@@ -3,6 +3,7 @@ var Controller 	= require('../controllers/controller.registro.api');
 var wineController 	= require('../controllers/controller.wines');
 var auth		= require('../controllers/controller.auth');
 var middleware = require('../middleware');
+var middlewareAdmin = require('../middlewareAdmin');
 
 module.exports = function(app) {
 
@@ -26,7 +27,7 @@ module.exports = function(app) {
 
 	app.delete('/eliminarVino/:id', wineController.deleteWine);
 
-	app.get('/admin', function(req,res) {
+	app.get('/admin', middlewareAdmin.ensureAdmin, function(req,res) {
 		res.render('layouts/admin.html');
 	});
 

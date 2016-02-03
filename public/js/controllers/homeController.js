@@ -12,15 +12,13 @@ app.controller('homeController', ['$scope','$auth','$http', function($scope, $au
 
 		$http.get('persona')
 		.success(function(data) {
-			$scope.persona = data;;
+			$scope.persona = data;
 		})
 	}
-
-
-
+/*
 	$scope.isAuthenticated = function() {
 
 		var aut = $auth.isAuthenticated();
   		return $auth.isAuthenticated();
-	};
+	};*/
 }]);

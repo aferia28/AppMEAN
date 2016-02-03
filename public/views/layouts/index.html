@@ -24,20 +24,24 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-cookies.js"></script>
+
 
     <script src="js/core.js"></script>
 
     <!-- Controllers -->
     <script src="js/controllers/wineSearcherController.js"></script>
     <script src="js/controllers/productSearchController.js"></script>
-    <script src="js/controllers/HomeController.js"></script>
+    <script src="js/controllers/homeController.js"></script>
     <script src="js/controllers/profileController.js"></script>
+    <script src="js/controllers/sidebarController.js"></script>
     <!--<script src="js/controllers/controller.registro.front.js"></script>-->
     <script src="js/controllers/controller.auth.js"></script>
     <!-- Directives -->
     <script src="js/directives/passValidation.js"></script>
     <!-- Services -->
     <script src="js/services/weatherService.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/satellizer/0.13.3/satellizer.js"></script>
 
 </head>
@@ -49,7 +53,7 @@
 					<img src="../img/logo.png" style="width: 99%;">
 				</h1>
 				<hr style="color:white">
-				<nav class="navbar navbar-default" role="navigation">
+				<nav class="navbar navbar-default" role="navigation" ng-controller="sidebarController">
 			        <div class="navbar-header">
 			            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 			                <span class="icon-bar"></span>
@@ -67,6 +71,9 @@
 						<ul class="nav nav-stacked" ng-if="!isAuthenticated()">
 			                <li><a href="#signup">SignUp</a></li>
 							<li><a href="#login">Login</a></li>
+			            </ul>
+			            <ul class="nav nav-stacked" ng-show="userAdmin == true">
+			                <li><a href="admin">Admin</a></li>
 			            </ul>
 			        </div><!-- /.navbar-collapse -->
     			</nav>

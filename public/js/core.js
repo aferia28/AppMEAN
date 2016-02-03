@@ -1,4 +1,4 @@
-var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages']);
+var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies']);
 app.config(function($routeProvider, $authProvider)
 {
 
