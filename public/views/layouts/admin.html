@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="height:100%;">
+<html style="height:100%;" ng-app="adminApp">
 <head>
 	<title>APPMean</title>
 	<meta charset="utf-8"/>
@@ -24,6 +24,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
 
+    <script src="../js/admin/admin_core.js"></script>
+
 
 </head>
 <body style="height:100%; width:100%;">
@@ -44,8 +46,8 @@
 			        </div>
 			        <div class="collapse navbar-collapse">
 			            <ul class="nav nav-stacked" id="listitem">
-			            	<li><a href="">Perfiles</a></li>
-			            	<li><a href="">Vinos</a></li>
+			            	<li><a href="#perfiles">Perfiles</a></li>
+			            	<li><a href="#vinos">Vinos</a></li>
 							<li><a href="/">Volver a la APP</a></li>
 						</ul>
 			        </div><!-- /.navbar-collapse -->
