@@ -9,6 +9,8 @@ module.exports = function(app) {
 
 	app.get('/persona', Controller.getPersona); //
 
+	app.get('/allprofiles', Controller.getAllProfiles);
+
 	app.get('/perfil/:userId', Controller.getUserProfile);
 
 	app.post('/auth/signup', auth.emailSignup);

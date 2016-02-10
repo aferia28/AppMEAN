@@ -4,6 +4,14 @@ var jwt = require('jwt-simple');
 var config = require('../config');
 
 
+exports.getAllProfiles =  function(req, res) {
+
+	Persona.find(function(err, persona) {
+		if(!err) res.send(persona);
+		else console.log('ERROR: ' + err);
+	});
+}
+
 //
 exports.getPersona = function(req, res){
 

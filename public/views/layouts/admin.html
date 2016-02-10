@@ -22,9 +22,12 @@
 
     <!-- Include the AngularJS routing library -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
 
     <script src="../js/admin/admin_core.js"></script>
+    <script src="../js/admin/adminControllers/admin.controller.profiles.js"></script>
 
 
 </head>
@@ -62,7 +65,7 @@
     				<p>Copyright</p>
     			</div>
 			</aside>
-			<div class="col-sm-10" ng-view>
+			<div class="col-sm-10" ui-view>
 			</div>
 		</div>
 	</div>

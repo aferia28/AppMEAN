@@ -1,0 +1,15 @@
+<!--  partials.allprofiles.html>  -->
+<button ng-click="showAllProfiles()"></button>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table">
+			<tr ng-repeat="profile in allProfiles">
+				<td>{{ profile.nombre }}</td>
+				<td>{{ profile.apellidos }}</td>
+				<td>{{ profile.isAdmin }}</td>
+				<td>{{ profile.email }}</td>
+				<td><a ui-sref="profiles.profilesid({ id: profile._id})">Icono Ver<a/></td>
+			</tr>
+		</table>
+	</div>
+</div>
