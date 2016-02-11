@@ -1,2 +1,49 @@
-<h1>partials.profileid.html</h1>
-<div class="row"></div>
+<h1>Perfil</h1>
+<div class="row" data-ng-init="getProfileById()">
+	<div class="col-sm-5"></div>
+	<div class="col-sm-7">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2></h2>
+					</div>
+					<div class="col-sm-12">
+						<table>
+							<tr>
+								<td><label>Nombre</label></td>
+								<td><input type="text" class="form-control" value="{{ userProfile.nombre }}"></td>
+							</tr>
+							<tr>
+								<td><label>Apellidos</label></td>
+								<td><input type="text" class="form-control" value="{{ userProfile.apellidos }}"></td>
+							</tr>
+							<tr>
+								<td><label>Email</label></td>
+								<td><input type="text" class="form-control" value="{{ userProfile.email }}"></td>
+							</tr>
+							<tr>
+								<td><label>Admin</label></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><label>Password</label></td>
+								<td><input type="text" class="form-control" value="{{ userProfile.password }}"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-6">
+								<button class="btn btn-primary">Modificar</button>
+							</div>
+							<div class="col-sm-6">
+								<button class="btn btn-danger" ng-click="deleteProfile()">Borrar Usuario</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

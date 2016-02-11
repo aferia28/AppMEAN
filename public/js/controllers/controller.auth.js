@@ -4,15 +4,7 @@ app.controller('SignUpController', ['$auth','$location','$scope', function($auth
 	console.log("Dentro de SignUp controller");
 	//console.log(this);
 	$scope.signup = function(isValid){
-		/*
-		var user = {
-			email 		: $scope.email,
-			nombre		: $scope.nombre,
-			apellidos	: $scope.apellidos,
-			contraseña 	: $scope.contrasena,
-			r_contraseña: $scope.r_contrasena
-		}
-		*/
+
 		console.log("h");
       	if(isValid)
       	{

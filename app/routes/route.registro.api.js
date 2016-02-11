@@ -17,6 +17,7 @@ module.exports = function(app) {
 
 	app.post('/auth/login', auth.emailLogin);
 
+	app.delete('/eliminarPersona/:id', Controller.deleteUser)
 
 
 	app.get('/vinos', wineController.findAllWines);

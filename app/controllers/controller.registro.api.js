@@ -52,8 +52,8 @@ exports.setPersona = function(req, res){
 		nombre: 		req.body.nombre,
 		apellidos: 		req.body.apellidos,
 		email: 			req.body.email,
-		contraseña: 	req.body.contraseña,
-		r_contraseña: 	req.body.r_contraseña,
+		password: 	req.body.password,
+		r_password: 	req.body.r_password,
 
 	});
 
@@ -93,21 +93,13 @@ exports.updatePersona = function(req, res){
 		});
 }
 
-exports.deletePersona = function(request, res){
+	//DELETE
+exports.deleteUser = function(req, res) {
 
-	Persona.remove(
-		{
-			_id : request.params.persona_id
-		}, function(err, persona){
-			if(err)
-				res.send(err);
-
-			Persona.find(function(err, persona){
-				if(err){
-					res.send(err);
-				}else{
-					res.json(persona);
-				}
-			});
+	Persona.findById(req.params.id, function(err, persona) {
+		persona.remove(function(err) {
+			if(!err) console.log('Persona borrado!');
+			else console.log('ERROR: ' + err);
 		});
+	});
 }

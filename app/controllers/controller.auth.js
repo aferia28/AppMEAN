@@ -16,9 +16,9 @@ exports.emailSignup = function(req, res){
 		nombre		:req.body.nombre,
 		apellidos	:req.body.apellidos,
 		email 		:req.body.email,
-		contraseña 	:req.body.contrasena,
-		r_contraseña:req.body.r_contrasena,
-		isAdmin: false
+		password 	:req.body.password,
+		r_password  :req.body.r_password,
+		isAdmin		: false
 	});
 
 	persona.save(function(err, persona){
@@ -44,7 +44,7 @@ exports.emailLogin = function(req, res){
 		if(err){
 			return res.status(500).send(err.message);
 		}else{
-			if(req.body.contrasena == persona.contraseña){
+			if(req.body.password == persona.password){
 
 				//res.status(200).jsonp(persona);
 
