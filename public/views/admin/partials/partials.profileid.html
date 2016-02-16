@@ -1,0 +1,50 @@
+<h1>Perfil</h1>
+<div class="row" data-ng-init="getProfileById()">
+	<div class="col-sm-5"></div>
+	<div class="col-sm-7">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2></h2>
+					</div>
+					<div class="col-sm-12">
+						<table>
+							<tr>
+								<td><label>Nombre</label></td>
+								<td><input type="text" class="form-control" ng-model="userProfile.nombre"></td>
+							</tr>
+							<tr>
+								<td><label>Apellidos</label></td>
+								<td><input type="text" class="form-control" ng-model="userProfile.apellidos"></td>
+							</tr>
+							<tr>
+								<td><label>Email</label></td>
+								<td><input type="text" class="form-control" ng-model="userProfile.email"></td>
+							</tr>
+							<tr>
+								<td><label>Admin</label></td>
+								<td ng-if="userProfile.isAdmin == true">true</td>
+								<td ng-if="userProfile.isAdmin == false">false</td>
+							</tr>
+							<tr>
+								<td><label>Password</label></td>
+								<td><input type="text" class="form-control" ng-model="userProfile.password"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-6">
+								<button class="btn btn-primary" ng-click="updateProfile()">Modificar</button>
+							</div>
+							<div class="col-sm-6">
+								<button class="btn btn-danger" ng-click="deleteProfile()">Borrar Usuario</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -5,8 +5,9 @@ var personaSchema = new Schema({
   nombre:    { type: String },
   apellidos:     { type: String },
   email:  { type: String },
-  contraseña:   { type: String },
-  r_contraseña:  { type: String },
+  password:   { type: String },
+  r_password:  { type: String },
+  isAdmin: { type: Boolean }
 });
 
 module.exports = mongoose.model('Persona', personaSchema);
