@@ -1,15 +1,16 @@
 <!--  partials.allprofiles.html>  -->
 <div class="row" data-ng-init="showAllProfiles()">
 	<div class="col-sm-12">
+	<input ng-model="userQuery" id="userQuery"> <!-- INPUT PARA FILTRAR POR NOMBRE-->
 		<table class="table">
-			<tr style="background-color:grey;">
+			<thead style="background-color:grey;">
 				<td>Nombre</td>
 				<td>Apellidos</td>
 				<td>Admin</td>
 				<td>Email</td>
 				<td>Acción</td>
-			</tr>
-			<tr ng-repeat="profile in allProfiles">
+			</thead>
+			<tr ng-repeat="profile in allProfiles | filter:userQuery">
 				<td>{{ profile.nombre }}</td>
 				<td>{{ profile.apellidos }}</td>
 				<td>{{ profile.isAdmin }}</td>

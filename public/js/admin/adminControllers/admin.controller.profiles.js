@@ -1,5 +1,5 @@
 
-admin_app.controller('profilesController', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
+admin_app.controller('profilesController', ['$scope', '$http', '$stateParams','$location', function($scope, $http, $stateParams,$location) {
 
 
 	$scope.showAllProfiles = function() {
@@ -33,6 +33,22 @@ admin_app.controller('profilesController', ['$scope', '$http', '$stateParams', f
 		$http.delete('eliminarPersona/'+id)
 		.success(function(){
 			console.log('Persona eliminada');
+			$location.path('/perfiles/allprofiles');
+		})
+	}
+
+	$scope.updateProfile = function(newProfile) {
+
+		var id = $stateParams.id;
+
+		$http.put('/modificarPersona/'+id, $scope.userProfile)
+		.success(function(data) {
+			$location.path('/perfiles/allprofiles');
+			console.log('Persona modificada correctamente');
+			$scope.userProfile = data;
+		})
+		.error(function(err) {
+			console.log('Error' + err);
 		})
 	}
 

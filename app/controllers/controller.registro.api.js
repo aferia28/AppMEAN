@@ -66,40 +66,30 @@ exports.setPersona = function(req, res){
     })
 }
 
-exports.updatePersona = function(req, res){
+	//PUT
+exports.updatePersona = function(req, res) {
 
-	Persona.update(
-		{_id : req.params.persona_id},
-		{$set:
-			{
-				nombre: req.body.nombre,
-				apellido: req.body.apellido,
-				edad: req.body.edad
-			}
-		}, function(err, persona){
-			if(err){
-				res.send(err);
-			}else{
-				res.json(persona);
-			}
+	console.log(req.body);
 
-			Persona.find(function(err, persona){
-				if(err){
-					res.send(err);
-				}else{
-					res.json(persona);
-				}
-			});
+	Persona.findById(req.params.id, function(err, persona) {
+		persona.nombre = req.body.nombre;
+		persona.apellidos = req.body.apellidos;
+		persona.email = req.body.email;
+
+		persona.save(function(err) {
+			if(err) return err.status(500).send(err.message);
+			else {console.log('persona actualizada correctamente');res.status(200).jsonp(persona)}
 		});
-}
+	});
+};
 
 	//DELETE
 exports.deleteUser = function(req, res) {
 
-	Persona.findById(req.params.id, function(err, persona) {
-		persona.remove(function(err) {
-			if(!err) console.log('Persona borrado!');
-			else console.log('ERROR: ' + err);
-		});
-	});
+	Persona.remove({_id : req.params.id}, function(err, persona) {
+
+		if(err) console.log('ERROR: ' + err);
+		res.json(persona);
+	})
+
 }

@@ -19,6 +19,8 @@ module.exports = function(app) {
 
 	app.delete('/eliminarPersona/:id', Controller.deleteUser)
 
+	app.put('/modificarPersona/:id', Controller.updatePersona);
+
 
 	app.get('/vinos', wineController.findAllWines);
 

@@ -16,11 +16,6 @@ admin_app.config(function($stateProvider, $urlRouterProvider)
   		controller: 'profilesController',
   		templateUrl: 'views/admin/partials/partials.allprofiles.html',
   })
-  	.state('profiles.one', {
-  		url: '/oneprofile',
-  		controller: '',
-  		templateUrl: 'views/admin/partials/partials.oneprofile.html',
-  })
   	.state('profiles.profilesid', {
   		url: '/profiles/:id',
   		controller: 'profilesController',

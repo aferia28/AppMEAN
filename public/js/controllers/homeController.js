@@ -6,7 +6,6 @@ app.controller('homeController', ['$scope','$auth','$http', function($scope, $au
 	});
 
 	if(!$auth.getToken()){
-
 		console.log('No hay persona logeada..');
 	}else {
 

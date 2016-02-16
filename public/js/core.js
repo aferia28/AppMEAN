@@ -11,6 +11,13 @@ app.config(function($routeProvider, $authProvider)
     .when('/',{
       controller: 'homeController',
       templateUrl: 'views/content.html',
+      resolve: {
+        authenticated: ["$location", '$auth', function($location, $auth){
+          if(!$auth.isAuthenticated()){
+            return $location.path('/login');
+          }
+        }]
+      }
   })
   	.when('/winesearcher',{
   		controller: 'wineSearcherController',
@@ -18,7 +25,7 @@ app.config(function($routeProvider, $authProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/signup');
+            return $location.path('/login');
           }
         }]
       }
@@ -29,7 +36,7 @@ app.config(function($routeProvider, $authProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/signup');
+            return $location.path('/login');
           }
         }]
       }
@@ -44,7 +51,15 @@ app.config(function($routeProvider, $authProvider)
   })
   	.when('/product/:wineCode',{
   		controller: 'productSearcherController',
-    	templateUrl: 'views/product.html'
+    	templateUrl: 'views/product.html',
+      resolve: {
+        authenticated: ["$location", '$auth', function($location, $auth){
+          if(!$auth.isAuthenticated()){
+            return $location.path('/login');
+          }
+        }]
+      }
+
   })
     .when('/private',{
       controller: '',
@@ -52,7 +67,7 @@ app.config(function($routeProvider, $authProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/signup');
+            return $location.path('/login');
           }
         }]
       }
@@ -63,7 +78,7 @@ app.config(function($routeProvider, $authProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/signup');
+            return $location.path('/login');
           }
         }]
       }
@@ -74,7 +89,15 @@ app.config(function($routeProvider, $authProvider)
   })
     .when('/admin/perfiles',{
       controller: '',
-      templateUrl: 'views/adminperfiles.html'
+      templateUrl: 'views/adminperfiles.html',
+      resolve: {
+        authenticated: ["$location", '$auth', function($location, $auth){
+          if(!$auth.isAuthenticated()){
+            return $location.path('/login');
+          }
+        }]
+      }
+
   })
   	.otherwise({
   		redirectTo: '/'
