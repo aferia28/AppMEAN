@@ -5,31 +5,47 @@
 var Persona = require('../models/persona.js');
 var service = require('../services/service.tokens.js');
 var jwt = require('jwt-simple');
+var bcrypt = require('bcrypt');
 var config = require('../config');
 
 
 exports.emailSignup = function(req, res){
 
-	console.log("Controller.auth.Signup parte Servidor")
+	var hashpass = req.body.password;
+	console.log("Controller.auth.Signup parte Servidor");
+	console.log("Hashpass declarada "+ hashpass);
 
-	var persona = new Persona({
-		nombre		:req.body.nombre,
-		apellidos	:req.body.apellidos,
-		email 		:req.body.email,
-		password 	:req.body.password,
-		r_password  :req.body.r_password,
-		isAdmin		: false
+	bcrypt.genSalt(10, function(err, salt) {
+	    bcrypt.hash(hashpass, salt, function(err, hash) {
+	    	if(err)
+	    	{
+	    		res.status(500).send(err.message);
+	    	}
+	    	else
+	    	{
+	    		var persona = new Persona({
+					nombre		:req.body.nombre,
+					apellidos	:req.body.apellidos,
+					email 		:req.body.email,
+					password 	:hash,
+					isAdmin		: false
+				});
+
+				console.log('hashpass creado: ' + hash);
+
+				persona.save(function(err, persona){
+			    	if(err){
+			    		return res.status(500).send(err.message);
+			    	}else{
+			    		//res.status(200).jsonp(persona); Esta linea esta comentada porque si no la comenta salta un error: Error: Can't set headers after they are sent
+			    										  //Según documentación, aparece porque hay dos respuestas seguidas.
+			    		res.send({token: service.createToken(persona)});
+			    	}
+			    });
+	    	}
+	    });
 	});
 
-	persona.save(function(err, persona){
-    	if(err){
-    		return res.status(500).send(err.message);
-    	}else{
-    		//res.status(200).jsonp(persona); Esta linea esta comentada porque si no la comenta salta un error: Error: Can't set headers after they are sent
-    										  //Según documentación, aparece porque hay dos respuestas seguidas.
-    		res.send({token: service.createToken(persona)});
-    	}
-    });
 };
 
 exports.emailLogin = function(req, res){
@@ -44,30 +60,30 @@ exports.emailLogin = function(req, res){
 		if(err){
 			return res.status(500).send(err.message);
 		}else{
-			if(req.body.password == persona.password){
 
-				//res.status(200).jsonp(persona);
+			console.log(persona.password);
+			console.log(req.body.password);
 
-				console.log("Back_1. Persona logeada correctamente");
+			bcrypt.compare(req.body.password, persona.password, function(err, response) {
+			    if(response == true)
+			    {
+					console.log("Back_1. Persona logeada correctamente");
 
-				var token = service.createToken(persona);
-				res.send({token: token});
+					var token = service.createToken(persona);
+					res.send({token: token});
 
+					var tokenPlayload = jwt.decode(token, config.TOKEN_SECRET);
+					if (tokenPlayload.adm) {
+						console.log('Back_2. El Usuario registrado es administrador.');
+						console.log('Back_3. ' + tokenPlayload.adm);
 
-				var tokenPlayload = jwt.decode(token, config.TOKEN_SECRET);
-				if (tokenPlayload.adm) {
-					console.log('Back_2. El Usuario registrado es administrador.');
-					console.log('Back_3. ' + tokenPlayload.adm);
-
-				}else{
-					console.log('El Usuario registrado NO es administrador.');
-				}
-
-
-			}else{
-				console.log("Contraseña incorrecta para: " + persona.email);
-			}
-			//res.status(200).jsonp(persona);
+					}else{
+						console.log('El Usuario registrado NO es administrador.');
+					}
+			    }else {
+			    	console.log("Contraseña incorrecta para: " + persona.email);
+			    }
+			});
 		}
 	});
 };
