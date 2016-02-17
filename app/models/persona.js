@@ -6,7 +6,6 @@ var personaSchema = new Schema({
   apellidos:     { type: String },
   email:  { type: String },
   password:   { type: String },
-  r_password:  { type: String },
   isAdmin: { type: Boolean }
 });
 
