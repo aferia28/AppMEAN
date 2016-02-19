@@ -1,7 +1,12 @@
-		<button class="btn btn-primary" style="float: rigth"><a href="#/winesearcher"> GO BACK </a></button>
 <div class="row">
+	<div id="product-header" class="col-sm-12 product-header-red">
+		<a href="#/winesearcher"><i class="fa fa-angle-double-left"></i></a>
+		<div class="col-sm-12 product-title">
+			<h2>{{product.name}}</h2>
+		</div>
 	</div>
-	<div class="col-sm-3">
+<div class="row">
+	<div class="col-sm-4">
 		<div class="row">
 			<div class="col-sm-12 product-photo">
 				<img ng-src="{{product.image}}">
@@ -10,28 +15,57 @@
 	</div>
 	<div class="col-sm-8">
 		<div class="row">
-			<div class="col-sm-12 product-title">
-				<h2>{{product.name}}</h2>
-			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-12 share-box">
 				<div class="row">
-					<div class="col-sm-6 product-price">
+					<div class="col-sm-4 share-facebook">
+						<a href="">
+							<i class="fa fa-facebook"></i>
+						</a>
+					</div>
+					<div class="col-sm-4 share-twitter">
+						<a href="">
+						<i class="fa fa-twitter"></i>
+						</a>
+					</div>
+					<div class="col-sm-4 share-google">
+						<a href="">
+						<i class="fa fa-google-plus"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 rank-box">
+				<div class="row">
+					<div class="col-sm-2 product-rate">
+						<span ng-if="product.snoothrank > 0.5 && product.snoothrank < 2">
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank > 1.5 && product.snoothrank < 3">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank > 2.5 && product.snoothrank < 4">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank > 3.5 && product.snoothrank < 5">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank > 4.5 && product.snoothrank < 6">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+					</div>
+					<div class="col-sm-2 product-price">
 						<span ng-if="product.price > 0">{{product.price | number}} €</span>
 						<span ng-if="product.price < 0.1">Precio no disponible</span>
-					</div>
-					<div class="col-sm-6 product-share"></div>
-				</div>
-				<hr style="bacground-color: black; top-width: 3px;">
-			</div>
-			<div class="col-sm-12">
-				<div class="row">
-					<div class="col-sm-4 product-rate">
-						<span ng-if="product.snoothrank > 0.5 && product.snoothrank < 2">*</span>
-						<span ng-if="product.snoothrank > 1.5 && product.snoothrank < 3">**</span>
-						<span ng-if="product.snoothrank > 2.5 && product.snoothrank < 4">***</span>
-						<span ng-if="product.snoothrank > 3.5 && product.snoothrank < 5">****</span>
-						<span ng-if="product.snoothrank > 4.5 && product.snoothrank < 6">*****</span>
-						<span>{{product.snoothrank}}</span>
 					</div>
 					<div class="col-sm-4 product-add"></div>
 					<div class="col-sm-4 product-btn-add"></div>
@@ -147,3 +181,4 @@
 		</div>
 	</div>
 </div>
+
