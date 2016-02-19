@@ -13,15 +13,15 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http', functi
 						$http.get('/send/'+$scope.persona.email)
       						.success(function(data) {
       							console.log('Controller FrontEnd: Email enviado');
+      							setTimeout(function(){
+									$location.path("/");
+								}, 5000);
+
+					            console.log("Uusiario creado satisfactoriamente");
       						});
 						//$auth.setToken(response);
 						// Si se ha registrado correctamente,
 			            // Podemos redirigirle a otra parte
-			            setTimeout(function(){
-							$location.path("/");
-						}, 5000);
-
-			            console.log("Uusiario creado satisfactoriamente");
 					})
 					.catch(function(response){
 						response.send(500);
