@@ -28,7 +28,8 @@ exports.emailSignup = function(req, res){
 					apellidos	:req.body.apellidos,
 					email 		:req.body.email,
 					password 	:hash,
-					isAdmin		: false
+					isAdmin		: false,
+					verified	: false
 				});
 
 				console.log('hashpass creado: ' + hash);

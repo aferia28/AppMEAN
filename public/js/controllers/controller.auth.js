@@ -1,4 +1,4 @@
-app.controller('SignUpController', ['$auth','$location','$scope', function($auth, $location, $scope){
+app.controller('SignUpController', ['$auth','$location','$scope','$http', function($auth, $location, $scope, $http){
 
 	var vm = this;
 	console.log("Dentro de SignUp controller");
@@ -8,18 +8,25 @@ app.controller('SignUpController', ['$auth','$location','$scope', function($auth
 		console.log("h");
       	if(isValid)
       	{
-	        $auth.signup($scope.persona)
-			.then(function(){
-				//$auth.setToken(response);
-				// Si se ha registrado correctamente,
-	            // Podemos redirigirle a otra parte
-	            $location.path("/");
-	            console.log("Uusiario creado satisfactoriamente");
-			})
-			.catch(function(response){
-				response.send(500);
-				console.log('algun error en el registro.');
-			});
+      			$auth.signup($scope.persona)
+					.then(function(){
+						$http.get('/send/'+$scope.persona.email)
+      						.success(function(data) {
+      							console.log('Controller FrontEnd: Email enviado');
+      						});
+						//$auth.setToken(response);
+						// Si se ha registrado correctamente,
+			            // Podemos redirigirle a otra parte
+			            setTimeout(function(){
+							$location.path("/");
+						}, 5000);
+
+			            console.log("Uusiario creado satisfactoriamente");
+					})
+					.catch(function(response){
+						response.send(500);
+						console.log('algun error en el registro.');
+					});
       	}else{
         	alert("Las dos contraseñas deben ser iguales");
       	}

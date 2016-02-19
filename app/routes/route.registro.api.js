@@ -1,9 +1,10 @@
 //var Persona 	= require('../models/persona');
-var Controller 	= require('../controllers/controller.registro.api');
-var wineController 	= require('../controllers/controller.wines');
-var auth		= require('../controllers/controller.auth');
-var middleware = require('../middleware');
-var middlewareAdmin = require('../middlewareAdmin');
+var Controller 			= require('../controllers/controller.registro.api');
+var wineController 		= require('../controllers/controller.wines');
+var auth				= require('../controllers/controller.auth');
+var verification		= require('../controllers/controller.verification');
+var middleware 			= require('../middleware');
+var middlewareAdmin 	= require('../middlewareAdmin');
 
 module.exports = function(app) {
 
@@ -20,6 +21,10 @@ module.exports = function(app) {
 	app.delete('/eliminarPersona/:id', Controller.deleteUser)
 
 	app.put('/modificarPersona/:id', Controller.updatePersona);
+
+	app.get('/send/:email', verification.sendEmail);
+
+	app.get('/verify', verification.verifiedEmail);
 
 
 	app.get('/vinos', wineController.findAllWines);
