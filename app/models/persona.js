@@ -6,7 +6,8 @@ var personaSchema = new Schema({
   apellidos:     { type: String },
   email:  { type: String },
   password:   { type: String },
-  isAdmin: { type: Boolean }
+  isAdmin: { type: Boolean },
+  verified: { type: Boolean}
 });
 
 module.exports = mongoose.model('Persona', personaSchema);
