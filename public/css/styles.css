@@ -244,22 +244,73 @@ aside {
   background-size: cover;
   opacity: 0.8;
 }
-.product-title {
+.page-product .product-header-red {
+  background: url('../img/red-wine-header.jpg') no-repeat center center;
+  background-size: cover;
+  height: 230px;
+}
+.page-product .product-header-red .fa,
+.page-product .product-header-red .fa-arrow-left {
+  color: white;
+  font-size: 35px;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+.page-product .product-header-red .product-title {
   margin: 10px 0 10px 0;
 }
-.product-price {
+.page-product .product-header-red .product-title h2 {
+  color: whitesmoke;
+  font-size: 55px;
+  text-shadow: -2px -2px 5px #969696;
+}
+.page-product .product-header-white {
+  background: url('../img/white-wine-header.jpg') no-repeat center center;
+  background-size: cover;
+  height: 230px;
+}
+.page-product .product-header-rose {
+  background: url('../img/rose-wine-header.jpg') no-repeat center center;
+  background-size: cover;
+  height: 230px;
+}
+.page-product .share-box .fa-facebook,
+.page-product .share-box .fa-twitter,
+.page-product .share-box .fa-google-plus {
+  color: white;
+  font-size: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.page-product .share-box .share-facebook {
+  background-color: #4662B0;
+}
+.page-product .share-box .share-twitter {
+  background-color: #1B95E0;
+}
+.page-product .share-box .share-google {
+  background-color: #DB4437;
+}
+.page-product .rank-box {
+  margin-top: 20px;
+}
+.page-product .rank-box .product-price {
   margin: 10px 0 10px 0;
 }
-.product-price span {
+.page-product .rank-box .product-price span {
   background-color: #cfc47b;
-  border-radius: 0px;
+  border-radius: 20px;
   color: black;
   padding: 10px 10px 10px 10px;
 }
-.product-rate {
+.page-product .rank-box .product-rate {
   margin: 10px 0 10px 0;
 }
-.product-box-content {
+.page-product .rank-box .product-rate .fa-glass {
+  color: #6a1734;
+  font-size: 22px;
+}
+.page-product .product-box-content {
   margin-top: 10px;
 }
 .profile-header {
