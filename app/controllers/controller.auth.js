@@ -68,19 +68,24 @@ exports.emailLogin = function(req, res){
 			bcrypt.compare(req.body.password, persona.password, function(err, response) {
 			    if(response == true)
 			    {
-					console.log("Back_1. Persona logeada correctamente");
+			    	if(persona.verified == true)
+			    	{
+			    		console.log("Back_1. Persona logeada correctamente");
 
-					var token = service.createToken(persona);
-					res.send({token: token});
+						var token = service.createToken(persona);
+						res.send({token: token});
 
-					var tokenPlayload = jwt.decode(token, config.TOKEN_SECRET);
-					if (tokenPlayload.adm) {
-						console.log('Back_2. El Usuario registrado es administrador.');
-						console.log('Back_3. ' + tokenPlayload.adm);
+						var tokenPlayload = jwt.decode(token, config.TOKEN_SECRET);
+						if (tokenPlayload.adm) {
+							console.log('Back_2. El Usuario registrado es administrador.');
+							console.log('Back_3. ' + tokenPlayload.adm);
 
-					}else{
-						console.log('El Usuario registrado NO es administrador.');
-					}
+						}else{
+							console.log('El Usuario registrado NO es administrador.');
+						}
+			    	}else{
+			    		console.log('EMAIL no verificado');
+			    	}
 			    }else {
 			    	console.log("Contraseña incorrecta para: " + persona.email);
 			    }

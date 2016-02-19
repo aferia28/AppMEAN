@@ -47,8 +47,6 @@ exports.verifiedEmail = function(req, res) {
 	        console.log("email is verified");
           	console.log('Email validation : ' + mailOptions.to);
 
-	        //res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
-
           	Persona.findOne({'email': mailOptions.to}, function(err, persona) {
 
           		persona.verified = true;
@@ -59,7 +57,8 @@ exports.verifiedEmail = function(req, res) {
         		});
 
         		console.log('Persona verificada correctamente');
-        		res.json(persona);
+        		res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
+        		//res.json(persona);
           })
 	    }
 	    else
