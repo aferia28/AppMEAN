@@ -5,7 +5,6 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 				$("#content").removeClass("col-sm-10").addClass("col-sm-12");
 			});
 
-
 			var codeWine;
 			console.log($routeParams.wineCode);
 
@@ -35,7 +34,65 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 				}
 			})
 
-
-
+			$('#oneStar').hover(
+				function() {
+					$(this).removeClass('fa-star-o').addClass('fa-star');
+				},
+				function() {
+					$(this).removeClass('fa-star').addClass('fa-star-o');
+				}
+			);
+			$('#twoStars').hover(
+				function() {
+					$('#oneStar').removeClass('fa-star-o').addClass('fa-star');
+					$(this).removeClass('fa-star-o').addClass('fa-star');
+				},
+				function() {
+					$('#oneStar').removeClass('fa-star').addClass('fa-star-o');
+					$(this).removeClass('fa-star').addClass('fa-star-o');
+				}
+			);
+			$('#threeStars').hover(
+				function() {
+					$('#oneStar').removeClass('fa-star-o').addClass('fa-star');
+					$('#twoStars').removeClass('fa-star-o').addClass('fa-star');
+					$(this).removeClass('fa-star-o').addClass('fa-star');
+				},
+				function() {
+					$('#oneStar').removeClass('fa-star').addClass('fa-star-o');
+					$('#twoStars').removeClass('fa-star').addClass('fa-star-o');
+					$(this).removeClass('fa-star').addClass('fa-star-o');
+				}
+			);
+			$('#fourStars').hover(
+				function() {
+					$('#oneStar').removeClass('fa-star-o').addClass('fa-star');
+					$('#twoStars').removeClass('fa-star-o').addClass('fa-star');
+					$('#threeStars').removeClass('fa-star-o').addClass('fa-star');
+					$(this).removeClass('fa-star-o').addClass('fa-star');
+				},
+				function() {
+					$('#oneStar').removeClass('fa-star').addClass('fa-star-o');
+					$('#twoStars').removeClass('fa-star').addClass('fa-star-o');
+					$('#threeStars').removeClass('fa-star').addClass('fa-star-o');
+					$(this).removeClass('fa-star').addClass('fa-star-o');
+				}
+			);
+			$('#fiveStars').hover(
+				function() {
+					$('#oneStar').removeClass('fa-star-o').addClass('fa-star');
+					$('#twoStars').removeClass('fa-star-o').addClass('fa-star');
+					$('#threeStars').removeClass('fa-star-o').addClass('fa-star');
+					$('#fourStars').removeClass('fa-star-o').addClass('fa-star');
+					$(this).removeClass('fa-star-o').addClass('fa-star');
+				},
+				function() {
+					$('#oneStar').removeClass('fa-star').addClass('fa-star-o');
+					$('#twoStars').removeClass('fa-star').addClass('fa-star-o');
+					$('#threeStars').removeClass('fa-star').addClass('fa-star-o');
+					$('#fourStars').removeClass('fa-star').addClass('fa-star-o');
+					$(this).removeClass('fa-star').addClass('fa-star-o');
+				}
+			);
 	//$scope.pageClass = 'page-weather';
 }]);
