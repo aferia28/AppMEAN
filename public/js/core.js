@@ -14,6 +14,15 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
         'popupWidth' : 400
       }
     },
+    {
+      'provider': 'facebook',
+      'conf': {
+        'url': '',
+        'trigger': 'click',
+        'popupHeight': 1300,
+        'popupWidth' : 1000
+      }
+    }
   ]);
 
   $authProvider.signupUrl   = 'http://localhost:8080/auth/signup';
