@@ -1,6 +1,20 @@
-var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies']);
-app.config(function($routeProvider, $authProvider)
+var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare']);
+app.config(function($routeProvider, $authProvider, socialshareConfProvider)
 {
+
+  socialshareConfProvider.configure([{
+      'provider': 'twitter',
+      'conf': {
+        'url': '',
+        'text': '',
+        'via': 'onWine',
+        'hashtags': 'winepassion',
+        'trigger': 'click',
+        'popupHeight': 500,
+        'popupWidth' : 400
+      }
+    },
+  ]);
 
   $authProvider.signupUrl   = 'http://localhost:8080/auth/signup';
   $authProvider.loginUrl    = 'http://localhost:8080/auth/login';
