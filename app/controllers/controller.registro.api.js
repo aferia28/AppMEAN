@@ -29,7 +29,7 @@ exports.getPersona = function(req, res){
 			console.log("Error recuperando a las personas...");
 			res.send(err);
 		}else{
-			res.json(persona);
+			res.send(persona);
 			console.log(persona);
 		}
 	});
