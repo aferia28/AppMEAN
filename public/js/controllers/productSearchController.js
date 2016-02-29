@@ -10,7 +10,7 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 	var wine;
 	var usuario;
 	var absUrl = $location.absUrl();
-	console.log(absUrl);
+
 	$scope.absUrl = absUrl;
 
 	console.log($routeParams.wineCode);
