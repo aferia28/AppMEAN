@@ -329,6 +329,11 @@ aside {
 .page-product .rating span {
   font-size: 35px;
 }
+.page-product .rating span button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
 .page-product .rating span .fa-star,
 .page-product .rating span .fa-star-o {
   color: #cfc47b;

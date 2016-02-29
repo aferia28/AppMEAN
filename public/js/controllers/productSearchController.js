@@ -1,38 +1,65 @@
-app.controller('productSearcherController', ['$scope', '$http','$rootScope','$routeParams', function($scope, $http, $rootScope,$routeParams) {
+app.controller('productSearcherController', ['$scope', '$http','$rootScope','$routeParams','$route', function($scope, $http, $rootScope,$routeParams, $route) {
 
 			$scope.pageClass = 'page-product';
+
 			$("aside").fadeOut("slow", function() {
 				$("#content").removeClass("col-sm-10").addClass("col-sm-12");
 			});
 
 			var codeWine;
+			var wine;
+			var usuario;
+
 			console.log($routeParams.wineCode);
 
 			codeWine = $routeParams.wineCode;
 
-			$http.get('http://api.snooth.com/wine/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&id='+codeWine)
-			.success(function(data){
-				console.log(data);
-				console.log();
-				$scope.product = data.wines[0];
-				if(data.wines[0].type == 'Red Wine')
-				{
-					$scope.type = 'red';
-					console.log('Red wine returend');
-					$('#product-header').addClass('product-header-red');
+			$http.get('persona')
+			.success(function(data) {
 
-				}else if(data.wines[0].type == 'White Wine'){
-					$scope.type = 'white';
-					console.log('White wine returend');
-					$('#product-header').addClass('product-header-white');
+				usuario = data;
 
-				}else if(data.wines[0].type = 'Rose Wine'){
-					$scope.type = 'rose';
-					console.log('Rose wine returend');
-					$('#product-header').addClass('product-header-rose');
+				$http.get('/getWine', {params: {codeWine:codeWine, usuario:usuario}})
+				.success(function(data) {
+					console.log(data);
 
-				}
+					if(data.canrate == false)
+					{
+						$('.rating > span').css('opacity', 0.5);
+						$scope.isDisabled = true;
+					}else{
+						$scope.isDisabled = false;
+					}
+					wine = data;
+					$scope.product = wine;
+
+					if(wine.type == 'Red Wine')
+					{
+						$scope.type = 'red';
+						console.log('Red wine returend');
+						$('#product-header').addClass('product-header-red');
+
+					}else if(wine.type == 'White Wine'){
+						$scope.type = 'white';
+						console.log('White wine returend');
+						$('#product-header').addClass('product-header-white');
+
+					}else if(wine.type = 'Rose Wine'){
+						$scope.type = 'rose';
+						console.log('Rose wine returend');
+						$('#product-header').addClass('product-header-rose');
+					}
+				})
 			})
+
+			$scope.addOwnWine = function(rank) {
+
+				$http.get('/vinosCode/' + codeWine, {params: {rank: rank, wine:wine, usuario: usuario}})
+				.success(function(data) {
+					console.log(data);
+					$scope.isDisabled = true;
+				})
+			}
 
 			$('#oneStar').hover(
 				function() {

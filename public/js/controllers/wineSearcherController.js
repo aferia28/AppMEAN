@@ -110,10 +110,8 @@ app.controller('wineSearcherController', ['$scope', '$http', function($scope, $h
 			.success(function(data){
 	  			$scope.fiveDay = data;
 
-	  			//console.log(resultado);
+	  			console.log(data);
 	  		})
-
-	  		console.log($scope);
 		}
 
 	$scope.pageClass = 'page-weather';

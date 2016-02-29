@@ -35,25 +35,25 @@
 				</div>
 			</div>
 			<div class="col-sm-12 rank-box product-rate">
-						<span ng-if="product.snoothrank > 0.5 && product.snoothrank < 2">
+						<span ng-if="product.snoothrank >= 0.6 && product.snoothrank <= 1.5">
 							<i class="fa fa-glass"></i>
 						</span>
-						<span ng-if="product.snoothrank > 1.5 && product.snoothrank < 3">
-							<i class="fa fa-glass"></i>
-							<i class="fa fa-glass"></i>
-						</span>
-						<span ng-if="product.snoothrank > 2.5 && product.snoothrank < 4">
-							<i class="fa fa-glass"></i>
+						<span ng-if="product.snoothrank >= 1.6 && product.snoothrank <= 2.5">
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
 						</span>
-						<span ng-if="product.snoothrank > 3.5 && product.snoothrank < 5">
-							<i class="fa fa-glass"></i>
+						<span ng-if="product.snoothrank >= 2.6 && product.snoothrank <= 3.5">
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
 						</span>
-						<span ng-if="product.snoothrank > 4.5 && product.snoothrank < 6">
+						<span ng-if="product.snoothrank >= 3.6 && product.snoothrank <= 4.5">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank >= 4.6 && product.snoothrank <= 5.5">
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
@@ -77,11 +77,11 @@
 					</div>
 					<div class="col-sm-4 rating">
 						<span class="">
-							<i id='oneStar' class="fa fa-star-o"></i>
-							<i id='twoStars' class="fa fa-star-o"></i>
-							<i id='threeStars' class="fa fa-star-o"></i>
-							<i id='fourStars' class="fa fa-star-o"></i>
-							<i id='fiveStars' class="fa fa-star-o"></i>
+							<button id='oneStar' class="fa fa-star-o" ng-click="addOwnWine(1)" ng-disabled="isDisabled"></button>
+							<button id='twoStars' class="fa fa-star-o" ng-click="addOwnWine(2)" ng-disabled="isDisabled"></button>
+							<button id='threeStars' class="fa fa-star-o" ng-click="addOwnWine(3)" ng-disabled="isDisabled"></button>
+							<button id='fourStars' class="fa fa-star-o" ng-click="addOwnWine(4)" ng-disabled="isDisabled"></button>
+							<button id='fiveStars' class="fa fa-star-o" ng-click="addOwnWine(5)" ng-disabled="isDisabled"></button>
 						</span>
 
 					</div>
