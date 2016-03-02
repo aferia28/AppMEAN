@@ -1,5 +1,6 @@
 var Vino = require('../models/wine.js');
 var Puntuacion = require('../models/puntuacion.js');
+var Comentario = require('../models/comentario.js');
 var http = require('http');
 	//GET
 exports.findAllWines =  function(req, res) {
@@ -52,8 +53,13 @@ exports.findWine = function(req, res) {
     					//si esta el usuario, quiere decir que ha puntuado ese vino concreto. En este caso no se permite puntuar.
     					//ademas, habrá que recoger todas las puntuacion de la colección vino - > puntuaciones y hacer la media, para despues hacer otra media con snoothrank
     					//Estas dos cosas se pueden hacer por separado.
-    					puntuacionTotal = puntuacionApi;
-    					res.send(apiWine);
+    					if (puntuacionApi == 'n/a'){
+    						puntuacionApi = 0;
+    						res.send(apiWine);
+    					}else{
+    						puntuacionTotal = puntuacionApi;
+    						res.send(apiWine);
+    					}
     				}else{
 
     					Vino.find({code: apiWine.code}).populate({path: 'rates', match: { usuario: {$eq:xuser._id}}}).exec(function(err, puntuacion) {
@@ -75,17 +81,21 @@ exports.findWine = function(req, res) {
     						}
     					});
 
-    					Vino.find({code: apiWine.code}).populate({path: 'rates'}).exec(function(err, puntuaciones) {
+    					Vino.findOne({code: apiWine.code}).populate({path: 'rates'}).populate({path: 'comentarios'}).exec(function(err, puntuaciones) {
 
     						var c=0;
-
-	    					for(var i = 0; i<puntuaciones[0].rates.length; i++)
+    						console.log('>>>>>>>>>>>>>>>', puntuaciones);
+	    					for(var i = 0; i<puntuaciones.rates.length; i++)
 	    					{
-	    						c = c + puntuaciones[0].rates[i].puntuacion;
+	    						c = c + puntuaciones.rates[i].puntuacion;
 	    					}
 
-	    					puntuacionPropia = c / puntuaciones[0].rates.length;
+	    					puntuacionPropia = c / puntuaciones.rates.length;
 
+	    					if(puntuacionApi == "n/a")
+	    					{
+	    						puntuacionApi = 0;
+	    					}
 	    					console.log('Puntuacion media nuesttra: ' + puntuacionPropia);
 	    					console.log('Puntuacion media api: ' + puntuacionApi);
 
@@ -107,6 +117,7 @@ exports.findWine = function(req, res) {
 				    			reviews: apiWine.reviews,
 				    			wm_notes: apiWine.wm_notes,
 				    			snoothrank: puntuacionTotal,
+				    			comentarios: puntuaciones.comentarios,
 				    			canrate: canrate
 				    		}
 				    		res.send(objectToSend);
@@ -118,6 +129,87 @@ exports.findWine = function(req, res) {
 	}
 
 	http.request(options, callback).end();
+}
+
+exports.addComment = function(req, res) {
+
+	var comment = req.query.comentario;
+	var wine = req.query.wine;
+	var usuario = req.query.usuario;
+
+	var wi = JSON.parse(wine);
+	var usu = JSON.parse(usuario);
+
+	Vino.findOne({code: wi.code}, function(err, vino) {
+		if(!err)
+		{
+			if(vino == undefined)
+			{
+				if(x.type == 'Red Wine')
+				{
+					type = 'Tinto';
+				}else if(x.type == 'White Wine')
+				{
+					type = 'Blanco';
+				}else if(x.type == 'Rose Wine')
+				{
+					type = 'Rosado';
+				}
+				var comentario = new Comentario({
+					usuario: usu,
+					texto: comment,
+					time: Date.now()
+				})
+
+				comentario.save(function(err) {
+					if(!err) console.log('Comentario guardado');
+					else console.log('ERROR: ' + err.message);
+				})
+
+				var wine = new Vino({
+    				code: x.code,
+					name: x.name,
+					type: type,
+					winery: x.winery,
+					grape_type: x.varietal,
+					year: x.vintage,
+					alcohol: x.alcohol,
+					comentarios:[comentario]
+    			})
+
+    			wine.save(function(err) {
+					if(!err) console.log('Vino guardado!');
+					else console.log('ERROR: ' + err.message);
+				});
+
+				res.send(wine);
+			}else{
+
+				var comentario = new Comentario({
+					usuario: usu,
+					texto: comment,
+					time: Date.now()
+				})
+
+				comentario.save(function(err) {
+					if(!err) console.log('Comentario guardado');
+					else console.log('ERROR: ' + err.message);
+				})
+
+    			vino.comentarios.push(comentario);
+    			vino.save(function(err) {
+					if(err) {
+						console.log(err);
+					}else{
+						console.log('Comentario actualizado');
+				 		res.send(vino)
+					}
+	    		})
+			}
+		}else{
+			console.log('ERROR: ' + err);
+		}
+	})
 }
 
 	//GET

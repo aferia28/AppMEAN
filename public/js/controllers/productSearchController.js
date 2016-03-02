@@ -1,4 +1,4 @@
-app.controller('productSearcherController', ['$scope', '$http','$rootScope','$routeParams','$route','$location', function($scope, $http, $rootScope,$routeParams, $route, $location) {
+app.controller('productSearcherController', ['$scope', '$http','$rootScope','$routeParams','$route','$location','ngDialog', function($scope, $http, $rootScope,$routeParams, $route, $location, ngDialog) {
 
 	$scope.pageClass = 'page-product';
 
@@ -63,6 +63,41 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 			$scope.isDisabled = true;
 		})
 	}
+
+	$scope.clickToOpen = function() {
+		ngDialog.open({	template: 'popupTmpl',
+						className: 'ngdialog-theme-default',
+						controller: ['$scope', function($scope, summernote) {
+
+							$scope.options = {
+								height: 300,
+								focus: true,
+								toolbar: [
+									['edit',['undo','redo']],
+						            ['headline', ['style']],
+						            ['style', ['bold', 'italic', 'underline']],
+						            ['fontface', ['fontname']],
+						            ['textsize', ['fontsize']],
+						            ['fontclr', ['color']],
+						            ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
+						            ['insert', ['link']],
+								]
+							};
+
+						    $scope.getComentario = function() {
+
+						    	var comentario = $scope.comentario;
+						    	comentario = comentario.replace(/<\/?[^>]+(>|$)/g, "");
+						    	$http.get('/addCommentWine/' + codeWine, {params: {comentario: comentario, wine:wine, usuario: usuario}})
+						    	.success(function(data) {
+						    		console.log('Comentario Anadido', data);
+							    	$scope.comentario = "";
+									ngDialog.close();
+						    	})
+						    }
+						}]
+					});
+	};
 
 	$('#oneStar').hover(
 		function() {

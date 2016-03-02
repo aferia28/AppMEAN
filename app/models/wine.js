@@ -1,4 +1,5 @@
 var Puntuacion = require('./puntuacion');
+var Comentario = require('./comentario');
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
@@ -14,6 +15,7 @@ var wineSchema = new Schema({
   year:  		{ type: Number }, // añada
   alcohol: 		{ type: Number },  //grados de alcohol
   rates:  [{ type: Schema.ObjectId, ref: "Puntuacion" }],
+  comentarios:  [{ type: Schema.ObjectId, ref: "Comentario" }],
 });
 
 module.exports = mongoose.model('Vino', wineSchema);
