@@ -100,8 +100,9 @@
 			<div class="col-sm-12 product-box-content-header">
 				<ul class="nav nav-tabs">
 				  <li><a data-toggle="tab" data-target="#ficha">Ficha Técnica</a></li>
-				  <li><a data-toggle="tab" data-target="#comentarios">Comentarios</a></li>
+				  <li><a data-toggle="tab" data-target="#comentarios">Comentarios de Prensa</a></li>
 				  <li><a data-toggle="tab" data-target="#menu2">Notes Somellier</a></li>
+				  <li><a data-toggle="tab" data-target="#comentariosUsuarios">Comentarios de Usuarios</a></li>
 				</ul>
 				<div class="tab-content product-box-content-body">
 				  <div id="ficha" class="tab-pane fade in active">
@@ -184,7 +185,7 @@
 				    <h4>Comentarios:</h4>
 					<div class="reviews" ng-repeat="comment in product.reviews">
 						<p>
-							{{comment.name}} on: {{comment.date | date}}
+							<strong>{{comment.name}}</strong> on: {{comment.date | date}}
 						</p>
 						<p>
 							{{comment.body}}
@@ -202,9 +203,53 @@
 						</p>
 					</div>
 				  </div>
+				  <div id="comentariosUsuarios" class="tab-pane fade">
+				  <button ng-click="clickToOpen()">Comentar</button>
+					<div class="reviews row" ng-repeat="comment in product.comentarios">
+						<div class="col-sm-6">
+							<h4>Comentarios:</h4>
+						</div>
+						<div class="col-sm-12">
+							<p>
+							<strong>{{comment.usuario}}</strong> on:{{comment.time}}
+							</p>
+							<p>
+							{{comment.texto}}
+							</p>
+							<hr>
+						</div>
+					</div>
+				  </div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/ng-template" id="popupTmpl">
+	<div class="">
+		<h3>Comentario</h3>
+	</div>
+	<div class="modal-text">
+		<summernote type="text" config="options" ng-model="comentario"></summernote>
+	</div>
+	<div>
+		<button ng-click="getComentario()">
+			Comentar
+		</button>
+	</div>
+</script>
+<style type="text/css">
+.ngdialog-theme-default{
+	background-color: transparent;
+}
+.ngdialog-theme-default > .ngdialog-content{
+	border: 3px solid red;
+	border-radius: 0px !important;
+	background: #444 !important;
+}
+.ngdialog-theme-default > .ngdialog-content > .modal-text > input{
+	height: 300px;
+	width: 100%;
+}
+</style>
 

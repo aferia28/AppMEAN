@@ -5,7 +5,7 @@ var Usuario = require('./persona');
 var comentario = new Schema({
   usuario 	: { type: Schema.ObjectId, ref: "Usuario" },
   texto 	: { type: String},
-  time 		: { type: Timestamp}
+  time 		: { type: Date}
 });
 
 module.exports = mongoose.model('Comentario', comentario);
