@@ -5,8 +5,10 @@ var express = require('express');
 var path = require('path');
 var mongoose  = require('mongoose');
 
-//Iniciamos express
+
 var app = express();
+//Iniciamos express
+
 mongoose.connect('mongodb://localhost:27017/DBpersonas', function(error){
 	if(error){
 		throw error;

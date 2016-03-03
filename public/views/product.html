@@ -1,5 +1,12 @@
-<div class="row" ng->
-	<div class="col-sm-3">
+<div class="row">
+	<div id="product-header" class="col-sm-12 product-content product-header-red">
+		<a href="#/winesearcher"><i class="fa fa-angle-double-left"></i></a>
+		<div class="col-sm-12 product-title">
+			<h2>{{product.name}}</h2>
+		</div>
+	</div>
+<div class="row">
+	<div class="col-sm-4">
 		<div class="row">
 			<div class="col-sm-12 product-photo">
 				<img ng-src="{{product.image}}">
@@ -8,38 +15,83 @@
 	</div>
 	<div class="col-sm-8">
 		<div class="row">
-			<div class="col-sm-12 product-title">
-				<h2>{{product.name}}</h2>
-			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-12 share-box">
 				<div class="row">
-					<div class="col-sm-6 product-price">
+					<div class="col-sm-4 share-facebook">
+						<a href="">
+							<i class="fa fa-facebook"></i>
+						</a>
+					</div>
+					<div class="col-sm-4 share-twitter">
+						<a href="">
+						<i class="fa fa-twitter"></i>
+						</a>
+					</div>
+					<div class="col-sm-4 share-google">
+						<a href="">
+						<i class="fa fa-google-plus"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 rank-box product-rate">
+						<span ng-if="product.snoothrank > 0.5 && product.snoothrank < 2">
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank > 1.5 && product.snoothrank < 3">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank > 2.5 && product.snoothrank < 4">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank > 3.5 && product.snoothrank < 5">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank > 4.5 && product.snoothrank < 6">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+			</div>
+			<div class="col-sm-12 buy-box">
+				<div class="row">
+					<div class="col-sm-3 product-price">
 						<span ng-if="product.price > 0">{{product.price | number}} €</span>
 						<span ng-if="product.price < 0.1">Precio no disponible</span>
 					</div>
-					<div class="col-sm-6 product-share"></div>
-				</div>
-				<hr style="bacground-color: black; top-width: 3px;">
-			</div>
-			<div class="col-sm-12">
-				<div class="row">
-					<div class="col-sm-4 product-rate">
-						<span ng-if="product.snoothrank > 0.5 && product.snoothrank < 2">*</span>
-						<span ng-if="product.snoothrank > 1.5 && product.snoothrank < 3">**</span>
-						<span ng-if="product.snoothrank > 2.5 && product.snoothrank < 4">***</span>
-						<span ng-if="product.snoothrank > 3.5 && product.snoothrank < 5">****</span>
-						<span ng-if="product.snoothrank > 4.5 && product.snoothrank < 6">*****</span>
-						<span>{{product.snoothrank}}</span>
+					<div class="col-sm-5 box-add">
+						<div class="row">
+							<div class="col-sm-12 product-add-input">
+								<input>
+								<button>Añadir al carro</button>
+							</div>
+						</div>
 					</div>
-					<div class="col-sm-4 product-add"></div>
-					<div class="col-sm-4 product-btn-add"></div>
+					<div class="col-sm-4 rating">
+						<span class="">
+							<i id='oneStar' class="fa fa-star-o"></i>
+							<i id='twoStars' class="fa fa-star-o"></i>
+							<i id='threeStars' class="fa fa-star-o"></i>
+							<i id='fourStars' class="fa fa-star-o"></i>
+							<i id='fiveStars' class="fa fa-star-o"></i>
+						</span>
+
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-12 product-box-content-header">
 				<ul class="nav nav-tabs">
 				  <li><a data-toggle="tab" data-target="#ficha">Ficha Técnica</a></li>
 				  <li><a data-toggle="tab" data-target="#comentarios">Comentarios</a></li>
-				  <li><a data-toggle="tab" data-target="#menu2">Menu 2</a></li>
+				  <li><a data-toggle="tab" data-target="#menu2">Notes Somellier</a></li>
 				</ul>
 				<div class="tab-content product-box-content-body">
 				  <div id="ficha" class="tab-pane fade in active">
@@ -145,3 +197,4 @@
 		</div>
 	</div>
 </div>
+

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html style="height:100%;" ng-app="VistasApp">
+<html style="height:100%;" ng-app="adminApp">
 <head>
 	<title>APPMean</title>
 	<meta charset="utf-8"/>
 	<!-- font-->
 	<link href='https://fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
@@ -23,27 +22,13 @@
 
     <!-- Include the AngularJS routing library -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-cookies.js"></script>
 
+    <script src="../js/admin/admin_core.js"></script>
+    <script src="../js/admin/adminControllers/admin.controller.profiles.js"></script>
 
-    <script src="js/core.js"></script>
-
-    <!-- Controllers -->
-    <script src="js/controllers/wineSearcherController.js"></script>
-    <script src="js/controllers/productSearchController.js"></script>
-    <script src="js/controllers/homeController.js"></script>
-    <script src="js/controllers/profileController.js"></script>
-    <script src="js/controllers/sidebarController.js"></script>
-    <!--<script src="js/controllers/controller.registro.front.js"></script>-->
-    <script src="js/controllers/controller.auth.js"></script>
-    <!-- Directives -->
-    <script src="js/directives/passValidation.js"></script>
-    <!-- Services -->
-    <script src="js/services/weatherService.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/satellizer/0.13.3/satellizer.js"></script>
 
 </head>
 <body style="height:100%; width:100%;">
@@ -51,10 +36,10 @@
 		<div class="row">
 			<aside class="col-sm-2">
 				<h1>
-					<img src="../img/logo.png" style="width: 99%;">
+					ADMIN
 				</h1>
 				<hr style="color:white">
-				<nav class="navbar navbar-default" role="navigation" ng-controller="sidebarController">
+				<nav class="navbar navbar-default" role="navigation">
 			        <div class="navbar-header">
 			            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 			                <span class="icon-bar"></span>
@@ -63,19 +48,11 @@
 			            </button>
 			        </div>
 			        <div class="collapse navbar-collapse">
-			            <ul class="nav nav-stacked" ng-if="isAuthenticated()" id="listitem">
-			            	<li><a href="#/">Home</a></li>
-			            	<li><a href="#winesearcher">Wines</a></li>
-			                <!--<li><a href="#perfil/{{persona._id}}">Perfil</a></li>-->
-							<li><a href="#logout">Logout</a></li>
+			            <ul class="nav nav-stacked" id="listitem">
+			            	<li><a href="#perfiles">Perfiles</a></li>
+			            	<li><a href="#vinos">Vinos</a></li>
+							<li><a href="/">Volver a la APP</a></li>
 						</ul>
-						<ul class="nav nav-stacked" ng-if="!isAuthenticated()">
-			                <li><a href="#signup">SignUp</a></li>
-							<li><a href="#login">Login</a></li>
-			            </ul>
-			            <ul class="nav nav-stacked" ng-show="userAdmin == true">
-			                <li><a href="admin">Admin</a></li>
-			            </ul>
 			        </div><!-- /.navbar-collapse -->
     			</nav>
     			<hr style="color:white">
@@ -88,9 +65,10 @@
     				<p>Copyright</p>
     			</div>
 			</aside>
-			<div class="col-sm-10 page {{ pageClass }}" id="content" ng-view>
+			<div class="col-sm-10" ui-view>
 			</div>
 		</div>
 	</div>
 </body>
 </html>
+

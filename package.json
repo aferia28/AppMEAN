@@ -11,6 +11,7 @@
     "jwt-simple": "^0.4.1",
     "moment": "^2.11.2",
     "mongoose": "4.2.5",
-    "morgan": "~1.6.1"
+    "morgan": "~1.6.1",
+    "nodemailer": "2.1.0"
   }
 }

@@ -1,12 +1,16 @@
 //var Persona 	= require('../models/persona');
-var Controller 	= require('../controllers/controller.registro.api');
-var wineController 	= require('../controllers/controller.wines');
-var auth		= require('../controllers/controller.auth');
-var middleware = require('../middleware');
+var Controller 			= require('../controllers/controller.registro.api');
+var wineController 		= require('../controllers/controller.wines');
+var auth				= require('../controllers/controller.auth');
+var verification		= require('../controllers/controller.verification');
+var middleware 			= require('../middleware');
+var middlewareAdmin 	= require('../middlewareAdmin');
 
 module.exports = function(app) {
 
 	app.get('/persona', Controller.getPersona); //
+
+	app.get('/allprofiles', Controller.getAllProfiles);
 
 	app.get('/perfil/:userId', Controller.getUserProfile);
 
@@ -14,6 +18,13 @@ module.exports = function(app) {
 
 	app.post('/auth/login', auth.emailLogin);
 
+	app.delete('/eliminarPersona/:id', Controller.deleteUser)
+
+	app.put('/modificarPersona/:id', Controller.updatePersona);
+
+	app.get('/send/:email', verification.sendEmail);
+
+	app.get('/verify', verification.verifiedEmail);
 
 
 	app.get('/vinos', wineController.findAllWines);
@@ -25,6 +36,10 @@ module.exports = function(app) {
 	app.put('/modificarVino/:id', wineController.updateWine);
 
 	app.delete('/eliminarVino/:id', wineController.deleteWine);
+
+	app.get('/admin', middlewareAdmin.ensureAdmin, function(req,res) {
+		res.render('layouts/admin.html');
+	});
 
 	// Ruta solo accesible si estás autenticado
  	//app.get('/private',middleware.ensureAuthenticated, function(req, res) {res.send('HELLO WORLD')} );

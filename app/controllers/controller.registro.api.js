@@ -4,8 +4,19 @@ var jwt = require('jwt-simple');
 var config = require('../config');
 
 
+exports.getAllProfiles =  function(req, res) {
+
+	Persona.find(function(err, persona) {
+		if(!err) res.send(persona);
+		else console.log('ERROR: ' + err);
+	});
+}
+
 //
 exports.getPersona = function(req, res){
+
+	//Recupera el token de autenticación y
+	//Recupera la persona que hay logeada.
 
 	var token 		= req.headers.authorization.split(' ')[1];
 	console.log(token);
@@ -41,8 +52,8 @@ exports.setPersona = function(req, res){
 		nombre: 		req.body.nombre,
 		apellidos: 		req.body.apellidos,
 		email: 			req.body.email,
-		contraseña: 	req.body.contraseña,
-		r_contraseña: 	req.body.r_contraseña,
+		password: 	req.body.password,
+		r_password: 	req.body.r_password,
 
 	});
 
@@ -55,48 +66,30 @@ exports.setPersona = function(req, res){
     })
 }
 
-exports.updatePersona = function(req, res){
+	//PUT
+exports.updatePersona = function(req, res) {
 
-	Persona.update(
-		{_id : req.params.persona_id},
-		{$set:
-			{
-				nombre: req.body.nombre,
-				apellido: req.body.apellido,
-				edad: req.body.edad
-			}
-		}, function(err, persona){
-			if(err){
-				res.send(err);
-			}else{
-				res.json(persona);
-			}
+	console.log(req.body);
 
-			Persona.find(function(err, persona){
-				if(err){
-					res.send(err);
-				}else{
-					res.json(persona);
-				}
-			});
+	Persona.findById(req.params.id, function(err, persona) {
+		persona.nombre = req.body.nombre;
+		persona.apellidos = req.body.apellidos;
+		persona.email = req.body.email;
+
+		persona.save(function(err) {
+			if(err) return err.status(500).send(err.message);
+			else {console.log('persona actualizada correctamente');res.status(200).jsonp(persona)}
 		});
-}
+	});
+};
 
-exports.deletePersona = function(request, res){
+	//DELETE
+exports.deleteUser = function(req, res) {
 
-	Persona.remove(
-		{
-			_id : request.params.persona_id
-		}, function(err, persona){
-			if(err)
-				res.send(err);
+	Persona.remove({_id : req.params.id}, function(err, persona) {
 
-			Persona.find(function(err, persona){
-				if(err){
-					res.send(err);
-				}else{
-					res.json(persona);
-				}
-			});
-		});
+		if(err) console.log('ERROR: ' + err);
+		res.json(persona);
+	})
+
 }

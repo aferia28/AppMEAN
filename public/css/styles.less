@@ -222,6 +222,7 @@ aside{
 }
 
 .page-weather{
+	//.make-md-column(12);
 	//background: url('../img/wines-background.jpg') no-repeat center center;
 	background-size: cover;
 	opacity: 0.8;
@@ -288,26 +289,115 @@ aside{
 	background-size: cover;
 	opacity: 0.8;
 }
-
-.product-title{
-	margin: 10px 0 10px 0;
-}
-.product-price{
-	margin: 10px 0 10px 0;
-	span{
-		background-color: @third-color;
-		border-radius: 0px;
-		color: black;
-		padding: 10px 10px 10px 10px;
+.page-product{
+	.product-content{
+		.fa, .fa-arrow-left{
+			color: white;
+			font-size: 35px;
+			margin-top: 15px;
+			margin-left: 10px;
+		}
+		.product-title{
+			h2{
+				color: whitesmoke;
+				font-size: 55px;
+				text-shadow: -2px -2px 5px rgba(150, 150, 150, 1);
+			}
+			margin: 10px 0 10px 0;
+		}
 	}
-}
+	.product-header-red{
+		background: url('../img/red-wine-header.jpg') no-repeat center center;
+		background-size: cover;
+		height: 200px;
+	}
+	.product-header-white{
+		background: url('../img/white-wine-header.jpg') no-repeat center center;
+		background-size: cover;
+		height: 200px;
+	}
+	.product-header-rose{
+		background: url('../img/rose-wine-header.jpg') no-repeat center center;
+		background-size: cover;
+		height: 200px;
+	}
+	.share-box{
+		.fa-facebook,.fa-twitter,.fa-google-plus{
+			color: white;
+			font-size: 30px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		.share-facebook{
+			background-color: #4662B0;
+			text-align: center;
+		}
+		.share-twitter{
+			background-color: #1B95E0;
+			text-align: center;
+		}
+		.share-google{
+			background-color: #DB4437;
+			text-align: center;
+		}
+	}
+	.product-price{
+		margin: 10px 0 10px 0;
+		span{
+			font-size: 35px;
+			color: black;
+			padding: 10px 10px 10px 10px;
+		}
+	}
+	.box-add{
+		margin-top: 15px;
+		.product-add-input{
+			input{
+				border-radius: 20px;
+				width: 15%;
+				height: 42px;
+				border: 1px solid @five-color;
+				text-align: center;
+				&:focus{
+					box-shadow: rgb(0, 0, 0);
+				}
+			}
+			button{
+				background-color: lighten(@first-color, 10%);
+				margin-left: 15px;
+				border-radius: 20px;
+				height: 42px;
+				color: white;
+				border:0px;
+			}
+		}
+	}
+	.rating{
+		margin-top: 11px;
+		span{
+			font-size: 35px;
+			.fa-star,.fa-star-o{
+				color: @third-color;
+			}
+		}
+	}
+	.rank-box,.product-rate{
+		margin: 25px 0 10px 0;
+		.fa-glass{
+			color:@first-color;
+			font-size: 35px;
+		}
+	}
+	.product-photo{
+		text-align: center;
+		img{
+			width: 70%;
+		}
+	}
+	.product-box-content{
+		margin-top:10px;
+	}
 
-.product-rate{
-	margin: 10px 0 10px 0;
-}
-
-.product-box-content{
-	margin-top:10px;
 }
 
 .profile-header{
