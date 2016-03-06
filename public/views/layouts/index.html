@@ -54,51 +54,84 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/satellizer/0.13.3/satellizer.js"></script>
 
 </head>
-<body style="height:100%; width:100%;">
-	<div class="container-fluid">
-		<div class="row">
-			<aside class="col-sm-2">
-				<h1>
-					<img src="../img/logo.png" style="width: 99%;">
-				</h1>
-				<hr style="color:white">
-				<nav class="navbar navbar-default" role="navigation" ng-controller="sidebarController">
-			        <div class="navbar-header">
-			            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			                <span class="icon-bar"></span>
-			                <span class="icon-bar"></span>
-			                <span class="icon-bar"></span>
-			            </button>
-			        </div>
-			        <div class="collapse navbar-collapse">
-			            <ul class="nav nav-stacked" ng-if="isAuthenticated()" id="listitem">
-			            	<li><a href="#/">Home</a></li>
-			            	<li><a href="#winesearcher">Wines</a></li>
-			                <!--<li><a href="#perfil/{{persona._id}}">Perfil</a></li>-->
-							<li><a href="#logout">Logout</a></li>
-						</ul>
-						<ul class="nav nav-stacked" ng-if="!isAuthenticated()">
-			                <li><a href="#signup">SignUp</a></li>
-							<li><a href="#login">Login</a></li>
-			            </ul>
-			            <ul class="nav nav-stacked" ng-show="userAdmin == true">
-			                <li><a href="admin">Admin</a></li>
-			            </ul>
-			        </div><!-- /.navbar-collapse -->
-    			</nav>
-    			<hr style="color:white">
-    			<div id="social">
-    				<a href=""><img src="../img/icons/facebook53.png"></a>
-    				<a href=""><img src="../img/icons/twitter25.png"></a>
-    				<a href=""><img src="../img/icons/pinterest18.png"></a>
-    			</div>
-    			<div class="copyright">
-    				<p>Copyright</p>
-    			</div>
-			</aside>
-			<div class="col-sm-10 page {{ pageClass }}" id="content" ng-view>
-			</div>
-		</div>
-	</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+	  var trigger = $('.hamburger'),
+	      overlay = $('.overlay'),
+	     isClosed = false;
+
+	    trigger.click(function () {
+	      hamburger_cross();
+	    });
+
+	    function hamburger_cross() {
+
+	      if (isClosed == true) {
+	        overlay.hide();
+	        trigger.removeClass('is-open');
+	        trigger.addClass('is-closed');
+	        isClosed = false;
+	      } else {
+	        overlay.show();
+	        trigger.removeClass('is-closed');
+	        trigger.addClass('is-open');
+	        isClosed = true;
+	      }
+	  }
+
+	  $('[data-toggle="offcanvas"]').click(function () {
+	        $('#wrapper').toggleClass('toggled');
+	  });
+	});
+
+</script>
+<body ng-controller="sidebarController">
+<div id="wrapper">
+    <div class="overlay"></div>
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                   Brand
+                </a>
+            </li>
+            <li ng-if="isAuthenticated()">
+                <a href="#/home">Home</a>
+            </li>
+            <li ng-if="isAuthenticated()">
+                <a href="#winesearcher">Wines</a>
+            </li>
+            <li ng-if="isAuthenticated()">
+                <a href="#perfil/{{user._id}}">Perfil</a>
+            </li>
+            <!--<li><a href="#perfil/{{persona._id}}">Perfil</a></li>-->
+            <li ng-if="isAuthenticated()">
+                <a href="#logout">Logout</a>
+            </li>
+            <li ng-if="!isAuthenticated()">
+            	<a href="">SignUp</a>
+            </li>
+            <li ng-if="!isAuthenticated()">
+            	<a href="">Login</a>
+            </li>
+            <li ng-if="isAuthenticated() && user.isAdmin == true">
+            	<a href="admin">Admin</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+			<span class="hamb-middle"></span>
+			<span class="hamb-bottom"></span>
+        </button>
+        <div ng-view class="page {{ pageClass }}">
+        </div>
+    </div>
+</div>
 </body>
 </html>

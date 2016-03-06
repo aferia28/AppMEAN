@@ -1,4 +1,4 @@
-app.controller('homeController', ['$scope','$auth','$http', function($scope, $auth, $http) {
+app.controller('homeController', ['$scope','$auth','$http','ngDialog', function($scope, $auth, $http, ngDialog) {
 
 
 	$("aside").fadeIn("slow", function() {
@@ -14,6 +14,22 @@ app.controller('homeController', ['$scope','$auth','$http', function($scope, $au
 			$scope.persona = data;
 		})
 	}
+
+	$scope.clickToOpenSignIn = function() {
+		ngDialog.open({	template: 'popupSignIn',
+			className: 'ngdialog-theme-default',
+			controller: 'LoginController',
+			closeByNavigation: true
+		});
+	};
+
+	$scope.clickToOpenSignUp = function() {
+		ngDialog.open({	template: 'popupSignUp',
+			className: 'ngdialog-theme-default',
+			controller: 'SignUpController',
+			closeByNavigation: true
+		});
+	};
 /*
 	$scope.isAuthenticated = function() {
 

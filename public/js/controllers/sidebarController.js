@@ -1,16 +1,19 @@
-app.controller('sidebarController', ['$scope','$auth','$http', function($scope, $auth, $http) {
+app.controller('sidebarController', ['$scope','$auth','$http','serviceAdmin', function($scope, $auth, $http, serviceAdmin) {
 
 	$scope.isAuthenticated = function() {
 
 		return $auth.isAuthenticated();
 	}
+	userLogged = function() {
 
-	if($auth.isAuthenticated()){
-		$http.get('persona')
-		.success(function(data) {
-			$scope.userAdmin = data.isAdmin;
-			console.log(data.isAdmin);
-		})
+		if($auth.isAuthenticated()){
+			$http.get('persona')
+			.success(function(data) {
+				$scope.user = data;
+				console.log(data);
+			})
+		}
 	}
 
+	$('.hamburger').click(userLogged);
 }]);

@@ -33,11 +33,22 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
 	$routeProvider
     .when('/',{
       controller: 'homeController',
+      templateUrl: 'views/contentLogin.html',
+      resolve: {
+        authenticated: ["$location", '$auth', function($location, $auth){
+          if($auth.isAuthenticated()){
+            return $location.path('/home');
+          }
+        }]
+      }
+  })
+    .when('/home',{
+      controller: 'homeController',
       templateUrl: 'views/content.html',
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
@@ -48,7 +59,7 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
@@ -59,18 +70,10 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
-  })
-    .when('/login',{
-      controller: 'LoginController',
-      templateUrl: 'views/login.html'
-  })
-    .when('/signup',{
-      controller: 'SignUpController',
-      templateUrl: 'views/signup.html'
   })
   	.when('/product/:wineCode',{
   		controller: 'productSearcherController',
@@ -78,7 +81,7 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
@@ -90,7 +93,7 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
@@ -101,14 +104,14 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
   })
     .when('/logout',{
       controller: 'LogoutController',
-      templateUrl: 'views/login.html'
+      templateUrl: 'views/contentLogin.html'
   })
     .when('/admin/perfiles',{
       controller: '',
@@ -116,7 +119,7 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
