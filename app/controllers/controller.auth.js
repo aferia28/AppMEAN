@@ -15,38 +15,43 @@ exports.emailSignup = function(req, res){
 	console.log("Controller.auth.Signup parte Servidor");
 	console.log("Hashpass declarada "+ hashpass);
 
-	bcrypt.genSalt(10, function(err, salt) {
-	    bcrypt.hash(hashpass, salt, function(err, hash) {
-	    	if(err)
-	    	{
-	    		res.status(500).send(err.message);
-	    	}
-	    	else
-	    	{
-	    		var persona = new Persona({
-					nombre		:req.body.nombre,
-					apellidos	:req.body.apellidos,
-					email 		:req.body.email,
-					password 	:hash,
-					isAdmin		: false,
-					verified	: false
-				});
+	Persona.findOne({email: req.body.email.toLowerCase()}, function(err, persona) {
+		if (persona) {
+			console.log('Error: Este email ya esta en uso...');
+		}else{
+			bcrypt.genSalt(10, function(err, salt) {
+			    bcrypt.hash(hashpass, salt, function(err, hash) {
+			    	if(err)
+			    	{
+			    		res.status(500).send(err.message);
+			    	}
+			    	else
+			    	{
+			    		var persona = new Persona({
+							nombre		:req.body.nombre,
+							apellidos	:req.body.apellidos,
+							email 		:req.body.email,
+							password 	:hash,
+							isAdmin		: false,
+							verified	: false
+						});
 
-				console.log('hashpass creado: ' + hash);
+						console.log('hashpass creado: ' + hash);
 
-				persona.save(function(err, persona){
-			    	if(err){
-			    		return res.status(500).send(err.message);
-			    	}else{
-			    		//res.status(200).jsonp(persona); Esta linea esta comentada porque si no la comenta salta un error: Error: Can't set headers after they are sent
-			    										  //Según documentación, aparece porque hay dos respuestas seguidas.
-			    		res.send({token: service.createToken(persona)});
+						persona.save(function(err, persona){
+					    	if(err){
+					    		return res.status(500).send(err.message);
+					    	}else{
+					    		//res.status(200).jsonp(persona); Esta linea esta comentada porque si no la comenta salta un error: Error: Can't set headers after they are sent
+					    										  //Según documentación, aparece porque hay dos respuestas seguidas.
+					    		res.send({token: service.createToken(persona)});
+					    	}
+					    });
 			    	}
 			    });
-	    	}
-	    });
-	});
-
+			});
+		}
+	})
 };
 
 exports.emailLogin = function(req, res){
