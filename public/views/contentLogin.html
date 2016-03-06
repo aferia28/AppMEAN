@@ -94,7 +94,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="password" ng-model="persona.password" name="password" placeholder="Contraseña" class="form-control form-password" required id="form-password">
+				<input type="password" ng-minlength="8" ng-model="persona.password" name="password" placeholder="Contraseña" class="form-control form-password" required id="form-password">
 				<div ng-messages="signupForm.password.$error">
 					<div ng-messages-include="../views/messages.html"></div>
 				</div>
