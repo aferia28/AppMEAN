@@ -75,14 +75,6 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
         }]
       }
   })
-    .when('/login',{
-      controller: 'LoginController',
-      templateUrl: 'views/login.html'
-  })
-    .when('/signup',{
-      controller: 'SignUpController',
-      templateUrl: 'views/signup.html'
-  })
   	.when('/product/:wineCode',{
   		controller: 'productSearcherController',
     	templateUrl: 'views/product.html',
