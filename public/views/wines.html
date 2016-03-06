@@ -3,11 +3,11 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="search-box-top">
-					<h1>Search</h1>
+					<h1>Cercador</h1>
 				</div>
 				<div class="search-box-bottom">
 					<div class="wineTypeCheck">
-						<h5>Tipos de Vino</h5>
+						<h5>Tipus de Vi</h5>
 						<div class="form-group">
 					        <div>
 							  <form name="formWineType">
@@ -58,7 +58,7 @@
 			</div>
 			<div class="col-sm-12 box-content-bottom">
 	            <div class="row">
-	            	<div ng-repeat="wine in fiveDay.wines | filter:query" class="col-sm-4">
+	            	<div ng-repeat="wine in fiveDay | filter:query" class="col-sm-4">
 	            		<div class="row wine-box">
 	            			<div class="col-sm-12">
 	            				<p style="font-weight:bold;" data-code="{{wine.code}}">

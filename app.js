@@ -1,13 +1,13 @@
+// Load integrated Node.js modules
+var	path = require('path');
 
+// Load third party modules
+var express = require('express'),
+	mongoose  = require('mongoose');
 
-//Loading dependencies
-var express = require('express');
-var path = require('path');
-var mongoose  = require('mongoose');
-
-
+// Start ExpressJS
 var app = express();
-//Iniciamos express
+
 
 mongoose.connect('mongodb://localhost:27017/DBpersonas', function(error){
 	if(error){
@@ -36,9 +36,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-
-
 //Routes
 require('./app/routes/route.registro.api.js')(app);
 
@@ -47,7 +44,6 @@ app.get('/', function(req, res){
    res.sendFile(__dirname + '/public/views/layouts/index.html');
 });
 
-
 //Export/inicializar servidor
 if(!!module.parent){
   module.exports = app;
@@ -55,5 +51,3 @@ if(!!module.parent){
   app.listen(8080);
   console.log("Puerto 8080")
 }
-
-
