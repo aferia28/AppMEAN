@@ -1,0 +1,47 @@
+<div id="wrapper">
+    <div class="overlay"></div>
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation"  ng-controller="sidebarController">
+        <ul class="nav sidebar-nav" ng-if="isAuthenticated()">
+            <li class="sidebar-brand">
+                <a href="#">
+                   Brand
+                </a>
+            </li>
+            <li>
+                <a href="#/">Home</a>
+            </li>
+            <li>
+                <a href="#winesearcher">Wines</a>
+            </li>
+            <!--<li><a href="#perfil/{{persona._id}}">Perfil</a></li>-->
+            <li>
+                <a href="#logout">Logout</a>
+            </li>
+        </ul>
+        <ul class="nav sidebar-nav" ng-if="!isAuthenticated()">
+            <li><a href="#signup">SignUp</a></li>
+            <li><a href="#login">Login</a></li>
+        </ul>
+        <ul class="nav sidebar-nav" ng-show="userAdmin == true">
+            <li><a href="admin">Admin</a></li>
+        </ul>
+    </nav>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+			<span class="hamb-middle"></span>
+			<span class="hamb-bottom"></span>
+        </button>
+        <div class="container" ng-view class="page {{ pageClass }}">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
