@@ -1,4 +1,4 @@
-app.controller('homeController', ['$scope','$auth','$http','ngDialog', function($scope, $auth, $http, ngDialog) {
+app.controller('homeController', ['$scope','$auth','$http','ngDialog','$rootScope', function($scope, $auth, $http, ngDialog,$rootScope) {
 
 
 	$("aside").fadeIn("slow", function() {
@@ -23,6 +23,10 @@ app.controller('homeController', ['$scope','$auth','$http','ngDialog', function(
 		});
 	};
 
+	$rootScope.$on('clickToOpenSI', function() {
+		$scope.clickToOpenSignIn();
+	})
+
 	$scope.clickToOpenSignUp = function() {
 		ngDialog.open({	template: 'popupSignUp',
 			className: 'ngdialog-theme-default',
@@ -30,4 +34,8 @@ app.controller('homeController', ['$scope','$auth','$http','ngDialog', function(
 			closeByNavigation: true
 		});
 	};
+
+	$rootScope.$on('clickToOpenSU', function() {
+		$scope.clickToOpenSignUp();
+	})
 }]);

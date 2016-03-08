@@ -107,15 +107,14 @@
             <li ng-if="isAuthenticated()">
                 <a href="#perfil/{{userLogged()._id}}">Perfil</a>
             </li>
-            <!--<li><a href="#perfil/{{persona._id}}">Perfil</a></li>-->
             <li ng-if="isAuthenticated()">
                 <a href="#logout">Logout</a>
             </li>
             <li ng-if="!isAuthenticated()">
-            	<a href="">SignUp</a>
+            	<a href="" ng-click="openSignUp()">SignUp</a>
             </li>
             <li ng-if="!isAuthenticated()">
-            	<a href="">Login</a>
+            	<a href="" ng-click="openSignIn()">Login</a>
             </li>
             <li ng-if="userLogged().isAdmin">
             	<a href="admin">Admin</a>
