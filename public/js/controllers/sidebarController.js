@@ -1,4 +1,4 @@
-app.controller('sidebarController', ['$scope','$auth','$http','serviceAdmin', function($scope, $auth, $http, serviceAdmin) {
+app.controller('sidebarController', ['$scope','$auth','$http','serviceAdmin','$location', function($scope, $auth, $http, serviceAdmin, $location) {
 
 	$scope.isAuthenticated = function() {
 
@@ -15,5 +15,8 @@ app.controller('sidebarController', ['$scope','$auth','$http','serviceAdmin', fu
 		}
 	}
 
+	$scope.clickLogin = function() {
+		$location.path('/', clickToOpenSignIn);
+	}
 	$('.hamburger').click(userLogged);
 }]);

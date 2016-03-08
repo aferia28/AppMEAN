@@ -115,7 +115,7 @@
             	<a href="">SignUp</a>
             </li>
             <li ng-if="!isAuthenticated()">
-            	<a href="">Login</a>
+            	<a ng-click="clickLogin()">Login</a>
             </li>
             <li ng-if="isAuthenticated() && user.isAdmin == true">
             	<a href="admin">Admin</a>
