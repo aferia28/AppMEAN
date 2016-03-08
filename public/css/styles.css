@@ -303,11 +303,9 @@ html {
   font-family: 'bromello';
 }
 .region1 .home-title h1 {
-  font-size: 70px;
+  text-align: center;
+  font-size: 100px;
   color: white;
-}
-.region1 .widget-button {
-  margin-top: 370px;
 }
 .region1 .widget-button .signIn {
   padding: 10px 100px;
