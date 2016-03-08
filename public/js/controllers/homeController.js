@@ -30,10 +30,4 @@ app.controller('homeController', ['$scope','$auth','$http','ngDialog', function(
 			closeByNavigation: true
 		});
 	};
-/*
-	$scope.isAuthenticated = function() {
-
-		var aut = $auth.isAuthenticated();
-  		return $auth.isAuthenticated();
-	};*/
 }]);

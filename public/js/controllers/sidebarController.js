@@ -4,19 +4,8 @@ app.controller('sidebarController', ['$scope','$auth','$http','serviceAdmin','$l
 
 		return $auth.isAuthenticated();
 	}
-	userLogged = function() {
-
-		if($auth.isAuthenticated()){
-			$http.get('persona')
-			.success(function(data) {
-				$scope.user = data;
-				console.log(data);
-			})
-		}
+	$scope.userLogged = function() {
+		//console.log(serviceAdmin.getProperty());
+		return serviceAdmin.getProperty();
 	}
-
-	$scope.clickLogin = function() {
-		$location.path('/', clickToOpenSignIn);
-	}
-	$('.hamburger').click(userLogged);
 }]);
