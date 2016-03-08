@@ -105,7 +105,7 @@
                 <a href="#winesearcher">Wines</a>
             </li>
             <li ng-if="isAuthenticated()">
-                <a href="#perfil/{{user._id}}">Perfil</a>
+                <a href="#perfil/{{userLogged()._id}}">Perfil</a>
             </li>
             <!--<li><a href="#perfil/{{persona._id}}">Perfil</a></li>-->
             <li ng-if="isAuthenticated()">
@@ -117,7 +117,7 @@
             <li ng-if="!isAuthenticated()">
             	<a href="">Login</a>
             </li>
-            <li ng-if="isAuthenticated() && user.isAdmin == true">
+            <li ng-if="userLogged().isAdmin">
             	<a href="admin">Admin</a>
             </li>
         </ul>
