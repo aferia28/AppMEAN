@@ -35,6 +35,9 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 			}
 			wine = data;
 			$scope.product = wine;
+			$scope.comentarios = wine.comentarios;
+			console.log(wine);
+			console.log($scope.comentarios)
 
 			if(wine.type == 'Red Wine')
 			{
@@ -84,13 +87,29 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 					]
 				};
 
-			    $scope.getComentario = function() {
+			    $scope.addComentario = function() {
 
 			    	var comentario = $scope.comentario;
 			    	comentario = comentario.replace(/<\/?[^>]+(>|$)/g, "");
-			    	$http.get('/addCommentWine/' + codeWine, {params: {comentario: comentario, wine:wine, usuario: usuario}})
+
+			    	var inData = {
+			    		comentario: comentario,
+			    		wine: wine,
+			    		usuario: usuario
+			    	}
+
+			    	$http({
+			    		url: '/addCommentWine/' + codeWine,
+			    		method: 'POST',
+			    		params: inData
+			    	})
 			    	.success(function(data) {
 			    		console.log('Comentario Anadido', data);
+			    		wine = data;
+						$scope.product = wine;
+						$scope.comentarios = wine.comentarios;
+						console.log(wine);
+			    		console.log($scope.comentarios);
 				    	$scope.comentario = "";
 						ngDialog.close();
 			    	})

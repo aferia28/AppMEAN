@@ -143,7 +143,7 @@ exports.addComment = function(req, res) {
 	Vino.findOne({code: wi.code}, function(err, vino) {
 		if(!err)
 		{
-			if(vino == undefined)
+			if(vino === undefined)
 			{
 				if(x.type == 'Red Wine')
 				{
@@ -165,15 +165,20 @@ exports.addComment = function(req, res) {
 					if(!err) console.log('Comentario guardado');
 					else console.log('ERROR: ' + err.message);
 				})
-
 				var wine = new Vino({
     				code: x.code,
 					name: x.name,
+					price: x.price,
 					type: type,
+					region: x.region,
 					winery: x.winery,
-					grape_type: x.varietal,
-					year: x.vintage,
+					varietal: x.varietal,
+					vintage: x.vintage,
 					alcohol: x.alcohol,
+					image: x.image,
+					reviews: x.reviews,
+					wm_notes: x.wm_notes,
+					snoothrank: x.snoothrank,
 					comentarios:[comentario]
     			})
 

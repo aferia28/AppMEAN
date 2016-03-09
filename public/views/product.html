@@ -181,6 +181,8 @@
 				  			</div>
 				  		</div>
 				  </div>
+				  <div>
+				  </div>
 				  <div id="comentarios" class="tab-pane fade">
 				    <h4>Comentarios:</h4>
 					<div class="reviews" ng-repeat="comment in product.reviews">
@@ -204,17 +206,19 @@
 					</div>
 				  </div>
 				  <div id="comentariosUsuarios" class="tab-pane fade">
-				  <button ng-click="clickToOpen()">Comentar</button>
-					<div class="reviews row" ng-repeat="comment in product.comentarios">
-						<div class="col-sm-6">
+				  	<div class="col-sm-6">
 							<h4>Comentarios:</h4>
-						</div>
+					</div>
+				  	<div class="col-sm-6">
+				  		<button ng-click="clickToOpen()">Comentar</button>
+				  	</div>
+					<div class="reviews row" ng-repeat="comment in comentarios">
 						<div class="col-sm-12">
 							<p>
-							<strong>{{comment.usuario}}</strong> on:{{comment.time}}
+								<strong>{{comment.usuario}}</strong> on: {{comment.time | date}}
 							</p>
 							<p>
-							{{comment.texto}}
+								{{comment.texto}}
 							</p>
 							<hr>
 						</div>
@@ -233,7 +237,7 @@
 		<summernote type="text" config="options" ng-model="comentario"></summernote>
 	</div>
 	<div>
-		<button ng-click="getComentario()">
+		<button ng-click="addComentario()">
 			Comentar
 		</button>
 	</div>
