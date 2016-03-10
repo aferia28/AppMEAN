@@ -12,17 +12,6 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 	$scope.absUrl = $location.absUrl(codeWine)
 
-	/*
-	dataFactory.getWine(codeWine)
-	.then(function(data) {
-		console.log(data);
-		$scope.product = data;
-	})
-	.catch(function() {
-		//tratar error
-	});
-	*/
-
 	$http.get('persona')
 	.success(function(data) {
 

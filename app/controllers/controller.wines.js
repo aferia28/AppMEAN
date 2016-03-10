@@ -131,19 +131,18 @@ exports.addComment = function(req, res) {
 
 	var wi = JSON.parse(wine);
 	var usu = JSON.parse(usuario);
-
 	Vino.findOne({code: wi.code}, function(err, vino) {
 		if(!err)
 		{
-			if(vino === undefined)
+			if(vino === null)
 			{
-				if(x.type == 'Red Wine')
+				if(wi.type == 'Red Wine')
 				{
 					type = 'Tinto';
-				}else if(x.type == 'White Wine')
+				}else if(wi.type == 'White Wine')
 				{
 					type = 'Blanco';
-				}else if(x.type == 'Rose Wine')
+				}else if(wi.type == 'Rose Wine')
 				{
 					type = 'Rosado';
 				}
@@ -158,19 +157,19 @@ exports.addComment = function(req, res) {
 					else console.log('ERROR: ' + err.message);
 				})
 				var wine = new Vino({
-    				code: x.code,
-					name: x.name,
-					price: x.price,
+    				code: wi.code,
+					name: wi.name,
+					price: wi.price,
 					type: type,
-					region: x.region,
-					winery: x.winery,
-					varietal: x.varietal,
-					vintage: x.vintage,
-					alcohol: x.alcohol,
-					image: x.image,
-					reviews: x.reviews,
-					wm_notes: x.wm_notes,
-					snoothrank: x.snoothrank,
+					region: wi.region,
+					winery: wi.winery,
+					varietal: wi.varietal,
+					vintage: wi.vintage,
+					alcohol: wi.alcohol,
+					image: wi.image,
+					reviews: wi.reviews,
+					wm_notes: wi.wm_notes,
+					snoothrank: wi.snoothrank,
 					comentarios:[comentario]
     			})
 
