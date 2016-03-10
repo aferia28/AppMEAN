@@ -26,6 +26,8 @@ module.exports = function(app) {
 
 	app.get('/verify', verification.verifiedEmail);
 
+	app.post('/addFavorite/:codeWine', wineController.addFavorite);
+
 	app.post('/addCommentWine/:codeWine', wineController.addComment);
 
 	app.get('/getWine', wineController.findWine);

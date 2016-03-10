@@ -67,6 +67,24 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		})
 	}
 
+	$scope.addFavorite = function() {
+
+		var inData = {
+			codeWine:codeWine,
+			usuario: usuario
+		};
+
+		$http({
+			url: '/addFavorite/'+codeWine,
+			method: 'POST',
+			params: inData
+		})
+		.success(function(data) {
+			console.log('Añadido a favoritos');
+			console.log(data);
+		})
+	}
+
 	$scope.clickToOpen = function() {
 		ngDialog.open({	template: 'popupTmpl',
 			className: 'ngdialog-theme-default',
@@ -178,4 +196,11 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 			$(this).removeClass('fa-star').addClass('fa-star-o');
 		}
 	);
+
+	$('#likeBtn').hover(function() {
+		$(this).removeClass('fa-heart-o').addClass('fa-heart');
+	},
+	function() {
+		$(this).removeClass('fa-heart').addClass('fa-heart-o');
+	})
 }]);

@@ -19,10 +19,10 @@ exports.getPersona = function(req, res){
 	//Recupera la persona que hay logeada.
 
 	var token 		= req.headers.authorization.split(' ')[1];
-	console.log(token);
+	//console.log(token);
 
 	var playload	= jwt.decode(token, config.TOKEN_SECRET);
-	console.log(playload);
+	//console.log(playload);
 
 	Persona.findById(playload.sub, function(err, persona){
 		if(err){
@@ -30,7 +30,7 @@ exports.getPersona = function(req, res){
 			res.send(err);
 		}else{
 			res.send(persona);
-			console.log(persona);
+			console.log("User logged: " + persona.email);
 		}
 	});
 }
