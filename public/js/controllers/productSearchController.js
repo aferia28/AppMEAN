@@ -6,16 +6,22 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		$("#content").removeClass("col-sm-10").addClass("col-sm-12");
 	});
 
-	var codeWine;
 	var wine;
 	var usuario;
-	var absUrl = $location.absUrl();
+	var codeWine = $routeParams.wineCode;
 
-	$scope.absUrl = absUrl;
+	$scope.absUrl = $location.absUrl(codeWine)
 
-	console.log($routeParams.wineCode);
-
-	codeWine = $routeParams.wineCode;
+	/*
+	dataFactory.getWine(codeWine)
+	.then(function(data) {
+		console.log(data);
+		$scope.product = data;
+	})
+	.catch(function() {
+		//tratar error
+	});
+	*/
 
 	$http.get('persona')
 	.success(function(data) {
