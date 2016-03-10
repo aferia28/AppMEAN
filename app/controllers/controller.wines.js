@@ -1,4 +1,5 @@
 var Vino = require('../models/wine.js');
+var Usuario = require('../models/persona.js');
 var Puntuacion = require('../models/puntuacion.js');
 var Comentario = require('../models/comentario.js');
 var http = require('http');
@@ -22,7 +23,7 @@ exports.findWine = function(req, res) {
 	var canrate;
 
 	var xuser = JSON.parse(usuario);
-	console.log('>>>>>>>>>>>>>>>>>' + xuser._id);
+	console.log('User logged: ' + 'Id: ' + xuser._id + " | " + "Name: " + xuser.nombre);
 
 	var options = {
 		host: 'api.snooth.com',
@@ -33,7 +34,6 @@ exports.findWine = function(req, res) {
   		var string = '';
   		response.on('data', function (chunk) {
     		string += chunk;
-    		console.log('RESPONSE ON DATA');
   		});
 
   		response.on('end', function () {
@@ -45,14 +45,10 @@ exports.findWine = function(req, res) {
 
     		Vino.find({code: codeWine}, function(err, vino) {
     			if(err){
-    				console.log(err);
+    				console.log(err.message);
     			}else{
     				if(vino == '')
     				{
-    					//en la colección vino -> puntuacion (que es una array de colección puntuación) buscar la colección que tiene como usuario (que es un campo) el usuario logeado.
-    					//si esta el usuario, quiere decir que ha puntuado ese vino concreto. En este caso no se permite puntuar.
-    					//ademas, habrá que recoger todas las puntuacion de la colección vino - > puntuaciones y hacer la media, para despues hacer otra media con snoothrank
-    					//Estas dos cosas se pueden hacer por separado.
     					if (puntuacionApi == 'n/a'){
     						puntuacionApi = 0;
     						res.send(apiWine);
@@ -64,18 +60,14 @@ exports.findWine = function(req, res) {
 
     					Vino.find({code: apiWine.code}).populate({path: 'rates', match: { usuario: {$eq:xuser._id}}}).exec(function(err, puntuacion) {
 
-    						console.log('PUNTUACION >>>>>>>>>>' + puntuacion);
-
     						if(puntuacion[0].rates != '')
     						{
     							if(puntuacion[0].rates[0].usuario == xuser._id)
 	    						{
 	    							console.log('ESTE USUARIO YA HA PUNTUADO ESTE VINO');
-	    							//No puede puntuar
 	    							canrate = false;
 	    						}else{
 	    							console.log('ESTE USUARIO TODAVÍA NO HA PUNTUADO ESTE VINO');
-	    							//Puede puntuar
 	    							canrate = true
 	    						}
     						}
@@ -84,7 +76,7 @@ exports.findWine = function(req, res) {
     					Vino.findOne({code: apiWine.code}).populate({path: 'rates'}).populate({path: 'comentarios'}).exec(function(err, puntuaciones) {
 
     						var c=0;
-    						console.log('>>>>>>>>>>>>>>>', puntuaciones);
+
 	    					for(var i = 0; i<puntuaciones.rates.length; i++)
 	    					{
 	    						c = c + puntuaciones.rates[i].puntuacion;
@@ -143,7 +135,7 @@ exports.addComment = function(req, res) {
 	Vino.findOne({code: wi.code}, function(err, vino) {
 		if(!err)
 		{
-			if(vino == undefined)
+			if(vino === undefined)
 			{
 				if(x.type == 'Red Wine')
 				{
@@ -165,15 +157,20 @@ exports.addComment = function(req, res) {
 					if(!err) console.log('Comentario guardado');
 					else console.log('ERROR: ' + err.message);
 				})
-
 				var wine = new Vino({
     				code: x.code,
 					name: x.name,
+					price: x.price,
 					type: type,
+					region: x.region,
 					winery: x.winery,
-					grape_type: x.varietal,
-					year: x.vintage,
+					varietal: x.varietal,
+					vintage: x.vintage,
 					alcohol: x.alcohol,
+					image: x.image,
+					reviews: x.reviews,
+					wm_notes: x.wm_notes,
+					snoothrank: x.snoothrank,
 					comentarios:[comentario]
     			})
 
@@ -212,6 +209,43 @@ exports.addComment = function(req, res) {
 	})
 }
 
+exports.addFavorite = function(req, res) {
+
+	var code_wine = req.query.codeWine;
+	var usuario = req.query.usuario;
+
+	var usu = JSON.parse(usuario);
+
+	Usuario.findOne({_id: usu._id, favoritos: code_wine}, function(err, user){
+		if(!err)
+		{
+			if(user == null)
+			{
+				Usuario.findOne({_id: usu._id}, function(err, user_) {
+					if(!err)
+					{
+						console.log(user_);
+						user_.favoritos.push(code_wine);
+						user_.save(function(err) {
+							if(err){
+								console.log('Error guardando el vino en favoritos', err.message);
+							}else{
+								console.log('Vino guardado en favoritos correctamente..!');
+								res.send(user_);
+							}
+						})
+					}else{
+						console.log(err.message);
+					}
+				})
+			}else{
+				console.log('El vino ya lo tienes en favoritos');
+			}
+		}else{
+			console.log(err.message);
+		}
+	})
+}
 	//GET
 exports.findWineById = function(req, res) {
 

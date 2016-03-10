@@ -77,7 +77,7 @@
 						<span ng-if="product.price > 0">{{product.price | number}} €</span>
 						<span ng-if="product.price < 0.1">Precio no disponible</span>
 					</div>
-					<div class="col-sm-5 box-add">
+					<div class="col-sm-3 box-add">
 						<div class="row">
 							<div class="col-sm-12 product-add-input">
 								<input>
@@ -85,13 +85,20 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4 rating">
+					<div class="col-sm-2 like" style="text-align: center; margin-top: 11px;">
+						<div class="row">
+							<span>
+								<button ng-click="addFavorite()" id="likeBtn" class="fa fa-heart-o fa-2x"></button>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-4 rating" style="margin-top:11px;">
 						<span class="">
-							<button id='oneStar' class="fa fa-star-o" ng-click="addOwnWine(1)" ng-disabled="isDisabled"></button>
-							<button id='twoStars' class="fa fa-star-o" ng-click="addOwnWine(2)" ng-disabled="isDisabled"></button>
-							<button id='threeStars' class="fa fa-star-o" ng-click="addOwnWine(3)" ng-disabled="isDisabled"></button>
-							<button id='fourStars' class="fa fa-star-o" ng-click="addOwnWine(4)" ng-disabled="isDisabled"></button>
-							<button id='fiveStars' class="fa fa-star-o" ng-click="addOwnWine(5)" ng-disabled="isDisabled"></button>
+							<button id='oneStar' class="fa fa-star-o fa-2x" ng-click="addOwnWine(1)" ng-disabled="isDisabled"></button>
+							<button id='twoStars' class="fa fa-star-o fa-2x" ng-click="addOwnWine(2)" ng-disabled="isDisabled"></button>
+							<button id='threeStars' class="fa fa-star-o fa-2x" ng-click="addOwnWine(3)" ng-disabled="isDisabled"></button>
+							<button id='fourStars' class="fa fa-star-o fa-2x" ng-click="addOwnWine(4)" ng-disabled="isDisabled"></button>
+							<button id='fiveStars' class="fa fa-star-o fa-2x" ng-click="addOwnWine(5)" ng-disabled="isDisabled"></button>
 						</span>
 
 					</div>
@@ -181,6 +188,8 @@
 				  			</div>
 				  		</div>
 				  </div>
+				  <div>
+				  </div>
 				  <div id="comentarios" class="tab-pane fade">
 				    <h4>Comentarios:</h4>
 					<div class="reviews" ng-repeat="comment in product.reviews">
@@ -204,17 +213,19 @@
 					</div>
 				  </div>
 				  <div id="comentariosUsuarios" class="tab-pane fade">
-				  <button ng-click="clickToOpen()">Comentar</button>
-					<div class="reviews row" ng-repeat="comment in product.comentarios">
-						<div class="col-sm-6">
+				  	<div class="col-sm-6">
 							<h4>Comentarios:</h4>
-						</div>
+					</div>
+				  	<div class="col-sm-6">
+				  		<button ng-click="clickToOpen()">Comentar</button>
+				  	</div>
+					<div class="reviews row" ng-repeat="comment in comentarios">
 						<div class="col-sm-12">
 							<p>
-							<strong>{{comment.usuario}}</strong> on:{{comment.time}}
+								<strong>{{comment.usuario}}</strong> on: {{comment.time | date}}
 							</p>
 							<p>
-							{{comment.texto}}
+								{{comment.texto}}
 							</p>
 							<hr>
 						</div>
@@ -233,7 +244,7 @@
 		<summernote type="text" config="options" ng-model="comentario"></summernote>
 	</div>
 	<div>
-		<button ng-click="getComentario()">
+		<button ng-click="addComentario()">
 			Comentar
 		</button>
 	</div>
