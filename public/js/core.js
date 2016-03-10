@@ -1,6 +1,28 @@
-var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies']);
-
-app.config(function($routeProvider, $authProvider) {
+var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote']);
+app.config(function($routeProvider, $authProvider, socialshareConfProvider)
+{
+  socialshareConfProvider.configure([{
+      'provider': 'twitter',
+      'conf': {
+        'url': '',
+        'text': '',
+        'via': 'onWine',
+        'hashtags': 'winepassion',
+        'trigger': 'click',
+        'popupHeight': 500,
+        'popupWidth' : 400
+      }
+    },
+    {
+      'provider': 'facebook',
+      'conf': {
+        'url': '',
+        'trigger': 'click',
+        'popupHeight': 1300,
+        'popupWidth' : 1000
+      }
+    }
+  ]);
 
   $authProvider.signupUrl   = 'http://localhost:8080/auth/signup';
   $authProvider.loginUrl    = 'http://localhost:8080/auth/login';
@@ -10,11 +32,22 @@ app.config(function($routeProvider, $authProvider) {
 	$routeProvider
     .when('/',{
       controller: 'homeController',
+      templateUrl: 'views/contentLogin.html',
+      resolve: {
+        authenticated: ["$location", '$auth', function($location, $auth){
+          if($auth.isAuthenticated()){
+            return $location.path('/home');
+          }
+        }]
+      }
+  })
+    .when('/home',{
+      controller: 'homeController',
       templateUrl: 'views/content.html',
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
@@ -25,7 +58,7 @@ app.config(function($routeProvider, $authProvider) {
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
@@ -36,18 +69,10 @@ app.config(function($routeProvider, $authProvider) {
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
-  })
-    .when('/login',{
-      controller: 'LoginController',
-      templateUrl: 'views/login.html'
-  })
-    .when('/signup',{
-      controller: 'SignUpController',
-      templateUrl: 'views/signup.html'
   })
   	.when('/product/:wineCode',{
   		controller: 'productSearcherController',
@@ -55,7 +80,7 @@ app.config(function($routeProvider, $authProvider) {
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
@@ -67,7 +92,7 @@ app.config(function($routeProvider, $authProvider) {
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
@@ -78,14 +103,14 @@ app.config(function($routeProvider, $authProvider) {
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }
   })
     .when('/logout',{
       controller: 'LogoutController',
-      templateUrl: 'views/login.html'
+      templateUrl: 'views/contentLogin.html'
   })
     .when('/admin/perfiles',{
       controller: '',
@@ -93,7 +118,7 @@ app.config(function($routeProvider, $authProvider) {
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
-            return $location.path('/login');
+            return $location.path('/');
           }
         }]
       }

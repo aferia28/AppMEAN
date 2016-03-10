@@ -18,42 +18,52 @@
 			<div class="col-sm-12 share-box">
 				<div class="row">
 					<div class="col-sm-4 share-facebook">
-						<a href="">
-							<i class="fa fa-facebook"></i>
+						<a href=""
+							socialshare
+							socialshare-url='www.onwine.com'
+							socialshare-text="onwine"
+							socialshare-provider="facebook">
+							<i class="fa fa-facebook">
+							</i>
 						</a>
 					</div>
 					<div class="col-sm-4 share-twitter">
-						<a href="">
+						<a href=""
+							socialshare
+							socialshare-provider="twitter">
 						<i class="fa fa-twitter"></i>
 						</a>
 					</div>
 					<div class="col-sm-4 share-google">
-						<a href="">
+						<a href=""
+							socialshare
+							socialshare-url='www.onwine.com'
+							socialshare-provider="google+">
 						<i class="fa fa-google-plus"></i>
 						</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-12 rank-box product-rate">
-						<span ng-if="product.snoothrank > 0.5 && product.snoothrank < 2">
+						<span ng-if="product.snoothrank >= 0.6 && product.snoothrank <= 1.5">
 							<i class="fa fa-glass"></i>
 						</span>
-						<span ng-if="product.snoothrank > 1.5 && product.snoothrank < 3">
-							<i class="fa fa-glass"></i>
-							<i class="fa fa-glass"></i>
-						</span>
-						<span ng-if="product.snoothrank > 2.5 && product.snoothrank < 4">
-							<i class="fa fa-glass"></i>
+						<span ng-if="product.snoothrank >= 1.6 && product.snoothrank <= 2.5">
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
 						</span>
-						<span ng-if="product.snoothrank > 3.5 && product.snoothrank < 5">
-							<i class="fa fa-glass"></i>
+						<span ng-if="product.snoothrank >= 2.6 && product.snoothrank <= 3.5">
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
 						</span>
-						<span ng-if="product.snoothrank > 4.5 && product.snoothrank < 6">
+						<span ng-if="product.snoothrank >= 3.6 && product.snoothrank <= 4.5">
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+							<i class="fa fa-glass"></i>
+						</span>
+						<span ng-if="product.snoothrank >= 4.6 && product.snoothrank <= 5.5">
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
 							<i class="fa fa-glass"></i>
@@ -77,11 +87,11 @@
 					</div>
 					<div class="col-sm-4 rating">
 						<span class="">
-							<i id='oneStar' class="fa fa-star-o"></i>
-							<i id='twoStars' class="fa fa-star-o"></i>
-							<i id='threeStars' class="fa fa-star-o"></i>
-							<i id='fourStars' class="fa fa-star-o"></i>
-							<i id='fiveStars' class="fa fa-star-o"></i>
+							<button id='oneStar' class="fa fa-star-o" ng-click="addOwnWine(1)" ng-disabled="isDisabled"></button>
+							<button id='twoStars' class="fa fa-star-o" ng-click="addOwnWine(2)" ng-disabled="isDisabled"></button>
+							<button id='threeStars' class="fa fa-star-o" ng-click="addOwnWine(3)" ng-disabled="isDisabled"></button>
+							<button id='fourStars' class="fa fa-star-o" ng-click="addOwnWine(4)" ng-disabled="isDisabled"></button>
+							<button id='fiveStars' class="fa fa-star-o" ng-click="addOwnWine(5)" ng-disabled="isDisabled"></button>
 						</span>
 
 					</div>
@@ -90,8 +100,9 @@
 			<div class="col-sm-12 product-box-content-header">
 				<ul class="nav nav-tabs">
 				  <li><a data-toggle="tab" data-target="#ficha">Ficha Técnica</a></li>
-				  <li><a data-toggle="tab" data-target="#comentarios">Comentarios</a></li>
+				  <li><a data-toggle="tab" data-target="#comentarios">Comentarios de Prensa</a></li>
 				  <li><a data-toggle="tab" data-target="#menu2">Notes Somellier</a></li>
+				  <li><a data-toggle="tab" data-target="#comentariosUsuarios">Comentarios de Usuarios</a></li>
 				</ul>
 				<div class="tab-content product-box-content-body">
 				  <div id="ficha" class="tab-pane fade in active">
@@ -174,7 +185,7 @@
 				    <h4>Comentarios:</h4>
 					<div class="reviews" ng-repeat="comment in product.reviews">
 						<p>
-							{{comment.name}} on: {{comment.date | date}}
+							<strong>{{comment.name}}</strong> on: {{comment.date | date}}
 						</p>
 						<p>
 							{{comment.body}}
@@ -192,9 +203,53 @@
 						</p>
 					</div>
 				  </div>
+				  <div id="comentariosUsuarios" class="tab-pane fade">
+				  <button ng-click="clickToOpen()">Comentar</button>
+					<div class="reviews row" ng-repeat="comment in product.comentarios">
+						<div class="col-sm-6">
+							<h4>Comentarios:</h4>
+						</div>
+						<div class="col-sm-12">
+							<p>
+							<strong>{{comment.usuario}}</strong> on:{{comment.time}}
+							</p>
+							<p>
+							{{comment.texto}}
+							</p>
+							<hr>
+						</div>
+					</div>
+				  </div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/ng-template" id="popupTmpl">
+	<div class="">
+		<h3>Comentario</h3>
+	</div>
+	<div class="modal-text">
+		<summernote type="text" config="options" ng-model="comentario"></summernote>
+	</div>
+	<div>
+		<button ng-click="getComentario()">
+			Comentar
+		</button>
+	</div>
+</script>
+<style type="text/css">
+.ngdialog-theme-default{
+	background-color: transparent;
+}
+.ngdialog-theme-default > .ngdialog-content{
+	border: 3px solid red;
+	border-radius: 0px !important;
+	background: #444 !important;
+}
+.ngdialog-theme-default > .ngdialog-content > .modal-text > input{
+	height: 300px;
+	width: 100%;
+}
+</style>
 

@@ -108,6 +108,6 @@ app.controller('wineSearcherController', ['$scope', '$http', function ($scope, $
             }
 		});*/
 	}
-
+	
 	$scope.pageClass = 'page-weather';
 }]);

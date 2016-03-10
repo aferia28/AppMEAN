@@ -1,10 +1,26 @@
-app.factory('forecast', ['$http', function($http) {
+app.service('serviceAdmin', function ($http) {
+        var user;
+        var admin;
+        $http.get('/persona')
+			.success(function(data) {
+				console.log('>>>Service', data);
+				user = data;
+				admin = data.isAdmin;
+			});
 
-  return $http.get('http://api.snooth.com/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&ip=66.28.234.115&q=rioja&xp=30&lang=es&c=ES')
-            .success(function(data) {
-              return data;
-            })
-            .error(function(err) {
-              return err;
-            });
-}]);
+        return {
+            getProperty: function () {
+                return user;
+            },
+            getAdmin: function() {
+            	console.log(user);
+            	return admin;
+            },
+            setProperty: function(value) {
+                user = value;
+            },
+            setAdmin: function(value) {
+                admin = value;
+            }
+        };
+    });

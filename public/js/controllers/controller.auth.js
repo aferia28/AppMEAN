@@ -13,15 +13,9 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http', functi
 						$http.get('/send/'+$scope.persona.email)
       						.success(function(data) {
       							console.log('Controller FrontEnd: Email enviado');
-      							setTimeout(function(){
-									$location.path("/");
-								}, 5000);
-
 					            console.log("Uusiario creado satisfactoriamente");
       						});
-						//$auth.setToken(response);
-						// Si se ha registrado correctamente,
-			            // Podemos redirigirle a otra parte
+      						//$location.path("/");
 					})
 					.catch(function(response){
 						response.send(500);
@@ -34,7 +28,7 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http', functi
 	$scope.pageClass = 'page-signup';
 }]);
 
-app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies', function($auth, $location, $scope, $http, $cookies){
+app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies','serviceAdmin', function($auth, $location, $scope, $http, $cookies, serviceAdmin){
 
 	var vm = this;
 	console.log("Dentro LoginController Cliente");
@@ -45,17 +39,18 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http','$cooki
 
 			// Si se ha logueado correctamente, lo tratamos aquí.
             // Podemos también redirigirle a una ruta
-            $location.path("/");
+            $location.path("/home");
             console.log("Persona logeada: " + $scope.persona.email);
 
             var token = $auth.getToken();
             console.log("Token recuperado: " + token);
-
             $cookies.put('authenticationApp', token);
 
             $http.get('persona')
 				.success(function(data) {
 					$scope.persona = data;
+					serviceAdmin.setProperty(data);
+					serviceAdmin.setAdmin(data.isAdmin);
 				});
 		})
 		.catch(function(response){
@@ -63,16 +58,17 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http','$cooki
 			console.log("Ha habido algun error en el login.");
 		});
 	}
-	$scope.pageClass = 'page-login';
+	//$scope.pageClass = 'page-login';
 }]);
 
-app.controller('LogoutController',['$auth', '$location','$cookies', function($auth, $location, $cookies){
-
+app.controller('LogoutController',['$auth', '$location','$cookies','$scope','serviceAdmin', function($auth, $location, $cookies, $scope,serviceAdmin){
 
 		$auth.logout();
+		$scope.persona = {};
+		serviceAdmin.setProperty('');
+		serviceAdmin.setAdmin(false);
 		$cookies.remove('authenticationApp');
-		//localStorage.clear();
-		$location.path("/login");
+		$location.path("/");
 
 
 

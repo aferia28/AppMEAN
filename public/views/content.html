@@ -1,21 +1,40 @@
-<div class="row">
-	<div class="col-sm-5 left-content">
-		<a href="#/winesearcher"><h1>VINOS</h1></a>
-	</div>
-	<div class="col-sm-7 right-content">
-		<div class="row">
-			<div class="col-sm-12 top-right-content">
-				<a href="#/ownwines"><h1>OWN WINES</h1></a>
-				<i></i>
+<div class="container-fluid region1">
+	<div class="row">
+		<div class="col-sm-12 home-title">
+			<h1>onwine</h1>
+		</div>
+		<div class="col-sm-12 widget-container" style="text-align: center">
+		<h2 style="padding: 0; margin: 0;">Find a wine</h2>
+		<input style="width: 50%;" placeholder="Tag.."></input>
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 square">
+					<div class="s-find">
+						<a href="#/winesearcher"><h5>Find your wine</h5></a>
+					</div>
+				</div>
+				<div class="col-sm-3 square">
+					<div class="s-profile">
+						<a href="#perfil/{{persona._id}}"><h5>See your profile</h5></a>
+					</div>
+				</div>
+				<div class="col-sm-3"></div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-6 bottom-left-content">
-				<div></div>
-				<a href="#/logout"><h1>LOGOUT</h1></a>
-			</div>
-			<div class="col-sm-6 bottom-right-content">
-				<a href="#perfil/{{persona._id}}"><h1>PERFIL</h1></a>
+		<div class="col-sm-12 widget-container">
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 square">
+					<div class="s-top">
+						<h5>Top Wines</h5>
+					</div>
+				</div>
+				<div class="col-sm-3 square">
+					<div class="s-favorite">
+						<h5>Add your favorite wine</h5>
+					</div>
+				</div>
+				<div class="col-sm-3"></div>
 			</div>
 		</div>
 	</div>

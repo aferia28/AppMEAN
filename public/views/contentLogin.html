@@ -1,0 +1,172 @@
+<!--<div class="row">
+	<div class="col-sm-5 left-content">
+		<a href="#/winesearcher"><h1>VINOS</h1></a>
+	</div>
+	<div class="col-sm-7 right-content">
+		<div class="row">
+			<div class="col-sm-12 top-right-content">
+				<a href="#/ownwines"><h1>OWN WINES</h1></a>
+				<i></i>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 bottom-left-content">
+				<div></div>
+				<a href="#/logout"><h1>LOGOUT</h1></a>
+			</div>
+			<div class="col-sm-6 bottom-right-content">
+				<a href="#perfil/{{persona._id}}"><h1>PERFIL</h1></a>
+			</div>
+		</div>
+	</div>
+</div>-->
+<div class="container-fluid region1">
+	<div class="row">
+		<div class="col-sm-12 home-title">
+			<h1>onwine</h1>
+		</div>
+		<div class="col-sm-12 widget-container">
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 widget-holder">
+					<div class="row">
+						<div class="col-sm-12 widget-button">
+							<button class="btn signIn" ng-click="clickToOpenSignIn()" data-button="signin">Sign In</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 widget-holder">
+					<div class="row">
+						<div class="col-sm-12 widget-button">
+							<button class="btn signUp" ng-click="clickToOpenSignUp()" data-button="signup">Sign Up</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/ng-template" id="popupSignIn">
+	<div class="modal-header">
+		<h3 class="modal-title">Login to our Site</h3>
+		<p>Enter your username and password to log on:</p>
+	</div>
+	<div class="modal-body">
+		<form ng-submit="login()" method="post" class="login-form">
+			<div class="form-group">
+				<input class="form-username form-control" placeholder="Username.." type="email" ng-model="persona.email"/>
+			</div>
+			<div class="form-group">
+				<input class="form-username form-control" placeholder="Password.." type="password" ng-model="persona.password"/>
+			</div>
+		    <button type="submit" class="btn" style="width: 100%;">Sign In</button>
+		</form>
+	</div>
+</script>
+<script type="text/ng-template" id="popupSignUp">
+	<div class="modal-header">
+		<h3>Get your account</h3>
+		<p>Please enter the follow fields to sign up:</p>
+	</div>
+	<div class="modal-body">
+		<form role="form" method="post" class="registration-form" ng-submit="signup(signupForm.$valid)" name="signupForm">
+			<div class="form-group">
+				<input type="text" ng-model="persona.nombre" name="name" placeholder="Nombre" class="form-control form-first-name" required id="form-first-name">
+				<div ng-messages="signupForm.name.$error">
+					<div ng-messages-include="../views/messages.html">
+
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="text" ng-model="persona.apellidos" name="lastname" placeholder="Apellidos" class="form-control form-last-name" required id="form-last-name">
+				<div ng-messages="signupForm.lastname.$error">
+					<div ng-messages-include="../views/messages.html">
+
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<input id="to" type="email" ng-model="persona.email" name="email" placeholder="Email" class="form-control form-email" required id="form-email">
+				<div ng-messages="signupForm.email.$error">
+					<div ng-messages-include="../views/messages.html">
+
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="password" ng-minlength="8" ng-model="persona.password" name="password" placeholder="Contraseña" class="form-control form-password" required id="form-password">
+				<div ng-messages="signupForm.password.$error">
+					<div ng-messages-include="../views/messages.html"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="password" ng-model="persona.r_password" name="password_r" placeholder="Confirmar contraseña" class="form-control form-password" id="password_r" required compare-to="persona.password">
+				<div ng-messages="signupForm.password_r.$error">
+					<div ng-messages-include="../views/messages.html">
+
+					</div>
+				</div>
+			</div>
+			<button class="btn" type="submit" id="send_email">Sign Up</button>
+			<span id="message"></span>
+		</form>
+	</div>
+</script>
+<style type="text/css">
+.ngdialog-theme-default{
+	background-color: transparent;
+}
+.ngdialog-theme-default > .ngdialog-content{
+	width: 600px !important;
+	padding: 0px !important;
+	font-family: 'Lato', sans-serif !important;
+}
+.ngdialog-theme-default > .ngdialog-content > .modal-header{
+	padding: 25px 25px 15px 25px;
+	background: #fff;
+	border: 0;
+	border-bottom: 1px solid #ddd;
+	border-radius: 4px 4px 0 0;
+}
+
+.ngdialog-theme-default > .ngdialog-content > .modal-header > .modal-title{
+	margin-bottom:10px;
+	line-height: 30px;
+	font-weight: 300;
+	margin:0 0 0 10px;
+}
+
+.ngdialog-theme-default > .ngdialog-content > .modal-body{
+	padding: 25px 25px 30px 25px;
+	background: #eee;
+	text-align: left;
+	border-radius: 0px 0px 4px 4px;
+}
+
+.ngdialog-theme-default > .ngdialog-content > .modal-body > form > .form-group input{
+	font-family: 'Lato', sans-serif !important;
+	font-size: 16px;
+	font-weight: 300;
+	height: 50px;
+	padding: 0 20px;
+	vertical-align: middle;
+	background: #f8f8f8;
+	border: 1px solid #ddd;
+}
+.form-control:focus{
+	box-shadow: 0 !important;
+	-webkit-box-shadow: 0;
+}
+
+.ngdialog-theme-default > .ngdialog-content > .modal-body > form > .btn{
+	font-family: 'Lato', sans-serif !important;
+	width: 100%;
+	background-color: #942049;
+	color: white;
+	font-size: 16px;
+	font-weight: 300;
+	height: 50px;
+}
+</style>
