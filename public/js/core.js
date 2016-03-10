@@ -1,6 +1,6 @@
 var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies']);
-app.config(function($routeProvider, $authProvider)
-{
+
+app.config(function($routeProvider, $authProvider) {
 
   $authProvider.signupUrl   = 'http://localhost:8080/auth/signup';
   $authProvider.loginUrl    = 'http://localhost:8080/auth/login';
@@ -97,9 +97,8 @@ app.config(function($routeProvider, $authProvider)
           }
         }]
       }
-
   })
   	.otherwise({
   		redirectTo: '/'
-  });
+    });
 });

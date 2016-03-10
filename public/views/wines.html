@@ -12,11 +12,11 @@
 					        <div>
 							  <form name="formWineType">
 							    <p for="repeatSelect"> Repeat select: </p>
-							    <select name="repeatSelect" id="repeatSelect" ng-model="types.repeatSelect">
-							      <option ng-repeat="option in types.availableOptions" value="{{option.id}}">{{option.name}}</option>
+							    <select name="repeatSelect" id="repeatSelect" ng-model="wineColors.repeatSelect">
+							      <option ng-repeat="option in wineColors" value="{{option.id}}">{{option.name}}</option>
 							    </select>
 							  </form>
-							  <p>repeatSelect = {{types.repeatSelect}}</p>
+							  <p>repeatSelect = {{wineColors.repeatSelect}}</p>
 							  <br/>
 							</div>
 					    </div>
@@ -34,16 +34,16 @@
 					<hr>
 					<div class="wineDOCheck">
 						<h5>DO</h5>
-						<div class="col-sm-12 checkbox-holder" ng-repeat="do in DOs.availableDO">
+						<div class="col-sm-12 checkbox-holder" ng-repeat="do in DOs">
 							<label style="padding-left:4px;">
-								<input type="checkbox">
+								<input id="{{do.id}}" type="checkbox" value="{{do.name}}" ng-click="toggleSelection(do.name)">
 								{{do.name}}
 							</label>
 						</div>
 					</div>
 					<hr>
 					<input ng-model="query" id="query"> <!-- INPUT PARA FILTRAR POR NOMBRE-->
-					<button type="submit" ng-click="buscar()">Aplicar</button>
+					<button type="submit" ng-click="search()">Buscar</button>
 				</div>
 			</div>
 		</div>
@@ -72,6 +72,8 @@
 			              	</div>
 				            <div class="col-sm-12 wine-text">
 				            	{{wine.type}}
+				            	<br>
+				            	{{wine.region}}
 				            </div>
 				            <!-- low -->
 				            <div class="col-sm-12 wine-vintage">
