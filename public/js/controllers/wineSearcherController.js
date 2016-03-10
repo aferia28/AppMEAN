@@ -4,22 +4,18 @@ app.controller('wineSearcherController', ['$scope', '$http', function ($scope, $
 		$("#content").removeClass("col-sm-10").addClass("col-sm-12");
 	});
 
-	$scope.wineColors = [
-  		{	id: 'red', 		name: 'Negre'	},
-  		{	id: 'white',	name: 'Blanc'	},
-  		{	id: 'rose', 	name: 'Rosat'	}
-    ];
+	$scope.wineColor = {
+		availableColors: [
+	  		{	id: 'red', 		name: 'Negre'	},
+	  		{	id: 'white',	name: 'Blanc'	},
+	  		{	id: 'rose', 	name: 'Rosat'	}
+    	],
+    	selectedColor: {id: 'red', name: 'Negre'} // Sets the default value in the UI
+    };
 
-   	/*$scope.vintage = {
-   		availableYears: [
-   			{id: '2015', name: '2015'},
-   			{id: '2014', name: '2014'},
-   			{id: '2013', name: '2013'},
-   			{id: '2012', name: '2012'},
-   			{id: '2011', name: '2011'},
-   			{id: '2010', name: '2010'}
-   		],
-   	};*/
+   	$scope.vintage = {
+   		year: ''
+   	};
 
    	$scope.DOs = [
 		{	id: 'alella', 			name: 'Alella'				},
@@ -60,17 +56,17 @@ app.controller('wineSearcherController', ['$scope', '$http', function ($scope, $
 		numberResults = 100; // 1-100
 		available = 0; // 0 = all | 1 = in stock
 		productType = 'wine';
-		productColor = $scope.wineColors.repeatSelect;
+		productColor = $scope.wineColor.selectedColor.id;
 		country = 'ES'; // España
 		// zipCode = '08360';
 		sort = 'qpr'; // qpr = Quality Price Ratio
 		// language = 'es'; // Español
 		
 		// Custom parameters
-		region = 'Catalonia';
+		region = 'Catalonia'; // + 'Catalunya'
 		designationOrigin = $scope.selectedDOs.join("&q=");
-		// vintage = ;
-		query = region + '+' + designationOrigin;
+		vintage = $scope.vintage.year;
+		query = region + '+' + designationOrigin + '+' + vintage;
 
 		var url = apiURl 
 				+ '?akey=' + apiKey 
@@ -108,6 +104,6 @@ app.controller('wineSearcherController', ['$scope', '$http', function ($scope, $
             }
 		});*/
 	}
-	
+
 	$scope.pageClass = 'page-weather';
 }]);

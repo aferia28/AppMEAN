@@ -5,56 +5,48 @@
 				<div class="search-box-top">
 					<h1>Cercador</h1>
 				</div>
-				<div class="search-box-bottom">
-					<div class="wineTypeCheck">
-						<h5>Tipus de Vi</h5>
-						<div class="form-group">
-					        <div>
-							  <form name="formWineType">
-							    <p for="repeatSelect"> Repeat select: </p>
-							    <select name="repeatSelect" id="repeatSelect" ng-model="wineColors.repeatSelect">
-							      <option ng-repeat="option in wineColors" value="{{option.id}}">{{option.name}}</option>
+				<form name="formWineSearch">
+					<div class="search-box-bottom">
+						<div class="wineColor">
+							<h5>Tipus de Vi</h5>
+							<div class="form-group">
+							    <select name="wineColorSelect" id="wineColorSelect" ng-options="color.name for color in wineColor.availableColors track by color.id" ng-model="wineColor.selectedColor">
 							    </select>
-							  </form>
-							  <p>repeatSelect = {{wineColors.repeatSelect}}</p>
-							  <br/>
-							</div>
-					    </div>
-					</div>
-					<hr>
-					<div class="wineYearCheck">
-						<h5>Añada</h5>
-						<div class="col-sm-12 checkbox-holder" ng-repeat="year in years.availableYears">
-							<label>
-								<input type="checkbox">
-								{{year.name}}
-							</label>
+					    	</div>
 						</div>
-					</div>
-					<hr>
-					<div class="wineDOCheck">
-						<h5>DO</h5>
-						<div class="col-sm-12 checkbox-holder" ng-repeat="do in DOs">
-							<label style="padding-left:4px;">
+						<hr>
+						<div class="wineVintage">
+							<h5>Anyada</h5>
+							<div class="form-group">
+								<input type="number" name="inputVintage" ng-model="vintage.year" min="1900" max="2016">
+								<div role="alert">
+									<span class="error" ng-show="formWineSearch.inputVintage.$error.number">Des de 1900 a 2016</span>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="wineDO">
+							<h5>Denominació d'Origen</h5>
+							<div class="form-group" ng-repeat="do in DOs">
 								<input id="{{do.id}}" type="checkbox" value="{{do.name}}" ng-click="toggleSelection(do.name)">
 								{{do.name}}
-							</label>
+							</div>
 						</div>
+						<hr>
+						<input ng-model="query" id="query"> <!-- INPUT PARA FILTRAR POR NOMBRE-->
+						<button type="submit" ng-click="search()">Buscar</button>
 					</div>
-					<hr>
-					<input ng-model="query" id="query"> <!-- INPUT PARA FILTRAR POR NOMBRE-->
-					<button type="submit" ng-click="search()">Buscar</button>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
 	<div class="col-sm-10 box-content">
 		<div class="row">
 			<div class="col-sm-12">
-				<button class="btn btn-primary"><a href="#/"> GO BACK </a></button>
+				<button class="btn btn-primary"><a href="#/"> Torna enrere </a></button>
 			</div>
 			<div class="box-content-top">
-				<h2>Vinos</h2>
+				<h2>Resultats de la cerca:</h2>
 			</div>
 			<div class="col-sm-12 box-content-bottom">
 	            <div class="row">
