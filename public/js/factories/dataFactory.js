@@ -1,50 +1,51 @@
 app.factory('dataFactory', ['$http','$q', function($http, $q) {
 
-    var urlBase = '';
     var dataFactory = {};
 
-    dataFactory.getWine = function (codeWine) {
+    dataFactory.getWine = function (inData) {
 
-        var defered = $q.defer();
-        var promise = defered.promise;
-
-        $http.get('/persona')
-        .success(function(user) {
-            var user = user;
-            $http.get('/getWine/'+ codeWine, {params: {usuario:user}})
-            .success(function(wine) {
-                defered.resolve(wine);
-            })
-            .error(function(error) {
-                defered.reject(error);
-            });
+        return $http({
+            url: '/getWine/',
+            method: 'GET',
+            params: inData
+        })
+        .success(function(response) {
+            return response;
         })
         .error(function(error) {
-            defered.reject(error);
+            return error;
         });
-
-        return promise;
     };
 
-    dataFactory.getWineById = function (codeWine) {
-        return $http.get(urlBase + '/' + codeWine);
+    dataFactory.insertRank = function (inData) {
+        var codeWine = inData.codeWine;
+        console.log(inData);
+        return $http({
+            url: '/vinosCode/'+codeWine,
+            method: 'POST',
+            params: inData
+        })
+        .success(function(response) {
+            return response;
+        })
+        .error(function(error) {
+            return error;
+        })
     };
 
-    dataFactory.insertRank = function (rank) {
-        return $http.post(urlBase, cust);
-    };
+    dataFactory.addFavorite = function (inData) {
 
-    dataFactory.addFavorite = function (codeWine) {
-        return $http.put(urlBase + '/' + cust.ID, cust)
+        var codeWine = inData.codeWine;
+        return $http({
+            url: '/addFavorite/'+codeWine,
+            method: 'POST',
+            params: inData
+        }).success(function(response) {
+            return response;
+        })
+        .error(function(error) {
+            return error;
+        })
     };
-/*
-    dataFactory.deleteCustomer = function (id) {
-        return $http.delete(urlBase + '/' + id);
-    };
-
-    dataFactory.getOrders = function (id) {
-        return $http.get(urlBase + '/' + id + '/orders');
-    };
-*/
     return dataFactory;
 }]);

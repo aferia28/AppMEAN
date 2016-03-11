@@ -22,9 +22,13 @@ module.exports = function(app) {
 
 	app.put('/modificarPersona/:id', Controller.updatePersona);
 
+
+
 	app.get('/send/:email', verification.sendEmail);
 
 	app.get('/verify', verification.verifiedEmail);
+
+
 
 	app.post('/addFavorite/:codeWine', wineController.addFavorite);
 
@@ -36,7 +40,7 @@ module.exports = function(app) {
 
 	app.get('/vinos/:id', wineController.findWineById);
 
-	app.get('/vinosCode/:codeWine', wineController.findWineByCode);
+	app.post('/vinosCode/:codeWine', wineController.findWineByCode);
 
 	app.post('/addVino', wineController.addWine);
 

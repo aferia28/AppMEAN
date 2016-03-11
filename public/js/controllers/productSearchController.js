@@ -1,4 +1,4 @@
-app.controller('productSearcherController', ['$scope', '$http','$rootScope','$routeParams','$route','$location','ngDialog', function($scope, $http, $rootScope,$routeParams, $route, $location, ngDialog) {
+app.controller('productSearcherController', ['$scope', '$http','$rootScope','$routeParams','$route','$location','ngDialog','serviceAdmin','dataFactory', function($scope, $http, $rootScope,$routeParams, $route, $location, ngDialog,serviceAdmin, dataFactory) {
 
 	$scope.pageClass = 'page-product';
 
@@ -7,22 +7,43 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 	});
 
 	var wine;
-	var usuario;
-	var codeWine = $routeParams.wineCode;
+	var usuario 	= serviceAdmin.getProperty();
+	var codeWine 	= $routeParams.wineCode;
 
-	$scope.absUrl = $location.absUrl(codeWine)
+	var inData = {
+		codeWine: codeWine,
+		usuario: usuario,
+		wine: null
+	}
 
-	/*
-	dataFactory.getWine(codeWine)
-	.then(function(data) {
-		console.log(data);
-		$scope.product = data;
+	//$scope.absUrl = $location.absUrl(codeWine);
+
+	dataFactory.getWine(inData)
+	.then(function(response) {
+
+		console.log(response.data);
+
+		wine = response.data;
+		$scope.product = response.data;
+		$scope.comentarios = wine.comentarios;
+		inData.wine = wine;
+
+		if(response.data.canrate == false)
+		{
+			$('.rating > span').css('opacity', 0.5);
+			$scope.isDisabled = true;
+		}
+		else
+		{
+			$scope.isDisabled = false;
+		}
 	})
 	.catch(function() {
 		//tratar error
 	});
-	*/
 
+
+	/*
 	$http.get('persona')
 	.success(function(data) {
 
@@ -62,24 +83,39 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 				$('#product-header').addClass('product-header-rose');
 			}
 		})
-	})
+	})*/
 
 	$scope.addOwnWine = function(rank) {
 
+		inData.rank = rank;
+
+		dataFactory.insertRank(inData)
+		.then(function(response) {
+			console.log('Puntuación añadida', response.data)
+			$scope.isDisabled = true;
+		})
+		.catch(function(response) {
+			//tratar el error
+		})
+
+		/*
 		$http.get('/vinosCode/' + codeWine, {params: {rank: rank, wine:wine, usuario: usuario}})
 		.success(function(data) {
 			console.log(data);
 			$scope.isDisabled = true;
-		})
+		})*/
 	}
 
 	$scope.addFavorite = function() {
 
-		var inData = {
-			codeWine:codeWine,
-			usuario: usuario
-		};
-
+		dataFactory.addFavorite(inData)
+		.then(function(response) {
+			console.log('Vino añadido a favoritos', response.data);
+		})
+		.catch(function(response) {
+			//error a tratar
+		})
+		/*
 		$http({
 			url: '/addFavorite/'+codeWine,
 			method: 'POST',
@@ -88,7 +124,7 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		.success(function(data) {
 			console.log('Añadido a favoritos');
 			console.log(data);
-		})
+		})*/
 	}
 
 	$scope.clickToOpen = function() {
