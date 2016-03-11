@@ -1,4 +1,4 @@
-app.controller('wineSearcherController', ['$scope', '$http', function ($scope, $http) {
+app.controller('wineSearcherController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
 	$("aside").fadeOut("slow", function() {
 		$("#content").removeClass("col-sm-10").addClass("col-sm-12");
@@ -6,12 +6,19 @@ app.controller('wineSearcherController', ['$scope', '$http', function ($scope, $
 
 	$scope.wineColor = {
 		availableColors: [
-	  		{	id: 'red', 		name: 'Negre'	},
-	  		{	id: 'white',	name: 'Blanc'	},
-	  		{	id: 'rose', 	name: 'Rosat'	}
+	  		{	id: 'red', 		name: 'Negre',	image: '../img/red-wine-header.jpg'	},
+	  		{	id: 'white',	name: 'Blanc',	image: '../img/rose-wine-header.jpg'	},
+	  		{	id: 'rose', 	name: 'Rosat',	image: '../img/white-wine-header.jpg'	}
     	],
     	selectedColor: {id: 'red', name: 'Negre'} // Sets the default value in the UI
     };
+
+    // I use a timeout so I have access to all the elements
+    $timeout(function() {
+        $scope.$watch(function() { return $scope.wineColor.availableColors.current; }, function() {
+            console.log($scope.wineColor.availableColors);
+        });
+    }, 100);
 
    	$scope.vintage = {
    		year: ''

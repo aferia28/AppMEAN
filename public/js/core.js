@@ -1,4 +1,5 @@
 var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote']);
+
 app.config(function($routeProvider, $authProvider, socialshareConfProvider)
 {
   socialshareConfProvider.configure([{
@@ -127,3 +128,5 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
   		redirectTo: '/'
     });
 });
+
+var moduleCardflow = angular.module('angular-cardflow', ['ngTouch']);

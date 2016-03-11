@@ -44,11 +44,20 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<button class="btn btn-primary"><a href="#/"> Torna enrere </a></button>
+				<div class="row">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-8">
+						<cardflow model="cardflow">
+			                <div class="cardflow-card" ng-repeat="color in wineColor.availableColors">
+			                    <img ng-src="{{color.image}}" alt="{{color.name}}"/>
+			                </div>
+			            </cardflow>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
 			</div>
-			<div class="box-content-top">
-				<h2>Resultats de la cerca:</h2>
-			</div>
-			<div class="col-sm-12 box-content-bottom">
+			<div class="col-sm-12 wine-search-results">
+	            <h2>Resultats de la cerca:</h2>
 	            <div class="row">
 	            	<div ng-repeat="wine in fiveDay | filter:query" class="col-sm-4">
 	            		<div class="row wine-box">
@@ -60,7 +69,7 @@
 				            	</p>
 	            			</div>
 			            	<div class="col-sm-12 image-box">
-			                	<img ng-src="{{ wine.image }}">
+			                	<img ng-src="{{wine.image}}">
 			              	</div>
 				            <div class="col-sm-12 wine-text">
 				            	{{wine.type}}
