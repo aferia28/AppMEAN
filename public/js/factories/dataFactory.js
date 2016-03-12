@@ -47,5 +47,21 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
             return error;
         })
     };
+
+    dataFactory.addComment = function (inData) {
+
+        var codeWine = inData.codeWine;
+
+        return $http({
+            url: '/addCommentWine/' + codeWine,
+            method: 'POST',
+            params: inData
+        }).success(function(response) {
+            return response;
+        })
+        .error(function(error) {
+            return error;
+        })
+    };
     return dataFactory;
 }]);

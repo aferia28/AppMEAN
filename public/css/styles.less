@@ -549,19 +549,21 @@ html{
 			text-align: center;
 		}
 	}
-	.product-price{
-		margin: 10px 0 10px 0;
-		span{
-			font-size: 25px;
-			color: black;
-			padding: 10px 10px 10px 10px;
+
+	.buy-box{
+		margin-top: 35px;
+		margin-bottom: 35px;
+		.product-price{
+			span{
+				font-size: 25px;
+				color: black;
+				padding: 10px 10px 10px 10px;
+			}
 		}
 	}
 	.box-add{
-		margin-top: 15px;
 		.product-add-input{
 			input{
-				border-radius: 20px;
 				width: 15%;
 				height: 32px;
 				border: 1px solid @five-color;
@@ -571,17 +573,17 @@ html{
 				}
 			}
 			button{
-				background-color: lighten(@first-color, 10%);
+				background-color: transparent;
 				margin-left: 15px;
-				border-radius: 20px;
+				padding-left: 20px;
+				padding-right: 20px;
 				height: 32px;
-				color: white;
-				border:0px;
+				color: black;
+				border:1px solid black;
 			}
 		}
 	}
 	.rating,.like{
-		margin-top: 11px;
 		span{
 			//font-size: 25px;
 			button{
@@ -590,12 +592,12 @@ html{
 				padding: 0;
 			}
 			.fa-star,.fa-star-o{
-				color: @third-color;
+				color: black;
 			}
 		}
 	}
 	.rank-box,.product-rate{
-		margin: 25px 0 10px 0;
+		margin-top: 35px;
 		.fa-glass{
 			color:@first-color;
 			font-size: 35px;

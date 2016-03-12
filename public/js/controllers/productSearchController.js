@@ -152,26 +152,28 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 			    	var comentario = $scope.comentario;
 			    	comentario = comentario.replace(/<\/?[^>]+(>|$)/g, "");
 
-			    	var inData = {
+			    	inData.comentario = comentario;
+
+			    	/*var inData = {
 			    		comentario: comentario,
 			    		wine: wine,
 			    		usuario: usuario
-			    	}
-
+			    	}*/
+			    	/*
 			    	$http({
 			    		url: '/addCommentWine/' + codeWine,
 			    		method: 'POST',
 			    		params: inData
-			    	})
-			    	.success(function(data) {
-			    		console.log('Comentario Anadido', data);
-			    		wine = data;
-						$scope.product = wine;
-						$scope.comentarios = wine.comentarios;
-						console.log(wine);
-			    		console.log($scope.comentarios);
-				    	$scope.comentario = "";
+			    	})*/
+			    	dataFactory.addComment(inData)
+			    	.then(function(response) {
+			    		console.log('Comentario Anadido', response.data);
+						console.log(response.data)
+						$scope.product = response.data;
 						ngDialog.close();
+			    	})
+			    	.catch(function(response) {
+			    		//tratar
 			    	})
 			    }
 			}]
