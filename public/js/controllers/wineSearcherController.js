@@ -4,21 +4,37 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 		$("#content").removeClass("col-sm-10").addClass("col-sm-12");
 	});
 
-	$scope.wineColor = {
+	/*$scope.wineColor = {
 		availableColors: [
 	  		{	id: 'red', 		name: 'Negre',	image: '../img/red-wine-header.jpg'	},
 	  		{	id: 'white',	name: 'Blanc',	image: '../img/rose-wine-header.jpg'	},
 	  		{	id: 'rose', 	name: 'Rosat',	image: '../img/white-wine-header.jpg'	}
     	],
     	selectedColor: {id: 'red', name: 'Negre'} // Sets the default value in the UI
-    };
+    };*/
 
-    // I use a timeout so I have access to all the elements
+    /*
+    ** Cardflow
+    */
+
+    $scope.cardflow={
+    	selectedCard: {title: 'red'}
+    };
+    // Use a timeout to have access to all the elements
     $timeout(function() {
-        $scope.$watch(function() { return $scope.wineColor.availableColors.current; }, function() {
-            console.log($scope.wineColor.availableColors);
+        $scope.$watch(function() { return $scope.cardflow.current; }, function() {
+            console.log('Current wine color selected: ' + $scope.cardflow.cards[$scope.cardflow.current].title);
+            $scope.cardflow.selectedCard.title = $scope.cardflow.cards[$scope.cardflow.current].title;
         });
     }, 100);
+            
+    // Generate the cards
+    $scope.cardflow.cards = [];
+    var types = ['red','white','rose'];
+    for (indexCardflow = 0; indexCardflow < 3; indexCardflow++) {
+        var t = types[indexCardflow % types.length];
+        $scope.cardflow.cards.push({image:'../img/' + t + '-wine-cardflow.jpg', title: t});
+    }
 
    	$scope.vintage = {
    		year: ''
@@ -63,7 +79,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 		numberResults = 100; // 1-100
 		available = 0; // 0 = all | 1 = in stock
 		productType = 'wine';
-		productColor = $scope.wineColor.selectedColor.id;
+		productColor = $scope.cardflow.selectedCard.title;
 		country = 'ES'; // España
 		// zipCode = '08360';
 		sort = 'qpr'; // qpr = Quality Price Ratio

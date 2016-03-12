@@ -1,5 +1,3 @@
-var moduleCardflow = angular.module('angular-cardflow', ['ngTouch']);
-
 var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote', 'angular-cardflow']);
 
 app.config(function($routeProvider, $authProvider, socialshareConfProvider)

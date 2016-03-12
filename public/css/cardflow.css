@@ -31,11 +31,11 @@
     -ms-transition: -ms-transform 0.25s ease-out;
 
     /* center cards in me */
-    padding-left: 50%;
+    padding-left: 40%;
 }
 
 
-.cardflow-card{
+.cardflow-card {
     float:left;
     margin-right: 10px;
 
@@ -48,7 +48,7 @@
     background: #000;
     background-size:cover;
 
-    border: 1px solid #000;
+    border: 3px solid #000;
 
     /* keep padding & borders inside box size */
     box-sizing:border-box;
@@ -67,8 +67,6 @@
 /* disable dragging */
 .cardflow-card img {
     pointer-events: none;
-    width: 200px;
-    height: 200px;
 }
 
 .cardflow-card.cardflow-active {
@@ -186,12 +184,12 @@ cardflow .cardflow-card.cardflow-active {
 }
 
 /* disable indent & active card for page-driven coverflows */
-.page .cardflow-container {
+/*.page .cardflow-container {
     padding-left: 0;
-}
+}*/
 
 .page .cardflow-card.cardflow-active {
-    border-color: #000;
+    border-color: white;
     -webkit-box-shadow: none;
     box-shadow: none;
     -webkit-transform: scale(1);
