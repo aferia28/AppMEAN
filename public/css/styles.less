@@ -1,5 +1,6 @@
-@import 'https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900';
+//@import 'https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900';
 @import 'https://fonts.googleapis.com/css?family=Parisienne';
+@import 'https://fonts.googleapis.com/css?family=Playfair+Display:400,900,700';
 
 /*######## VARIABLES ############*/
 
@@ -19,12 +20,13 @@ src: local('bromello'), url('./bromello/bromello.woff') format('woff');
 body {
     position: relative;
     overflow-x: hidden;
+    font-family: 'Playfair Display', serif !important;
 }
 
 body,
 html{
 	height: 100%;
-	font-family: 'Lato', sans-serif !important;
+	font-family: 'Playfair Display', serif;
 }
 /*-------------------------------*/
 /*           Wrappers            */
@@ -96,7 +98,7 @@ html{
 
 .sidebar-nav li {
     position: relative;
-    line-height: 20px;
+    line-height: 50px;
     display: inline-block;
     width: 100%;
 }
@@ -124,13 +126,13 @@ html{
     background-color: #ec1b5a;
 }
 .sidebar-nav li:nth-child(3):before {
-    background-color: #79aefe;
+    background-color: darken(@first-color, 10%);
 }
 .sidebar-nav li:nth-child(4):before {
-    background-color: #314190;
+    background-color: @third-color;
 }
 .sidebar-nav li:nth-child(5):before {
-    background-color: #279636;
+    background-color: #560554;
 }
 .sidebar-nav li:nth-child(6):before {
     background-color: #7d5d81;
@@ -159,6 +161,7 @@ html{
     color: #ddd;
     text-decoration: none;
     padding: 10px 15px 10px 30px;
+    font-size: 27px;
 }
 
 .sidebar-nav li a:hover,
@@ -193,14 +196,15 @@ html{
 /*-------------------------------*/
 
 .hamburger {
+	background-color: #3F3F3F;
+	padding: 50px;
   position: fixed;
-  top: 20px;
+  top: 40%;
   z-index: 999;
-  display: block;
+  display: inline-block;
   width: 32px;
   height: 32px;
-  margin-left: 15px;
-  background: transparent;
+  margin-left: 0px;
   border: none;
 }
 .hamburger:hover,
@@ -234,9 +238,9 @@ html{
 .hamburger.is-open .hamb-middle,
 .hamburger.is-open .hamb-bottom {
   position: absolute;
-  left: 0;
-  height: 4px;
-  width: 100%;
+  left: 20px;
+  height: 3px;
+  width: 50%;
 }
 .hamburger.is-closed .hamb-top,
 .hamburger.is-closed .hamb-middle,
@@ -244,7 +248,7 @@ html{
   background-color: white;
 }
 .hamburger.is-closed .hamb-top {
-  top: 5px;
+  top: 35px;
   -webkit-transition: all .35s ease-in-out;
 }
 .hamburger.is-closed .hamb-middle {
@@ -252,16 +256,16 @@ html{
   margin-top: -2px;
 }
 .hamburger.is-closed .hamb-bottom {
-  bottom: 5px;
+  bottom:35px;
   -webkit-transition: all .35s ease-in-out;
 }
 
 .hamburger.is-closed:hover .hamb-top {
-  top: 0;
+  top: 30px;
   -webkit-transition: all .35s ease-in-out;
 }
 .hamburger.is-closed:hover .hamb-bottom {
-  bottom: 0;
+  bottom: 30px;
   -webkit-transition: all .35s ease-in-out;
 }
 .hamburger.is-open .hamb-top,
@@ -318,142 +322,118 @@ html{
     background-color: rgba(250,250,250,.8);
     z-index: 1;
 }
-.region1{
-	font-family: 'Lato', sans-serif !important;
-	height: 100%;
-	background: url('../img/background_home2.jpg') no-repeat center center;
-	-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  -webkit-filter: grayscale(50%); /* Chrome, Safari, Opera */
-    filter: grayscale(50%);
-  .home-title{
+.sidebar-brand{
   	text-align: right;
   	font-family: 'bromello';
-  	h1{
-  		text-align: center;
-  		font-size: 100px;
-  		color: white;
-  	}
+	position: absolute;
+	left: 4px;
+	bottom: 16px;
+	font-size: 34px;
+	color: black;
   }
-  .widget-button{
-  	.signIn{
-  		padding: 10px 100px;
-  		background-color: @first-color;
-  		color: white;
-  		border-radius: 3px;
-  	}
-  	.signUp{
-  		padding: 10px 100px;
-  		background-color: transparent;
-  		border-radius: 3px;
-  		border: 2px solid white;
-  		color: white;
-  	}
-  }
-  .square{
-  	height: 250px;
-  	margin-top: 25px;
+.region1{
+	height: 100%;
+	background: url('../img/home-header.jpg') no-repeat center center;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    //-webkit-filter: grayscale(10%); /* Chrome, Safari, Opera */
+    //filter: grayscale(10%);
+  .widget-container-buttons{
+  	bottom: -400px;
   	text-align: center;
-  	.s-top{
-  		h5{
-  			font-weight: 300;
-  			font-size: x-large;
-  			padding-top: 10px;
-  			padding-left: 10px;
-  			color:white;
-  		}
-  		background: url('../img/wine1.jpg') no-repeat center center;
-  		background-size: 150%;
-  		height: 100%;
-  		filter: grayscale(100%) !important;
-	    -webkit-filter: grayscale(100%);
-	    -webkit-transition: all .3s ease;
-	    bottom:0;
-	    &:hover{
-			background-size:140%;
-			position: relative;
-			filter: grayscale(0%);
-	        -webkit-filter: grayscale(0%);
-	    	filter: none;
-        }
-  	}
-  	.s-favorite{
-  		h5{
-  			font-weight: 300;
-  			font-size: x-large;
-  			padding-top: 10px;
-  			padding-left: 10px;
-  			color:white;
-  		}
-  		background: url('../img/wine2.jpeg') no-repeat center center;
-  		background-size: cover;
-  		background-size: 150%;
-  		height: 100%;
-  		filter: grayscale(100%) !important;
-	    -webkit-filter: grayscale(100%);
-	    -webkit-transition: all .3s ease;
-	    bottom:0;
-	    &:hover{
-			background-size:140%;
-			position: relative;
-			filter: grayscale(0%);
-	        -webkit-filter: grayscale(0%);
-	    	filter: none;
-        }
-  	}
-  	.s-find{
-  		h5{
-  			font-weight: 300;
-  			font-size: x-large;
-  			padding-top: 10px;
-  			padding-left: 10px;
-  			color:white;
-  		}
-  		background: url('../img/image-bottom-left.jpg') no-repeat center center;
-  		background-size: cover;
-  		background-size: 150%;
-  		height: 100%;
-  		filter: grayscale(100%) !important;
-	    -webkit-filter: grayscale(100%);
-	    -webkit-transition: all .3s ease;
-	    bottom:0;
-	    &:hover{
-			background-size:140%;
-			position: relative;
-			filter: grayscale(0%);
-	        -webkit-filter: grayscale(0%);
-	    	filter: none;
-        }
-  	}
-  	.s-profile{
-  		h5{
-  			font-weight: 300;
-  			font-size: x-large;
-  			padding-top: 10px;
-  			padding-left: 10px;
-  			color:white;
-  		}
-  		background: url('../img/background_home.jpeg') no-repeat center center;
-  		background-size: cover;
-  		background-size: 150%;
-  		height: 100%;
-  		filter: grayscale(100%) !important;
-	    -webkit-filter: grayscale(100%);
-	    -webkit-transition: all .3s ease;
-	    bottom:0;
-	    &:hover{
-			background-size:140%;
-			position: relative;
-			filter: grayscale(0%);
-	        -webkit-filter: grayscale(0%);
-	    	filter: none;
-        }
-  	}
   }
+  	.round-button {
+  		cursor: pointer;
+		width:70px;
+		display: inline-block;
+		margin-left: 40px;
+	}
+	.round-button-circle {
+		width: 100%;
+		height:0;
+		padding-bottom: 100%;
+	    border-radius: 50%;
+		border:1px solid white;
+	    overflow:hidden;
+	    background-color: transparent;
+	}
+	.round-button-circle:hover {
+		border:2px solid white;
+	}
+	.round-button a {
+	    display:block;
+		float:left;
+		width:100%;
+		padding-top:50%;
+	    padding-bottom:50%;
+		line-height:1em;
+		margin-top:-0.5em;
+		font-weight: 300;
+		text-align:center;
+		color:white;
+	    font-size:1.2em;
+	    text-decoration:none;
+	}
+}
+.region2{
+	.section-header{
+		height: 100vh;
+		background: url('../img/winebar-1.jpg') no-repeat center center;
+		-webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    background-size: cover;
+	    h2{
+	    	text-align: center;
+	    	color: white;
+	    	font-size: 60px;
+	    	margin-top: 30%;
+	    }
+	}
+	.section1{
+		padding-left: 50px !important;
+		padding-right: 50px !important;
+		.widget-text{
+			padding-top: 200px !important;
+			padding-bottom: 200px !important;
+			p{
+				line-height: 35px;
+				text-align: center;
+				font-size: 20px;
+			}
+		}
+	}
+	.section3,
+	.section2{
+		.widget-text-title{
+			padding-top: 73px;
+			padding-bottom: 73px;
+			padding-right: 10px;
+			padding-left: 10px;
+			h3{
+				color: #3F3F3F;
+				margin-top: 80px;
+				text-align: center;
+				font-size: 65px;
+				margin-bottom: 45px;
+				text-decoration: none;
+			}
+			p{
+				text-align: left;
+				font-size: 17px;
+				line-height: 40px
+			}
+		}
+	}
 }
 
+.widget-searcher{
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
 .page-weather{
 	//.make-md-column(12);
 	//background: url('../img/wines-background.jpg') no-repeat center center;
@@ -517,11 +497,6 @@ html{
 	}
 }
 
-.page-login{
-	background: url('../img/login-background.jpeg') no-repeat center center;
-	background-size: cover;
-	opacity: 0.8;
-}
 .page-product{
 	.product-content{
 		.fa, .fa-arrow-left{
