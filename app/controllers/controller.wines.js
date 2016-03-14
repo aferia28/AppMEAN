@@ -109,7 +109,7 @@ exports.findWine = function(req, res) {
 				    			reviews: apiWine.reviews,
 				    			wm_notes: apiWine.wm_notes,
 				    			snoothrank: puntuacionTotal,
-				    			comentarios: puntuaciones.comentarios,
+				    			comentarios: puntuaciones.comentarios, //aqui las puntuaciones en realidad es un vino
 				    			canrate: canrate
 				    		}
 				    		res.send(objectToSend);
@@ -131,9 +131,11 @@ exports.addComment = function(req, res) {
 
 	var wi = JSON.parse(wine);
 	var usu = JSON.parse(usuario);
-	Vino.findOne({code: wi.code}, function(err, vino) {
+
+	Vino.findOne({code: wi.code}).populate({path: 'comentarios'}).exec(function(err, vino) {
 		if(!err)
 		{
+			console.log(vino)
 			if(vino === null)
 			{
 				if(wi.type == 'Red Wine')
@@ -181,6 +183,7 @@ exports.addComment = function(req, res) {
 				res.send(wine);
 			}else{
 
+				console.log(vino);
 				var comentario = new Comentario({
 					usuario: usu,
 					texto: comment,
@@ -269,6 +272,7 @@ exports.findWineByCode = function(req, res) {
     Vino.find({code: x.code}, function(err, vino) {
     	if(!err)
     	{
+    		console.log('>>>>>>>', vino);
     		if(vino == '')
     		{
     			if(x.type == 'Red Wine')
@@ -290,28 +294,36 @@ exports.findWineByCode = function(req, res) {
 				})
 
 				puntuacion.save(function(err) {
-					if(!err) console.log('Puntuacion guardada');
+					if(!err) console.log('>>> Puntuacion guardada');
 					else console.log('ERROR: ' + err.message);
 				})
 
-    			var wine = new Vino({
+				if(typeof x.vintage == 'string') x.vintage = 0;
+
+    			var wine_ = new Vino({
     				code: x.code,
 					name: x.name,
+					price: x.price,
 					type: type,
+					region: x.region,
 					winery: x.winery,
-					grape_type: x.varietal,
-					year: x.vintage,
+					varietal: x.varietal,
 					alcohol: x.alcohol,
+					image: x.image,
+					reviews: x.reviews,
+					wm_notes: x.wm_notes,
+					snoothrank: x.snoothrank,
+					year: x.vintage,
 					rates:[puntuacion]
     			})
 
-    			wine.save(function(err) {
-					if(!err) console.log('Vino guardado!');
+    			wine_.save(function(err) {
+					if(!err) console.log('>>>> Vino guardado!');
 					else console.log('ERROR: ' + err.message);
 				});
 
     			//crear rating
-    			res.send(wine);
+    			res.send(wine_);
     			//el vino no existe.post
     		}else{
 
