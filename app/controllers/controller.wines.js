@@ -132,7 +132,7 @@ exports.addComment = function(req, res) {
 	var wi = JSON.parse(wine);
 	var usu = JSON.parse(usuario);
 
-	Vino.findOne({code: wi.code}, function(err, vino) {
+	Vino.findOne({code: wi.code}).populate({path: 'comentarios'}).exec(function(err, vino) {
 		if(!err)
 		{
 			console.log(vino)

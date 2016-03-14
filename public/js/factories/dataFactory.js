@@ -50,18 +50,20 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
 
     dataFactory.addComment = function (inData) {
 
+        var defer = $q.defer();
         var codeWine = inData.codeWine;
 
-        return $http({
+        $http({
             url: '/addCommentWine/' + codeWine,
             method: 'POST',
             params: inData
         }).success(function(response) {
-            return response;
+            defer.resolve(response.comentarios)
         })
         .error(function(error) {
-            return error;
+            defer.reject();
         })
+        return defer.promise;
     };
     return dataFactory;
 }]);

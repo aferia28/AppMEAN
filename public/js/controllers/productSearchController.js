@@ -16,7 +16,9 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		wine: null
 	}
 
-	//$scope.absUrl = $location.absUrl(codeWine);
+	getWineType = function(wineType) {
+		return wineType.split(' ')[0].toLowerCase();
+	}
 
 	dataFactory.getWine(inData)
 	.then(function(response) {
@@ -25,8 +27,11 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 		wine = response.data;
 		$scope.product = response.data;
-		$scope.comentarios = wine.comentarios;
+		$scope.product.com = wine.comentarios;
 		inData.wine = wine;
+
+		$scope.type = getWineType(wine.type)
+		console.log($scope.type);
 
 		if(response.data.canrate == false)
 		{
@@ -42,49 +47,6 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		//tratar error
 	});
 
-
-	/*
-	$http.get('persona')
-	.success(function(data) {
-
-		usuario = data;
-
-		$http.get('/getWine', {params: {codeWine:codeWine, usuario:usuario}})
-		.success(function(data) {
-			console.log(data);
-
-			if(data.canrate == false)
-			{
-				$('.rating > span').css('opacity', 0.5);
-				$scope.isDisabled = true;
-			}else{
-				$scope.isDisabled = false;
-			}
-			wine = data;
-			$scope.product = wine;
-			$scope.comentarios = wine.comentarios;
-			console.log(wine);
-			console.log($scope.comentarios)
-
-			if(wine.type == 'Red Wine')
-			{
-				$scope.type = 'red';
-				console.log('Red wine returend');
-				$('#product-header').addClass('product-header-red');
-
-			}else if(wine.type == 'White Wine'){
-				$scope.type = 'white';
-				console.log('White wine returend');
-				$('#product-header').addClass('product-header-white');
-
-			}else if(wine.type = 'Rose Wine'){
-				$scope.type = 'rose';
-				console.log('Rose wine returend');
-				$('#product-header').addClass('product-header-rose');
-			}
-		})
-	})*/
-
 	$scope.addOwnWine = function(rank) {
 
 		inData.rank = rank;
@@ -97,13 +59,6 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		.catch(function(response) {
 			//tratar el error
 		})
-
-		/*
-		$http.get('/vinosCode/' + codeWine, {params: {rank: rank, wine:wine, usuario: usuario}})
-		.success(function(data) {
-			console.log(data);
-			$scope.isDisabled = true;
-		})*/
 	}
 
 	$scope.addFavorite = function() {
@@ -115,21 +70,12 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		.catch(function(response) {
 			//error a tratar
 		})
-		/*
-		$http({
-			url: '/addFavorite/'+codeWine,
-			method: 'POST',
-			params: inData
-		})
-		.success(function(data) {
-			console.log('Añadido a favoritos');
-			console.log(data);
-		})*/
 	}
 
 	$scope.clickToOpen = function() {
 		ngDialog.open({	template: 'popupTmpl',
 			className: 'ngdialog-theme-default',
+			scope: $scope,
 			controller: ['$scope', function($scope, summernote) {
 
 				$scope.options = {
@@ -149,27 +95,15 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 			    $scope.addComentario = function() {
 
-			    	var comentario = $scope.comentario;
-			    	comentario = comentario.replace(/<\/?[^>]+(>|$)/g, "");
+			    	var comentario = $scope.textComment;
+			    	var Ok_comment = comentario.replace(/<\/?[^>]+(>|$)/g, "");
 
-			    	inData.comentario = comentario;
+			    	inData.comentario = Ok_comment;
 
-			    	/*var inData = {
-			    		comentario: comentario,
-			    		wine: wine,
-			    		usuario: usuario
-			    	}*/
-			    	/*
-			    	$http({
-			    		url: '/addCommentWine/' + codeWine,
-			    		method: 'POST',
-			    		params: inData
-			    	})*/
 			    	dataFactory.addComment(inData)
 			    	.then(function(response) {
-			    		console.log('Comentario Anadido', response.data);
-						console.log(response.data)
-						$scope.product = response.data;
+			    		console.log('Comentario Anadido', response);
+						$scope.product.com = response;
 						ngDialog.close();
 			    	})
 			    	.catch(function(response) {
@@ -179,72 +113,4 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 			}]
 		});
 	};
-
-	$('#oneStar').hover(
-		function() {
-			$(this).removeClass('fa-star-o').addClass('fa-star');
-		},
-		function() {
-			$(this).removeClass('fa-star').addClass('fa-star-o');
-		}
-	);
-	$('#twoStars').hover(
-		function() {
-			$('#oneStar').removeClass('fa-star-o').addClass('fa-star');
-			$(this).removeClass('fa-star-o').addClass('fa-star');
-		},
-		function() {
-			$('#oneStar').removeClass('fa-star').addClass('fa-star-o');
-			$(this).removeClass('fa-star').addClass('fa-star-o');
-		}
-	);
-	$('#threeStars').hover(
-		function() {
-			$('#oneStar').removeClass('fa-star-o').addClass('fa-star');
-			$('#twoStars').removeClass('fa-star-o').addClass('fa-star');
-			$(this).removeClass('fa-star-o').addClass('fa-star');
-		},
-		function() {
-			$('#oneStar').removeClass('fa-star').addClass('fa-star-o');
-			$('#twoStars').removeClass('fa-star').addClass('fa-star-o');
-			$(this).removeClass('fa-star').addClass('fa-star-o');
-		}
-	);
-	$('#fourStars').hover(
-		function() {
-			$('#oneStar').removeClass('fa-star-o').addClass('fa-star');
-			$('#twoStars').removeClass('fa-star-o').addClass('fa-star');
-			$('#threeStars').removeClass('fa-star-o').addClass('fa-star');
-			$(this).removeClass('fa-star-o').addClass('fa-star');
-		},
-		function() {
-			$('#oneStar').removeClass('fa-star').addClass('fa-star-o');
-			$('#twoStars').removeClass('fa-star').addClass('fa-star-o');
-			$('#threeStars').removeClass('fa-star').addClass('fa-star-o');
-			$(this).removeClass('fa-star').addClass('fa-star-o');
-		}
-	);
-	$('#fiveStars').hover(
-		function() {
-			$('#oneStar').removeClass('fa-star-o').addClass('fa-star');
-			$('#twoStars').removeClass('fa-star-o').addClass('fa-star');
-			$('#threeStars').removeClass('fa-star-o').addClass('fa-star');
-			$('#fourStars').removeClass('fa-star-o').addClass('fa-star');
-			$(this).removeClass('fa-star-o').addClass('fa-star');
-		},
-		function() {
-			$('#oneStar').removeClass('fa-star').addClass('fa-star-o');
-			$('#twoStars').removeClass('fa-star').addClass('fa-star-o');
-			$('#threeStars').removeClass('fa-star').addClass('fa-star-o');
-			$('#fourStars').removeClass('fa-star').addClass('fa-star-o');
-			$(this).removeClass('fa-star').addClass('fa-star-o');
-		}
-	);
-
-	$('#likeBtn').hover(function() {
-		$(this).removeClass('fa-heart-o').addClass('fa-heart');
-	},
-	function() {
-		$(this).removeClass('fa-heart').addClass('fa-heart-o');
-	})
 }]);
