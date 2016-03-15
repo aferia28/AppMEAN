@@ -1,12 +1,19 @@
-app.service('serviceAdmin', function ($http) {
+app.service('serviceAdmin', function ($http,$auth) {
         var user;
         var admin;
-        $http.get('/persona')
-			.success(function(data) {
-				console.log('>>>Service', data);
-				user = data;
-				admin = data.isAdmin;
-			});
+
+        if(!$auth.getToken())
+        {
+            console.log('No hay persona logeada..');
+        }
+        else{
+            $http.get('/persona')
+            .success(function(data) {
+                console.log('>>>Service', data);
+                user = data;
+                admin = data.isAdmin;
+            });
+        }
 
         return {
             getProperty: function () {
