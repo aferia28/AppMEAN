@@ -43,6 +43,8 @@
     <!-- Services -->
     <script src="js/services/weatherService.js"></script>
 
+    <script src="js/factories/dataFactory.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/satellizer/0.13.3/satellizer.js"></script>
     <!-- ngTouch -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-touch.js"></script>
@@ -88,13 +90,8 @@
     <!-- Sidebar -->
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
         <ul class="nav sidebar-nav">
-            <li class="sidebar-brand">
-                <a href="#">
-                   Brand
-                </a>
-            </li>
-            <li ng-if="isAuthenticated()">
-                <a href="#/home">Home</a>
+            <li>
+                <a href="#/home" style="font-family: 'bromello'; font-size: 38px; padding-top: 35px; padding-bottom: 35px;">onWine</a>
             </li>
             <li ng-if="isAuthenticated()">
                 <a href="#winesearcher">Wines</a>
@@ -120,11 +117,16 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-            <span class="hamb-top"></span>
-			<span class="hamb-middle"></span>
-			<span class="hamb-bottom"></span>
-        </button>
+        <div>
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+    			<span class="hamb-bottom"></span>
+            </button>
+            <div class="hamburger" style="background-color: white !important; left: 100px !important;">
+            <h4 class="sidebar-brand">onWine</h4>
+            </div>
+        </div>
         <div ng-view class="page {{ pageClass }}">
         </div>
     </div>
