@@ -7,7 +7,7 @@ app.controller('homeController', ['$scope','$auth','$http','ngDialog','$rootScop
 
 	if(serviceAdmin.getProperty() !== undefined)
 	{
-		console.log('Persona Logueada: ' + serviceAdmin.getProperty());
+		console.log('Persona Logueada: ', serviceAdmin.getProperty());
 	}
 
 	$scope.clickToOpenSignIn = function() {
