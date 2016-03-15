@@ -6,6 +6,11 @@ admin_app.config(function($stateProvider, $urlRouterProvider)
 	$urlRouterProvider.otherwise('/admin');
 
 	$stateProvider
+    .state('home',{
+      url: '/admin',
+      controller: '',
+      templateUrl: 'views/admin/admin_home.html',
+  })
   	.state('profiles',{
   		url: '/perfiles',
   		controller: '',
