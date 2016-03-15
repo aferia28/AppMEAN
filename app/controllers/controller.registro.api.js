@@ -72,9 +72,10 @@ exports.updatePersona = function(req, res) {
 	console.log(req.body);
 
 	Persona.findById(req.params.id, function(err, persona) {
-		persona.nombre = req.body.nombre;
-		persona.apellidos = req.body.apellidos;
-		persona.email = req.body.email;
+		persona.nombre 		= req.body.nombre;
+		persona.apellidos 	= req.body.apellidos;
+		persona.email 		= req.body.email;
+		persona.isAdmin 	= req.body.isAdmin;
 
 		persona.save(function(err) {
 			if(err) return err.status(500).send(err.message);
