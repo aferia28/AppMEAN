@@ -1,22 +1,7 @@
 app.controller('wineSearcherController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
-
-	$("aside").fadeOut("slow", function() {
-		$("#content").removeClass("col-sm-10").addClass("col-sm-12");
-	});
-
-	/*$scope.wineColor = {
-		availableColors: [
-	  		{	id: 'red', 		name: 'Negre',	image: '../img/red-wine-header.jpg'	},
-	  		{	id: 'white',	name: 'Blanc',	image: '../img/rose-wine-header.jpg'	},
-	  		{	id: 'rose', 	name: 'Rosat',	image: '../img/white-wine-header.jpg'	}
-    	],
-    	selectedColor: {id: 'red', name: 'Negre'} // Sets the default value in the UI
-    };*/
-
     /*
     ** Cardflow
     */
-
     $scope.cardflow={
     	selectedCard: {title: 'red'}
     };
@@ -36,6 +21,9 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
         $scope.cardflow.cards.push({image:'../img/' + t + '-wine-cardflow.jpg', title: t});
     }
 
+    /*
+    ** Form for the wine custom query
+    */
    	$scope.vintage = {
    		year: ''
    	};
@@ -71,6 +59,11 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 	    }
     };
 
+	$scope.keywords = '';
+
+	/*
+	** On clicking the button to submit the search
+	*/
 	$scope.search = function() {		
 
 		// Wine search parameters from Snooth
@@ -89,7 +82,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 		region = 'Catalonia'; // + 'Catalunya'
 		designationOrigin = $scope.selectedDOs.join("&q=");
 		vintage = $scope.vintage.year;
-		query = region + '+' + designationOrigin + '+' + vintage;
+		query = region + '+' + designationOrigin + '+' + vintage + '+' + $scope.keywords;
 
 		var url = apiURl 
 				+ '?akey=' + apiKey 

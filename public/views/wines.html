@@ -6,9 +6,7 @@
 		<div class="wineColor"> <!-- search-box-bottom -->
 			<h3 class="wine-color-title">Tipus de vi</h3>	
 			<cardflow model="cardflow">
-                <div class="cardflow-card" ng-repeat="card in cardflow.cards" style="background-image: url( {{card.image}} )">
-                	<div class="card-title">{{card.title}}</div>
-                </div>
+                <div class="cardflow-card" ng-repeat="card in cardflow.cards" style="background-image: url( {{card.image}} )"></div>
             </cardflow>
         </div>
 		<div class="row">
@@ -32,7 +30,10 @@
 						</div>
 					</div>
 					<hr>
-					<input ng-model="query" id="query"> <!-- INPUT PARA FILTRAR POR NOMBRE-->
+					<div class="form-group">
+						Busques concretament?
+						<input type="text" name="inputKeywords" ng-model="keywords" placeholder="Paraules clau">
+					</div>
 					<button type="submit" ng-click="search()">Buscar</button>
 				</form>
 			</div>
