@@ -13,13 +13,13 @@
         </div>
 		<div class="row">
 			<div class="col-sm-3 wine-search-parameters">
-				<form novalidate name="formWineSearch">
+				<form name="formWineSearch">
 					<div class="wineVintage">
 						<h4>Anyada</h4>
 						<div class="form-group">
-							<input type="number" name="inputVintage" ng-model="vintage.year" min="1900" max="2016">
-							<div role="alert">
-								<span class="error" ng-show="formWineSearch.inputVintage.$error.number">Des de 1900 a 2016</span>
+							<input type="number" name="inputVintage" ng-model="vintage.year" placeholder="1900 - 2016" ng-minlength="1900" ng-maxlength="2016">
+							<div ng-messages="formWineSearch.inputVintage.$error">
+								<div ng-messages-include="../views/messages.html"></div>
 							</div>
 						</div>
 					</div>
