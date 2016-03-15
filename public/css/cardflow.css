@@ -48,7 +48,7 @@
     background: #000;
     background-size:cover;
 
-    border: 3px solid #000;
+    border: 3px solid black;
 
     /* keep padding & borders inside box size */
     box-sizing:border-box;
@@ -150,12 +150,14 @@ http://webdesign.tutsplus.com/tutorials/cross-browser-css-reflections-glows-and-
 cardflow .cardflow-wrapper {
     height: 300px;
     padding-top: 10px;
-    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.05, rgb(46,46,46)), color-stop(0.53, rgb(0,0,0)) );
+    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.05, rgba(46,46,46,0)), color-stop(0.53, rgba(0,0,0,0)) );
 }
 
 cardflow .cardflow-card {
+    /*
     -webkit-box-shadow: 0 0 8px 8px rgba(0,0,0,0.5);
     box-shadow: 0 0 8px 8px rgba(0,0,0,0.5);
+    */
     -webkit-box-reflect: below 1px -webkit-gradient( linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(rgba(255, 255, 255, 0.5)) );
     /*
     this seems to mess up reflection in chrome.
@@ -189,7 +191,7 @@ cardflow .cardflow-card.cardflow-active {
 }*/
 
 .page .cardflow-card.cardflow-active {
-    border-color: white;
+    border: 3px solid rgb(251, 224, 120);
     -webkit-box-shadow: none;
     box-shadow: none;
     -webkit-transform: scale(1);
