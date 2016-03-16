@@ -432,17 +432,11 @@ html {
 .page-weather .box-content .box-content-bottom .wine-box .wine-vintage {
   text-align: center;
 }
-.page-weather .search-box {
-  height: 100%;
-  border-right: 2px solid black;
+.page-weather .wine-search-parameters {
+  padding-left: 50px;
 }
-.page-weather .search-box .search-box-top {
-  text-align: center;
-  border-radius: 0px;
-  padding: 0 25px 15px 25px;
-}
-.page-weather .search-box .search-box-bottom {
-  text-align: center;
+.page-weather button {
+  margin-bottom: 15px;
 }
 .page-product .product-content .fa,
 .page-product .product-content .fa-arrow-left {
