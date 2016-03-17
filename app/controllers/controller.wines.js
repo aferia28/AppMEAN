@@ -399,6 +399,10 @@ exports.getTopWines = function (req, res) {
 	})
 	})*/
 
+	var whiteWines = [];
+	var redWines = [];
+	var roseWines = [];
+
 	Vino.aggregate([
 		{'$lookup': {
 			from: 'puntuacions',
@@ -412,8 +416,50 @@ exports.getTopWines = function (req, res) {
 		],function(err, result) {
 			if(!err)
 			{
+				for(var i = 0; i<result.length;i++)
+				{
+					if(result[i].type == 'Tinto')
+					{
+						redWines.push(result[i]);
+					}else if (result[i].type == 'Rose') {
+						roseWines.push(result[i]);
+					}else if (result[i].type == 'Blanco') {
+						whiteWines.push(result[i]);
+					}
+				}
 
-				res.send(result);
+				var options = {
+					host: 'api.snooth.com',
+					path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q="+'Catalonia'+"&s=sr&xp=100&color=red"
+				};
+
+				callback = function(response) {
+			  		var string = '';
+			  		response.on('data', function (chunk) {
+			  			console.log(chunk);
+			    		string += chunk;
+			  		});
+
+			  		response.on('end', function () {
+
+			  			var jsonWine = JSON.parse(string);
+			  			console.log(jsonWine);
+			  			for(var i = 0; i<jsonWine.wines.length; i++)
+			  			{
+			  				redWines.push(jsonWine.wines[i]);
+			  			}
+			  			res.send(redWines); //devuelve array de los vinos tintos
+			  			/*NOTA: Ahora solo hay un vino tinto en nuestra BD con lo qual no hay problema,
+						pero hay que hacer una funcion que los ordene de mas a menos y solo guarde en la array
+						los 3 primeros...
+			  			*/
+			  		});
+			  	}
+
+			  	http.request(options, callback).end();
+
+
+				//res.send(result);
 			}else{
 				res.send(err.message);
 			}
