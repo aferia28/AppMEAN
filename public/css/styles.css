@@ -418,6 +418,7 @@ html {
   height: 245px;
 }
 .page-weather .box-content .box-content-bottom .wine-box p {
+  font-weight: bold;
   text-align: center;
 }
 .page-weather .box-content .box-content-bottom .wine-box .image-box {
@@ -426,17 +427,23 @@ html {
 .page-weather .box-content .box-content-bottom .wine-box .image-box img {
   margin: auto;
 }
-.page-weather .box-content .box-content-bottom .wine-box .wine-text {
-  text-align: center;
-}
+.page-weather .box-content .box-content-bottom .wine-box .wine-text,
 .page-weather .box-content .box-content-bottom .wine-box .wine-vintage {
   text-align: center;
+  color: black;
+}
+.page-weather .wine-searcher .background-image {
+  -webkit-filter: blur(3px);
+  /* Chrome, Safari, Opera */
+  filter: blur(3px);
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
 .page-weather .wine-search-parameters {
-  padding-left: 50px;
-}
-.page-weather button {
-  margin-bottom: 15px;
+  padding: 5px 30px 15px 45px;
+  background-color: white;
+  border-radius: 2px;
 }
 .page-product .product-content .fa,
 .page-product .product-content .fa-arrow-left {

@@ -453,42 +453,58 @@ html{
 			overflow-y: scroll;
 			height: 500px;
 
-			.wine-box{
+			.wine-box {
 				-webkit-box-shadow: 3px 1px 10px 0px rgba(0,0,0,0.75);
                 -moz-box-shadow: 3px 1px 10px 0px rgba(0,0,0,0.75);
 				box-shadow: 3px 1px 10px 0px rgba(0,0,0,0.75);
 				background-color: whitesmoke;
 				height: 245px;
-				p{
+				
+				p {
+					font-weight:bold;
 					text-align: center;
 				}
-				.image-box{
+
+				.image-box {
 					text-align: center;
-					img{
+					
+					img {
 						margin: auto;
 					}
 				}
-				.wine-text{
+
+				.wine-text, .wine-vintage {
 					text-align: center;
-				}
-				.wine-vintage{
-					text-align: center
+					color: black;
 				}
 			}
 		}
 	}
 
+	.wine-searcher {
+		// background-image: url(../img/grapes.jpeg);
+	}
+
+	.wine-searcher .background-image{
+		-webkit-filter: blur(3px); /* Chrome, Safari, Opera */
+    	filter: blur(3px);
+    	position: fixed;
+    	height: 100%;
+    	width: 100%;
+    	// top: 0;
+    	// bottom: 0;
+	}
+
 	.wine-search-parameters {
-		padding-left: 50px;
+		padding: 5px 30px 15px 45px; // top right bottom left
+		background-color: white;
+		border-radius: 2px;
 	}
 
 	.wine-search-results {
 
 	}
 
-	button {
-		margin-bottom: 15px;
-	}
 }
 
 .page-product{
