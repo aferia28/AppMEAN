@@ -380,6 +380,40 @@ exports.addWine = function(req, res) {
 	res.send(wine);
 }
 
+exports.getTopWines = function (req, res) {
+	//buscar todos los vinos tanto de nuestra bbdd, como de la api..
+	//tengo que guardar cada vino en una array de vinos, sin repetirlos..
+	//una vez guardados todos los vinos en la array, hacer sort y ordenarlos de mayor a menos..
+	//con mongoose hacer una query que me devuelva 5 vinos con puntuación mas alta
+	//NOTA: La api tiene una opcion para hacer query según ranking
+	//NOTA: Para poder hacer esta operacion, hace falta saber la puntuacion media de cada vino.
+	/*Vino.aggregate([{$group:{_id:'$rates'}, media:{$avg:'$rates.puntuacion'}}]).exec(function(err,result) {
+		Puntuacion.populate(result, {path:'rates'}, function(err,res) {
+		if(!err)
+		{
+			//Puntuacion.aggregate([{$match: {_id: {$in: vinos.rates}}},])
+			res.send(result)
+		}else{
+			res.send(err.message)
+		}
+	})
+	})*/
+
+	Vino.aggregate([
+		{'$lookup': {
+			from: 'puntuacions',
+			localField:'name',
+			foreignField:'vineName',
+			as:'arrayWines'
+			}
+		},
+		{'$unwind':'$arrayWines'},
+		{$group:{_id: '$name', media:{'$avg':'$arrayWines.puntuacion'}}}
+		],function(err, result) {
+			res.send(result);
+		})
+}
+
 	//PUT
 exports.updateWine = function(req, res) {
 

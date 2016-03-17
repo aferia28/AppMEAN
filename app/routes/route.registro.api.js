@@ -34,6 +34,8 @@ module.exports = function(app) {
 
 	app.post('/addCommentWine/:codeWine', wineController.addComment);
 
+	app.get('/topwines', wineController.getTopWines)
+
 	app.get('/getWine', wineController.findWine);
 
 	app.get('/vinos', wineController.findAllWines);

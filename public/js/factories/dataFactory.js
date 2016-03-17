@@ -65,5 +65,19 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         })
         return defer.promise;
     };
+
+    dataFactory.getTopWines = function() {
+
+        return $http({
+            url: '/topwines/',
+            method: 'GET'
+        }).success(function(response) {
+            return response;
+        })
+        .error(function(error) {
+            return error;
+        })
+
+    }
     return dataFactory;
 }]);

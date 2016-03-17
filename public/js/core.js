@@ -86,9 +86,9 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
       }
 
   })
-    .when('/private',{
-      controller: '',
-      templateUrl: 'views/private.html',
+    .when('/topwines',{
+      controller: 'topWinesController',
+      templateUrl: 'views/topwines.html',
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
