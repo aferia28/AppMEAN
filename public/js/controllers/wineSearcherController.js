@@ -1,118 +1,125 @@
-app.controller('wineSearcherController', ['$scope', '$http', function($scope, $http) {
+app.controller('wineSearcherController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+    /*
+    ** Cardflow
+    */
+    $scope.cardflow={
+    	selectedCard: {title: 'red'}
+    };
+    // Use a timeout to have access to all the elements
+    $timeout(function() {
+        $scope.$watch(function() { return $scope.cardflow.current; }, function() {
+            console.log('Current wine color selected: ' + $scope.cardflow.cards[$scope.cardflow.current].title);
+            $scope.cardflow.selectedCard.title = $scope.cardflow.cards[$scope.cardflow.current].title;
+        });
+    }, 100);
+            
+    // Generate the cards
+    $scope.cardflow.cards = [];
+    var types = ['red','white','rose'];
+    for (indexCardflow = 0; indexCardflow < 3; indexCardflow++) {
+        var t = types[indexCardflow % types.length];
+        $scope.cardflow.cards.push({image:'../img/' + t + '-wine-cardflow.jpg', title: t});
+    }
 
-	$("aside").fadeOut("slow", function() {
-		$("#content").removeClass("col-sm-10").addClass("col-sm-12");
-	});
+    /*
+    ** Form for the wine custom query
+    */
+   	$scope.vintage = {
+   		year: ''
+   	};
 
-	var tipo;
-	var resultado;
+   	$scope.DOs = [
+		{	id: 'alella', 			name: 'Alella'				},
+		{	id: 'cataluna', 		name: 'Cataluña'			},
+		{	id: 'concadebarbera', 	name: 'Conca de Barberá'	},
+		{	id: 'costersdelsegre',	name: 'Costers del Segre'	},
+		{	id: 'emporda', 			name: 'Emporda'				},
+		{	id: 'montsant', 		name: 'Montsant'			},
+		{	id: 'penedes', 			name: 'Penedés'				},
+		{	id: 'pladebages', 		name: 'Pla de Bages'		},
+		{	id: 'priorato', 		name: 'Priorat'				},
+		{	id: 'tarragona', 		name: 'Tarragona'			},
+		{	id: 'terralta', 		name: 'Terra Alta'			}
+   	];
 
-		$scope.types = {
-	    	availableOptions: [
-	    		{id: 'all', name: 'Todos'},
-	      		{id: 'red', name: 'Tinto'},
-	      		{id: 'white', name: 'Blanco'},
-	      		{id: 'rose', name: 'Rosado'}
-	    	],
-	   };
+   	$scope.selectedDOs = [];
 
-	   $scope.years = {
-	   		availableYears: [
-	   			{id: '2015', name: '2015'},
-	   			{id: '2014', name: '2014'},
-	   			{id: '2013', name: '2013'},
-	   			{id: '2012', name: '2012'},
-	   			{id: '2011', name: '2012'},
-	   			{id: '2010', name: '2010'}
-	   		],
-	   };
+   	// Toggle selection for a given DO by name
+	$scope.toggleSelection = function toggleSelection(DOname) {
+		var index = $scope.selectedDOs.indexOf(DOname);
+	 
+	    // Currently selected
+	    if (index > -1) {
+			$scope.selectedDOs.splice(index, 1);
+	    }
+	 
+	    // Newly selected
+	    else {
+	        $scope.selectedDOs.push(DOname);
+	    }
+    };
 
-	   $scope.DOs = {
-	   		availableDO: [
-	   			{id: 'abona', name: 'Abona'},
-	   			{id: 'alella', name: 'Alella'},
-	   			{id: 'alicante', name: 'Alicante'},
-	   			{id: 'almansa', name: 'Almansa'},
-	   			{id: 'arlanza', name: 'Arlanza'},
-	   			{id: 'arribes', name: 'Arribes'},
-	   			{id: 'bierzo', name: 'Bierzo'},
-	   			{id: 'binissalem', name: 'Binissalem'},
-	   			{id: 'bullas', name: 'Bullas'},
-	   			{id: 'calatayud', name: 'Calatayud'},
-	   			{id: 'campodeborja', name: 'Campo de Borja'},
-	   			{id: 'cariñena', name: 'Cariñena'},
-	   			{id: 'cataluna', name: 'Cataluña'},
-	   			{id: 'cava', name: 'Cava'},
-	   			{id: 'chacolidealava', name: 'Chacoli de Álava'},
-	   			{id: 'chacolidegetaria', name: 'Chacoli de Getaria'},
-	   			{id: 'chacolidevizcaya', name: 'Chacoli de Vizcaya'},
-	   			{id: 'cigales', name: 'Cigales'},
-	   			{id: 'concadebarbera', name: 'Conca de Barberá'},
-	   			{id: 'condadodehuelva', name: 'Condado de Huelva'},
-	   			{id: 'costersdelsegre', name: 'Costers del Segre'},
-	   			{id: 'elhierro', name: '2012'},
-	   			{id: 'emporda', name: 'Emporda'},
-	   			{id: 'grancanaria', name: 'Gran Canaria'},
-	   			{id: 'jerez', name: 'Jerez'},
-	   			{id: 'jumilla', name: 'Jumilla'},
-	   			{id: 'lagomera', name: 'La Gomera'},
-	   			{id: 'lamancha', name: 'La Mancha'},
-	   			{id: 'lapalma', name: 'La Palma'},
-	   			{id: 'lanzarote', name: 'Lanzarote'},
-	   			{id: 'malaga', name: 'Málaga'},
-	   			{id: 'manchuela', name: 'Manchuela'},
-	   			{id: 'sanlucardebarrameda', name: 'San Lucar de Barrameda'},
-	   			{id: 'mentrida', name: 'Mentrida'},
-	   			{id: 'mondejar', name: 'Mondejar'},
-	   			{id: 'monterrei', name: 'Monterrei'},
-	   			{id: 'montilla', name: 'Montilla'},
-	   			{id: 'montsant', name: 'Montsant'},
-	   			{id: 'navarra', name: 'Navarra'},
-	   			{id: 'penedes', name: 'Penedés'},
-	   			{id: 'pladebages', name: 'Pla de Bages'},
-	   			{id: 'pladellevant', name: 'Pla de Llevant'},
-	   			{id: 'priorat', name: 'Priorat'},
-	   			{id: 'riasbaixas', name: 'Rias Baixas'},
-	   			{id: 'ribeirasacra', name: 'Ribeira Sacra'},
-	   			{id: 'ribeiro', name: 'Ribeiro'},
-	   			{id: 'riberadelduero', name: 'Ribera del Duero'},
-	   			{id: 'riberadelguadiana', name: 'Ribera del Guadiana'},
-	   			{id: 'riberadeljucar', name: 'Ribera del Jucar'},
-	   			{id: 'rioja', name: 'Rioja'},
-	   			{id: 'rueda', name: 'Rueda'},
-	   			{id: 'sierrasdelmalaga', name: 'Sierras de Málaga'},
-	   			{id: 'tacoronte', name: 'Tacoronte'},
-	   			{id: 'tarragona', name: 'Tarragona'},
-	   			{id: 'terralta', name: 'Terra Alta'},
-	   			{id: 'tierradelleon', name: 'Tierra del León'},
-	   			{id: 'tierradelvinozamora', name: 'Tierra del Vino de Zamora'},
-	   			{id: 'toro', name: 'Toro'},
-	   			{id: 'ucles', name: 'Ucles'},
-	   			{id: 'requena', name: 'Requena'},
-	   			{id: 'valdeorras', name: 'Valdeorras'},
-	   			{id: 'valdepenas', name: 'Valdepenas'},
-	   			{id: 'valencia', name: 'Valencia'},
-	   			{id: 'valledeguimar', name: 'Valle de Güimar'},
-	   			{id: 'valledelaorotava', name: 'Valle de la Ortolava'},
-	   			{id: 'vinosdemadrid', name: 'Vinos de Madrid'},
-	   			{id: 'ycoden', name: 'Ycoden'},
-	   			{id: 'yecla', name: 'Yecla'}
-	   		],
-	   };
+	$scope.keywords = '';
 
-		$scope.buscar = function(){
+	/*
+	** On clicking the button to submit the search
+	*/
+	$scope.search = function() {		
 
-			tipo = $scope.types.repeatSelect;
+		// Wine search parameters from Snooth
+		apiURl = 'http://api.snooth.com/wines/';
+		apiKey = 'mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17';
+		numberResults = 100; // 1-100
+		available = 0; // 0 = all | 1 = in stock
+		productType = 'wine';
+		productColor = $scope.cardflow.selectedCard.title;
+		country = 'ES'; // España
+		// zipCode = '08360';
+		sort = 'qpr'; // qpr = Quality Price Ratio
+		// language = 'es'; // Español
+		
+		// Custom parameters
+		region = 'Catalonia'; // + 'Catalunya'
+		designationOrigin = $scope.selectedDOs.join("&q=");
+		vintage = $scope.vintage.year;
+		query = region + '+' + designationOrigin + '+' + vintage + '+' + $scope.keywords;
 
-			console.log(tipo);
+		var url = apiURl 
+				+ '?akey=' + apiKey 
+				+ '&n=' + numberResults 
+				+ '&a=' + available 
+				+ '&t=' + productType
+				+ '&color=' + productColor
+				// + '&c=' + country 
+				// + '&z=' + zipCode
+				+ '&s=' + sort
+				+ '&q=' + query;
 
-			$http.get('http://api.snooth.com/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&color=' + tipo + '&lang=es&c=ES')
-			.success(function(data){
-	  			$scope.fiveDay = data;
+		// Angular method that makes the request
+		$http.get(url).then(function(response) {
+			// Handles success
+			$scope.fiveDay = response.data.wines;  			
+  		}, function(response) {
+  			// Handles error
+  			$scope.fiveDay = "Request failed";
+  		});
 
-	  			console.log(data);
-	  		})
-		}
+		// jQuery method that doesn't trigger CORS problem, but $scope is 'undefined'
+  		/*$.ajax(
+		{
+			url: url,
+			dataType: 'json',
+			error: function(jqXHR, textStatus, errorThrown)
+			{
+                $scope.fiveDay = "Request failed";
+            },
+            success: function(response)
+            {
+            	console.log(response);
+            	$scope.fiveDay = response.wines;
+            }
+		});*/
+	}
 
 	$scope.pageClass = 'page-weather';
 }]);

@@ -440,8 +440,8 @@ html{
 	background-size: cover;
 	opacity: 0.8;
 
-	.box-content{
-		//background-color: white;
+	.box-content {
+		
 		.box-content-top{
 			background: rgba(255, 255, 255, 255.9);
 			border-radius: 0px;
@@ -452,49 +452,59 @@ html{
 			background: rgba(255, 255, 255, 0.8);
 			overflow-y: scroll;
 			height: 500px;
-			.wine-box{
+
+			.wine-box {
 				-webkit-box-shadow: 3px 1px 10px 0px rgba(0,0,0,0.75);
                 -moz-box-shadow: 3px 1px 10px 0px rgba(0,0,0,0.75);
 				box-shadow: 3px 1px 10px 0px rgba(0,0,0,0.75);
 				background-color: whitesmoke;
 				height: 245px;
-				p{
+				
+				p {
+					font-weight:bold;
 					text-align: center;
 				}
-				.image-box{
+
+				.image-box {
 					text-align: center;
-					img{
+					
+					img {
 						margin: auto;
 					}
 				}
-				.wine-text{
+
+				.wine-text, .wine-vintage {
 					text-align: center;
-				}
-				.wine-vintage{
-					text-align: center
+					color: black;
 				}
 			}
 		}
 	}
 
-	.search-box{
-		height: 100%;
-		border-right: 2px solid black;
-
-		.search-box-top{
-			text-align: center;
-			//background: rgba(255, 255, 255, 255.9);
-			border-radius: 0px;
-			padding: 0 25px 15px 25px;
-		}
-		.search-box-bottom{
-			text-align: center;
-			//background: rgba(255, 255, 255, 0.8);
-		}
-		#input-filter{
-
-		}
+	.wine-searcher {
+		// background-image: url(../img/grapes.jpeg);
 	}
+
+	.wine-searcher .background-image{
+		-webkit-filter: blur(3px); /* Chrome, Safari, Opera */
+    	filter: blur(3px);
+    	position: fixed;
+    	height: 100%;
+    	width: 100%;
+    	// top: 0;
+    	// bottom: 0;
+	}
+
+	.wine-search-parameters {
+		padding: 5px 30px 15px 45px; // top right bottom left
+		background-color: white;
+		border-radius: 2px;
+	}
+
+	.wine-search-results {
+
+	}
+
 }
 
 .page-product{
