@@ -408,9 +408,15 @@ exports.getTopWines = function (req, res) {
 			}
 		},
 		{'$unwind':'$arrayWines'},
-		{$group:{_id: '$name', media:{'$avg':'$arrayWines.puntuacion'}}}
+		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}}
 		],function(err, result) {
-			res.send(result);
+			if(!err)
+			{
+
+				res.send(result);
+			}else{
+				res.send(err.message);
+			}
 		})
 }
 
