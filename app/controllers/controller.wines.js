@@ -402,6 +402,7 @@ exports.getTopWines = function (req, res) {
 	var whiteWines = [];
 	var redWines = [];
 	var roseWines = [];
+	var allWines = [];
 
 	Vino.aggregate([
 		{'$lookup': {
@@ -413,25 +414,14 @@ exports.getTopWines = function (req, res) {
 		},
 		{'$unwind':'$arrayWines'},
 		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}},
-		{$sort: {media: -1}}
-		//{$match: {type: "Tinto"}}
+		{$sort: {media: -1}},
+		{$match: {type: "Tinto"}},
+		{$limit: 3}
 		],function(err, result) {
 			if(!err)
 			{
-				//redWines = result;
-				for(var i = 0; i<result.length;i++)
-				{
-					if(result[i].type == 'Tinto')
-					{
-						redWines.push(result[i]);
-					}else if (result[i].type == 'Rose') {
-						roseWines.push(result[i]);
-					}else if (result[i].type == 'Blanco') {
-						whiteWines.push(result[i]);
-					}
-				}
-
-				var options = {
+				redWines = result;
+				/*var options = {
 					host: 'api.snooth.com',
 					path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q="+'Catalonia'+"&s=sr&xp=100&color=red"
 				};
@@ -451,22 +441,69 @@ exports.getTopWines = function (req, res) {
 			  			{
 			  				redWines.push(jsonWine.wines[i]);
 			  			}
-			  			res.send(whiteWines); //devuelve array de los vinos tintos
-			  			/*NOTA: Ahora solo hay un vino tinto en nuestra BD con lo qual no hay problema,
+			  			res.send(redWines); //devuelve array de los vinos tintos
+			  			NOTA: Ahora solo hay un vino tinto en nuestra BD con lo qual no hay problema,
 						pero hay que hacer una funcion que los ordene de mas a menos y solo guarde en la array
 						los 3 primeros...
-			  			*/
+
 			  		});
 			  	}
 
-			  	http.request(options, callback).end();
-
-
-				//res.send(result);
+			  	http.request(options, callback).end();*/
 			}else{
 				res.send(err.message);
 			}
 		})
+
+	Vino.aggregate([
+		{'$lookup': {
+			from: 'puntuacions',
+			localField:'name',
+			foreignField:'vineName',
+			as:'arrayWines'
+			}
+		},
+		{'$unwind':'$arrayWines'},
+		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}},
+		{$sort: {media: -1}},
+		{$match: {type: "Blanco"}},
+		{$limit: 3}
+		],function(err, result) {
+			if(!err)
+			{
+				whiteWines = result;
+
+			}else{
+				res.send(err.message);
+			}
+	})
+
+	Vino.aggregate([
+		{'$lookup': {
+			from: 'puntuacions',
+			localField:'name',
+			foreignField:'vineName',
+			as:'arrayWines'
+			}
+		},
+		{'$unwind':'$arrayWines'},
+		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}},
+		{$sort: {media: -1}},
+		{$match: {type: "Rosado"}},
+		{$limit: 3}
+		],function(err, result) {
+			if(!err)
+			{
+				roseWines = result;
+
+			}else{
+				res.send(err.message);
+			}
+	})
+
+	allWines = {red:redWines,white:whiteWines,rose:roseWines};
+
+	res.send(allWines);
 }
 
 	//PUT
