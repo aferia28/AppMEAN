@@ -124,6 +124,17 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
         }]
       }
   })
+    .when('/pageaddwine',{
+      controller: 'addWineController',
+      templateUrl: 'views/addwine.html',
+      resolve: {
+        authenticated: ["$location", '$auth', function($location, $auth){
+          if(!$auth.isAuthenticated()){
+            return $location.path('/');
+          }
+        }]
+      }
+  })
   	.otherwise({
   		redirectTo: '/'
     });

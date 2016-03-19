@@ -427,8 +427,73 @@ html{
 			}
 		}
 	}
+	.section4{
+		height: 350px;
+		background: url('../img/langhe.jpg') no-repeat center center;
+		background-size: cover;
+		.add-wine{
+			margin-top: 50px;
+			text-align: center;
+			a{
+				padding: 15px 50px 15px 50px;
+				border: 2px solid white;
+				border-radius: 2px;
+				color: white;
+				transition: all 1s ease;
+				text-decoration: none;
+				&:hover{
+					color: black;
+					background-color: white;
+				}
+			}
+		}
+	}
 }
-
+.section-add-wine{
+	background-color: #F8F8F8;
+		h2{
+			font-size: 60px;
+			position: relative;
+			top: -57px;
+		}
+	.addwine-box{
+		margin-top: 125px;
+		z-index: 1;
+		padding-left: 30px;
+		background-color: white;
+		.box-input{
+		    margin-bottom: 25px;
+		    input,select{
+				display: block;
+			    background: #efefef;
+			    height: 80px;
+			    padding: 0 40px;
+			    border: 0;
+			    width: 100%;
+			    font-size: 20px;
+			}
+			.button-stroke{
+				margin-right: 100px;
+				float: right;
+				padding: 15px 60px 15px 60px;
+				background-color: transparent;
+			    border: 4px solid #333;
+			    border-bottom-width: 7px;
+			    color: #333;
+			    text-decoration: none;
+			    -webkit-transition: color .3s;
+			    transition: color .3s;
+			    font-size: 22px;
+			    &:hover{
+				    background: #333;
+				    -webkit-transition: background .3s cubic-bezier(.77,0,.175,1);
+				    transition: background .3s cubic-bezier(.77,0,.175,1);
+				    color:white;
+			    }
+			}
+		}
+	}
+}
 .widget-searcher{
 	text-align: center;
 	padding-top: 30px;
@@ -441,7 +506,7 @@ html{
 	opacity: 0.8;
 
 	.box-content {
-		
+
 		.box-content-top{
 			background: rgba(255, 255, 255, 255.9);
 			border-radius: 0px;
@@ -459,7 +524,7 @@ html{
 				box-shadow: 3px 1px 10px 0px rgba(0,0,0,0.75);
 				background-color: whitesmoke;
 				height: 245px;
-				
+
 				p {
 					font-weight:bold;
 					text-align: center;
@@ -467,7 +532,7 @@ html{
 
 				.image-box {
 					text-align: center;
-					
+
 					img {
 						margin: auto;
 					}

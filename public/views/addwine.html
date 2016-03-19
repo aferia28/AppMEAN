@@ -1,0 +1,43 @@
+<div class="container-fluid section-add-wine">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+				<div class="col-sm-4">
+
+				</div>
+				<div class="col-sm-8 addwine-box">
+					<h2>Afegir Ví</h2>
+					<div class="box-input">
+						<input type="text" required placeholder="* Nom del ví" ng-model="wine.name">
+					</div>
+					<div class="box-input">
+						<select name="repeatSelect" id="repeatSelect" ng-model="types.repeatSelect">
+					    	<option ng-repeat="option in types.availableOptions" value="{{option.id}}">{{option.name}}</option>
+					    </select>
+					</div>
+					<div class="box-input">
+						<input type="text" required placeholder="* Denominació" ng-model="wine.">
+					</div>
+					<div class="box-input">
+						<input type="text" required placeholder="* Celler" ng-model="wine.winery">
+					</div>
+					<div class="box-input">
+						<input type="text" required placeholder="* Varietat de Raïm" ng-model="wine.varietal">
+					</div>
+					<div class="box-input">
+						<input type="text" required placeholder="* Anyada" ng-model="wine.vintage">
+					</div>
+					<div class="box-input">
+						<input type="text" required placeholder="* Alcohol" ng-model="wine.alcohol">
+					</div>
+					<div class="box-input">
+						<input type="text" required placeholder="Preu" ng-model="wine.price">
+					</div>
+					<div class="box-input">
+						<button class="button-stroke">Afegir</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
