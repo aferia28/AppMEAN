@@ -412,10 +412,13 @@ exports.getTopWines = function (req, res) {
 			}
 		},
 		{'$unwind':'$arrayWines'},
-		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}}
+		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}},
+		{$sort: {media: -1}}
+		//{$match: {type: "Tinto"}}
 		],function(err, result) {
 			if(!err)
 			{
+				//redWines = result;
 				for(var i = 0; i<result.length;i++)
 				{
 					if(result[i].type == 'Tinto')
@@ -448,7 +451,7 @@ exports.getTopWines = function (req, res) {
 			  			{
 			  				redWines.push(jsonWine.wines[i]);
 			  			}
-			  			res.send(redWines); //devuelve array de los vinos tintos
+			  			res.send(whiteWines); //devuelve array de los vinos tintos
 			  			/*NOTA: Ahora solo hay un vino tinto en nuestra BD con lo qual no hay problema,
 						pero hay que hacer una funcion que los ordene de mas a menos y solo guarde en la array
 						los 3 primeros...
