@@ -1,4 +1,5 @@
-var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote']);
+var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote', 'angular-cardflow']);
+
 app.config(function($routeProvider, $authProvider, socialshareConfProvider)
 {
   socialshareConfProvider.configure([{
@@ -122,9 +123,8 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
           }
         }]
       }
-
   })
   	.otherwise({
   		redirectTo: '/'
-  });
+    });
 });
