@@ -3,6 +3,8 @@ var Usuario = require('../models/persona.js');
 var Puntuacion = require('../models/puntuacion.js');
 var Comentario = require('../models/comentario.js');
 var http = require('http');
+var fs = require('fs');
+
 	//GET
 exports.findAllWines =  function(req, res) {
 
@@ -140,13 +142,13 @@ exports.addComment = function(req, res) {
 			{
 				if(wi.type == 'Red Wine')
 				{
-					type = 'Tinto';
+					type = 'Negre';
 				}else if(wi.type == 'White Wine')
 				{
-					type = 'Blanco';
+					type = 'Blanc';
 				}else if(wi.type == 'Rose Wine')
 				{
-					type = 'Rosado';
+					type = 'Rosat';
 				}
 				var comentario = new Comentario({
 					usuario: usu,
@@ -277,13 +279,13 @@ exports.findWineByCode = function(req, res) {
     		{
     			if(x.type == 'Red Wine')
 				{
-					type = 'Tinto';
+					type = 'Negre';
 				}else if(x.type == 'White Wine')
 				{
-					type = 'Blanco';
+					type = 'Blanc';
 				}else if(x.type == 'Rose Wine')
 				{
-					type = 'Rosado';
+					type = 'Rosat';
 				}
 
 				var puntuacion = new Puntuacion({
@@ -359,18 +361,31 @@ exports.findWineByCode = function(req, res) {
 exports.addWine = function(req, res) {
 
 	console.log("POST");
-	console.log(req.body);
+	console.log('query', req.query);
+	console.log('body', req.body);
+	console.log('body', req.params);
+
+	var file = req.files.file;
+	console.log(file.name);
+    console.log(file.type);
+    console.log(file.path);
+    console.log(file);
 
 	var wine = new Vino({
-		code: req.body.code,
-		name: req.body.name,
-		type: req.body.type,
-		winery: req.body.winery,
-		grape_type: req.body.grape_type,
-		year: req.body.year,
-		alcohol: req.body.alcohol,
-		rank: req.body.rank
+		code: req.body.wine.code,
+		name: req.body.wine.name,
+		type: req.body.wine.type,
+		winery: req.body.wine.winery,
+		region: req.body.wine.region,
+		varietal: req.body.wine.varietal,
+		year: req.body.wine.vintage,
+		alcohol: req.body.wine.alcohol,
+		price: req.body.wine.price,
+		createAt: Date.now(),
 	});
+
+	wine.image.data = fs.readFileSync(file.path),
+	wine.image.contentType = file.type
 
 	wine.save(function(err) {
 		if(!err) console.log('Vino guardado!');
@@ -387,7 +402,7 @@ exports.updateWine = function(req, res) {
 		vino.name 		= req.body.name;
 		vino.type 		= req.body.type;
 		vino.winery 	= req.body.winery;
-		vino.grape_type = req.body.grape_type;
+		vino.varietal	= req.body.varietal;
 		vino.year 		= req.body.year;
 		vino.alcohol 	= req.body.alcohol;
 

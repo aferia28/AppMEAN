@@ -2,9 +2,12 @@
     <div ng-message="required">Obligatori!</div>
     <div ng-message="minlength">Massa curt!</div>
     <div ng-message="maxlength">Massa llarg!</div>
+    <div ng-message="min">Massa curt!</div>
+    <div ng-message="max">Massa llarg!</div>
     <div ng-message="email">Email invalid!</div>
     <div ng-message="number">Només números!</div>
     <div ng-message="compareTo">No coincideix!</div>
+    <div ng-message="maxSize">File too large {{errorFile.size / 1000000|number:1}}MB: max</div>
 </div>
 <style type="text/css">
 .ng-invalid {

@@ -8,6 +8,9 @@ var express = require('express'),
 // Start ExpressJS
 var app = express();
 
+multiparty = require('connect-multiparty'),
+multipartyMiddleware = multiparty(),
+
 
 mongoose.connect('mongodb://localhost:27017/DBpersonas', function(error){
 	if(error){

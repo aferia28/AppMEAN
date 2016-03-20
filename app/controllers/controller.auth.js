@@ -39,7 +39,8 @@ exports.emailSignup = function(req, res){
 								email 		:req.body.email,
 								password 	:hash,
 								isAdmin		: false,
-								verified	: false
+								verified	: false,
+								createAt 	: Date.now(),
 							});
 
 							console.log('hashpass creado: ' + hash);
@@ -86,7 +87,14 @@ exports.emailLogin = function(req, res){
 
 						var token = service.createToken(persona);
 						res.send({token: token});
-
+						persona.lastLogIn = Date.now();
+			    		persona.save(function(err) {
+			    			if(!err){
+			    				console.log('Last Log In: ' + persona.lastLogIn)
+			    			}else{
+			    				console.log('ERROR' + err);
+			    			}
+			    		})
 						var tokenPlayload = jwt.decode(token, config.TOKEN_SECRET);
 						if (tokenPlayload.adm) {
 							console.log('Back_2. El Usuario registrado es administrador.');

@@ -9,7 +9,9 @@ var personaSchema = new Schema({
   password:   { type: String },
   isAdmin: { type: Boolean },
   verified: { type: Boolean},
-  favoritos:  [{ type: String }]
+  favoritos:  [{ type: String }],
+  createAt: {type:Date},
+  lastLogIn: {type:Date}
 });
 
 module.exports = mongoose.model('Persona', personaSchema);
