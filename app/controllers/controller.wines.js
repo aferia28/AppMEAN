@@ -388,11 +388,13 @@ exports.addWine = function(req, res) {
 	wine.image.contentType = file.type
 
 	wine.save(function(err) {
-		if(!err) console.log('Vino guardado!');
+		if(!err){
+			res.send(wine); console.log('Vino guardado!');
+		}
 		else console.log('ERROR: ' + err.message);
 	});
 
-	res.send(wine);
+	//res.send(wine);
 }
 
 	//PUT
