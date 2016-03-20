@@ -65,5 +65,18 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         })
         return defer.promise;
     };
+
+    dataFactory.addWine = function (wine) {
+
+        console.log(wine);
+        return $http.post('/addWine', wine)
+            .success(function(response) {
+                return response;
+            })
+            .error(function(error) {
+                return error;
+            })
+    };
+
     return dataFactory;
 }]);
