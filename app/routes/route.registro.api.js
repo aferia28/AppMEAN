@@ -42,7 +42,7 @@ module.exports = function(app) {
 
 	app.post('/vinosCode/:codeWine', wineController.findWineByCode);
 
-	app.post('/addWine', wineController.addWine);
+	app.post('/addWine', multipartyMiddleware, wineController.addWine);
 
 	app.put('/modificarVino/:id', wineController.updateWine);
 

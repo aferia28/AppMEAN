@@ -426,6 +426,26 @@ html {
   padding-left: 30px;
   background-color: white;
 }
+.section-add-wine .addwine-box .thumb {
+  width: 24px;
+  height: 24px;
+  float: none;
+  position: relative;
+  top: 7px;
+}
+.section-add-wine .addwine-box form .progress {
+  line-height: 15px;
+}
+.section-add-wine .addwine-box .progress {
+  display: inline-block;
+  width: 100px;
+  border: 3px groove #CCC;
+}
+.section-add-wine .addwine-box .progress div {
+  font-size: smaller;
+  background: orange;
+  width: 0;
+}
 .section-add-wine .addwine-box .box-input {
   margin-bottom: 25px;
 }

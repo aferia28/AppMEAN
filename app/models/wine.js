@@ -17,7 +17,8 @@ var wineSchema = new Schema({
   alcohol       : { type: Number },  //grados de alcohol
   rates         : [{ type: Schema.ObjectId, ref: "Puntuacion" }],
   comentarios   : [{ type: Schema.ObjectId, ref: "Comentario" }],
-  createAt      : {type: Date}
+  createAt      : {type: Date},
+  image         : { data: Buffer, contentType: String }
 });
 
 module.exports = mongoose.model('Vino', wineSchema);
