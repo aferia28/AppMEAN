@@ -28,21 +28,24 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
    		year: ''
    	};
 
-   	$scope.DOs = [
-		{	id: 'alella', 			name: 'Alella'				},
-		{	id: 'cataluna', 		name: 'Cataluña'			},
-		{	id: 'concadebarbera', 	name: 'Conca de Barberá'	},
-		{	id: 'costersdelsegre',	name: 'Costers del Segre'	},
-		{	id: 'emporda', 			name: 'Emporda'				},
-		{	id: 'montsant', 		name: 'Montsant'			},
-		{	id: 'penedes', 			name: 'Penedés'				},
-		{	id: 'pladebages', 		name: 'Pla de Bages'		},
-		{	id: 'priorato', 		name: 'Priorat'				},
-		{	id: 'tarragona', 		name: 'Tarragona'			},
-		{	id: 'terralta', 		name: 'Terra Alta'			}
-   	];
+   	$scope.DOs = {
+   		selectedDO: '',
+   		availableOptions: [
+			{	id: 'alella', 			name: 'Alella'				},
+			// {	id: 'catalunya', 		name: 'Cataluña'			},
+			{	id: 'conca+barbera', 	name: 'Conca de Barberá'	},
+			{	id: 'costers+segre',	name: 'Costers del Segre'	},
+			{	id: 'emporda', 			name: 'Emporda'				},
+			{	id: 'montsant', 		name: 'Montsant'			},
+			{	id: 'penedes', 			name: 'Penedés'				},
+			{	id: 'pla+bages', 		name: 'Pla de Bages'		},
+			{	id: 'priorat', 			name: 'Priorat'				},
+			{	id: 'tarragona', 		name: 'Tarragona'			},
+			{	id: 'terra+alta', 		name: 'Terra Alta'			}
+   		],
+   	};
 
-   	$scope.selectedDOs = [];
+   	/*$scope.selectedDOs = [];
 
    	// Toggle selection for a given DO by name
 	$scope.toggleSelection = function toggleSelection(DOname) {
@@ -57,7 +60,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 	    else {
 	        $scope.selectedDOs.push(DOname);
 	    }
-    };
+    };*/
 
 	$scope.keywords = '';
 
@@ -79,10 +82,13 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 		// language = 'es'; // Español
 		
 		// Custom parameters
-		region = 'Catalonia'; // + 'Catalunya'
-		designationOrigin = $scope.selectedDOs.join("&q=");
+		region = 'Catalunya'; // + 'Catalunya'
+		// designationOrigin = $scope.selectedDOs.join("&q=");
 		vintage = $scope.vintage.year;
-		query = region + '+' + designationOrigin + '+' + vintage + '+' + $scope.keywords;
+		query = region + '+' + $scope.DOs.selectedDO + '+' + vintage + '+' + $scope.keywords;
+
+		console.log(query);
+		console.log(vintage);
 
 		var url = apiURl 
 				+ '?akey=' + apiKey 
@@ -90,7 +96,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 				+ '&a=' + available 
 				+ '&t=' + productType
 				+ '&color=' + productColor
-				// + '&c=' + country 
+				+ '&c=' + country 
 				// + '&z=' + zipCode
 				+ '&s=' + sort
 				+ '&q=' + query;

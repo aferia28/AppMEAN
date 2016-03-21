@@ -23,10 +23,13 @@
 					<div class="form-group">
 						<h4 class="text-center">Denominació d'Origen</h4>
 						<div class="col-sm-offset-2 col-sm-10">
-							<div class="checkbox" ng-repeat="do in DOs">
+							<select name="selectDo" id="selectDo" ng-model="DOs.selectedDO">
+      							<option ng-repeat="option in DOs.availableOptions" value="{{option.id}}">{{option.name}}</option>
+    						</select>
+							<!-- <div class="checkbox" ng-repeat="do in DOs">
 								<input id="{{do.id}}" type="checkbox" class="text-left" value="{{do.name}}" ng-click="toggleSelection(do.name)">
 								{{do.name}}
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<hr>
