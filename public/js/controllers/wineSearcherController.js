@@ -28,38 +28,22 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFac
    		year: ''
    	};
 
-   	$scope.DOs = [
-		{	id: 'alella', 			name: 'Alella'				},
-		{	id: 'cataluna', 		name: 'Cataluña'			},
-		{	id: 'concadebarbera', 	name: 'Conca de Barberá'	},
-		{	id: 'costersdelsegre',	name: 'Costers del Segre'	},
-		{	id: 'emporda', 			name: 'Emporda'				},
-		{	id: 'montsant', 		name: 'Montsant'			},
-		{	id: 'penedes', 			name: 'Penedés'				},
-		{	id: 'pladebages', 		name: 'Pla de Bages'		},
-		{	id: 'priorato', 		name: 'Priorat'				},
-		{	id: 'tarragona', 		name: 'Tarragona'			},
-		{	id: 'terralta', 		name: 'Terra Alta'			}
-   	];
-
-   	$scope.selectedDOs = [];
-
-   	// Toggle selection for a given DO by name
-	$scope.toggleSelection = function toggleSelection(DOname) {
-		var index = $scope.selectedDOs.indexOf(DOname);
-	 
-	    // Currently selected
-	    if (index > -1) {
-			$scope.selectedDOs.splice(index, 1);
-	    }
-	 
-	    // Newly selected
-	    else {
-	        $scope.selectedDOs.push(DOname);
-	    }
-    };
-
-	$scope.keywords = '';
+   	$scope.DOs = {
+   		avaiableOptions: [
+   			{	id: 'catalonia', 		name: 'Tots'				},
+			{	id: 'alella', 			name: 'Alella'				},
+			{	id: 'cataluna', 		name: 'Cataluña'			},
+			{	id: 'concadebarbera', 	name: 'Conca de Barberá'	},
+			{	id: 'costersdelsegre',	name: 'Costers del Segre'	},
+			{	id: 'emporda', 			name: 'Emporda'				},
+			{	id: 'montsant', 		name: 'Montsant'			},
+			{	id: 'penedes', 			name: 'Penedés'				},
+			{	id: 'pladebages', 		name: 'Pla de Bages'		},
+			{	id: 'priorato', 		name: 'Priorat'				},
+			{	id: 'tarragona', 		name: 'Tarragona'			},
+			{	id: 'terralta', 		name: 'Terra Alta'			}
+   		]
+   	}
 
 	/*
 	** On clicking the button to submit the search
@@ -67,45 +51,22 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFac
 	$scope.search = function() {
 
 		// Wine search parameters from Snooth
-		apiURl = 'http://api.snooth.com/wines/';
-		apiKey = 'mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17';
-		numberResults = 100; // 1-100
-		available = 0; // 0 = all | 1 = in stock
-		productType = 'wine';
 		productColor = $scope.cardflow.selectedCard.title;
-		country = 'ES'; // España
-		// zipCode = '08360';
 		sort = 'qpr'; // qpr = Quality Price Ratio
+		//country = 'ES'; // España
+		// zipCode = '08360';
 		// language = 'es'; // Español
 
 		// Custom parameters
-		region = 'Catalonia'; // + 'Catalunya'
-		designationOrigin = $scope.selectedDOs.join("&q=");
-		vintage = $scope.vintage.year;
-		if(vintage === null || vintage === "") query = region + '&q=' + designationOrigin// + '+' + vintage// + '+' + $scope.keywords;
-		else query = region + '&q=' + designationOrigin + '&q=' + vintage// + '+' + $scope.keywords;
-		console.log(query);
-		var url = apiURl
-				+ '?akey=' + apiKey
-				+ '&n=' + numberResults
-				+ '&a=' + available
-				+ '&t=' + productType
-				+ '&color=' + productColor
-				// + '&c=' + country
-				// + '&z=' + zipCode
-				+ '&s=' + sort
-				+ '&q=' + query;
+		designationOrigin = $scope.search_.denominacioOrigen;
+		vintage = $scope.search_.vintage;
 
 		var params = {
-			url: url,
-			apiKey: apiKey,
-			numResults: numberResults,
 			type: productColor,
 			do: designationOrigin,
 			vintage: vintage,
-			keyword: $scope.keywords,
-			query: query
 		}
+
 		dataFactory.getAllWines(params)
 		.then(function(response) {
 			$scope.fiveDay = response.data;

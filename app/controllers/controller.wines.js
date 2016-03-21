@@ -8,13 +8,19 @@ var fs = require('fs');
 	//GET
 exports.findAllWines =  function(req, res) {
 
-	var url  	= req.query.url;
-	var apiKey 	= req.query.apiKey;
-	var query  	= req.query.query;
-	var type  	= req.query.type;
-	var vintage = req.query.vintage;
-	var dO  	= req.query.do;
-	var number 	= req.query.numResults;
+	var host 			= 'http://api.snooth.com';
+	var typeSearch 		= '/wines/';
+	var apiKey 			= 'mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17';
+	var productType 	= 'wine';
+	var numberResults 	= 30;
+	var sort 			= 'qpr';
+	var region 			= 'Catalonia'; // + 'Catalunya'
+
+	var type  			= req.query.type;
+	var vintage 		= req.query.vintage;
+	var dO  			= req.query.do;
+
+
 	var ownType;
 	var snoothWines;
 	var ownWines;
@@ -27,10 +33,26 @@ exports.findAllWines =  function(req, res) {
 		ownType = 'Rosat'
 	}
 
-	var options = {
-		host: 'api.snooth.com',
-		path: '/wines/' + '?akey=' + apiKey + '&color=' + type + '&q='+ query + '&n=' + 1
-	};
+	if(dO == '' || dO == undefined || dO == null)
+	{
+		var options = {
+			host: 'api.snooth.com',
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + '&s=' + sort + '&q=Catalonia'
+		};
+	}else if(vintage == '' || vintage == undefined || vintage == null)
+	{
+		var options = {
+			host: 'api.snooth.com',
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&q='+ dO + '&n=' + numberResults + '&s=' + sort
+		};
+	}else{
+		var options = {
+			host: 'api.snooth.com',
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&q='+ dO + '&n=' + numberResults + '&s=' + sort + '&q=' + vintage
+		};
+	}
+
+	console.log(options);
 
 	callback = function(response) {
   		var string = '';
@@ -40,7 +62,7 @@ exports.findAllWines =  function(req, res) {
 
   		response.on('end', function () {
   			snoothWines = JSON.parse(string);
-  			//res.send(snoothWines.wines);
+  			res.send(snoothWines.wines);
   			Vino.find({type: ownType}, function(err, vinos) {
 				if(!err)
 				{
@@ -57,7 +79,7 @@ exports.findAllWines =  function(req, res) {
 							}
 						}
 					}
-					res.send(twoArrays);
+					//res.send(twoArrays);
 				}else{
 					res.send(err)
 					console.log('ERROR: '+ err.message);
