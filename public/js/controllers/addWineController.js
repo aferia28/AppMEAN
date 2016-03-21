@@ -15,7 +15,7 @@ app.controller('addWineController', ['$scope', '$http','serviceAdmin','dataFacto
 			data: {wine:$scope.wine, file:$scope.picFile}
 		})
 		.then(function(resp) {
-				console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+				console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ', resp.data);
 		}, function(resp) {
 				console.log('Error status: ' + resp.status);
 		}, function(evt) {

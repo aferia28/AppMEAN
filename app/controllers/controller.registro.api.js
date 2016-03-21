@@ -94,3 +94,35 @@ exports.deleteUser = function(req, res) {
 	})
 
 }
+
+exports.latestLogin = function(req, res) {
+
+	Persona.aggregate(
+		[
+			{$sort: {lastLogIn: -1}},
+			{$limit: 3}
+		], function(err, personas) {
+		if(!err)
+		{
+			res.send(personas)
+		}else{
+			res.send(err)
+		}
+	})
+}
+
+exports.lastSignUp = function(req, res) {
+
+	Persona.aggregate(
+		[
+			{$sort: {createAt: -1}},
+			{$limit: 3}
+		], function(err, personas) {
+		if(!err)
+		{
+			res.send(personas)
+		}else{
+			res.send(err)
+		}
+	})
+}

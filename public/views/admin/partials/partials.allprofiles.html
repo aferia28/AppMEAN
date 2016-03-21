@@ -4,18 +4,19 @@
 	<input ng-model="userQuery" placeholder="Nom.." id="userQuery" style="margin-top: 20px"> <!-- INPUT PARA FILTRAR POR NOMBRE-->
 		<table class="table" style="margin-top: 20px">
 			<thead>
-				<td>Nombre</td>
-				<td>Apellidos</td>
+				<td>Nom</td>
+				<td>Cognoms</td>
 				<td>Admin</td>
 				<td>Email</td>
-				<td>Acción</td>
+				<td>Acció</td>
 			</thead>
 			<tr ng-repeat="profile in allProfiles | filter:userQuery">
 				<td>{{ profile.nombre }}</td>
 				<td>{{ profile.apellidos }}</td>
-				<td>{{ profile.isAdmin }}</td>
+				<td ng-if="profile.isAdmin">Si</td>
+				<td ng-if="!profile.isAdmin">No</td>
 				<td>{{ profile.email }}</td>
-				<td><a ui-sref="profiles.profilesid({ id: profile._id })">Icono Ver<a/></td>
+				<td><a ui-sref="profiles.profilesid({ id: profile._id })"><i class="fa fa-eye"></i><a/></td>
 			</tr>
 		</table>
 	</div>
