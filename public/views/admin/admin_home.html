@@ -7,36 +7,45 @@
 			</div>
 			<div class="admin-box-body">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-4" ng-init="latestSignUp()">
 						<div class="hero-widget well well-sm">
 							<div class="icon">
-								 <i class="glyphicon glyphicon-envelope"></i>
+								 <i class="fa fa-user-plus fa-2x"></i>
 							</div>
 							<div class="text">
-								<var>0</var>
-								<label class="text-muted">Email enviats aquest mes</label>
+								<label class="text-muted">Darrers usuarios registrats</label>
+								<table class="table">
+									<tr ng-repeat="user in signupUsers">
+										<td>{{user.nombre}}</td>
+										<td>{{user.createAt | date:'medium'}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4" ng-init="latestLogin()">
+						<div class="hero-widget well well-sm">
+							<div class="icon">
+								 <i class="fa fa-sign-in fa-2x"></i>
+							</div>
+							<div class="text">
+								<label class="text-muted">Darrers LogIn</label>
+								<table class="table">
+									<tr ng-repeat="user in loginUsers">
+										<td>{{user.nombre}}</td>
+										<td>{{user.lastLogIn | date:'medium'}}</td>
+									</tr>
+								</table>
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="hero-widget well well-sm">
 							<div class="icon">
-								 <i class="glyphicon glyphicon-envelope"></i>
+								 <i class="fa fa-cart-plus fa-2x"></i>
 							</div>
 							<div class="text">
-								<var>0</var>
-								<label class="text-muted">Email enviats aquest mes</label>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="hero-widget well well-sm">
-							<div class="icon">
-								 <i class="glyphicon glyphicon-envelope"></i>
-							</div>
-							<div class="text">
-								<var>0</var>
-								<label class="text-muted">Email enviats aquest mes</label>
+								<label class="text-muted">Darrers vins afegits</label>
 							</div>
 						</div>
 					</div>

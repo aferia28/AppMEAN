@@ -23,6 +23,8 @@ module.exports = function(app) {
 	app.put('/modificarPersona/:id', Controller.updatePersona);
 
 
+	app.get('/lastlogin', Controller.latestLogin);
+	app.get('/lastSignup', Controller.lastSignUp)
 
 	app.get('/send/:email', verification.sendEmail);
 

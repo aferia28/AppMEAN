@@ -8,7 +8,7 @@ admin_app.config(function($stateProvider, $urlRouterProvider)
 	$stateProvider
     .state('home',{
       url: '/admin',
-      controller: '',
+      controller: 'profilesController',
       templateUrl: 'views/admin/admin_home.html',
   })
   	.state('profiles',{
