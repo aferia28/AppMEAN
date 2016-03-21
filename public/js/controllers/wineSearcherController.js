@@ -1,4 +1,4 @@
-app.controller('wineSearcherController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFactory', function ($scope, $http, $timeout,dataFactory) {
     /*
     ** Cardflow
     */
@@ -12,7 +12,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
             $scope.cardflow.selectedCard.title = $scope.cardflow.cards[$scope.cardflow.current].title;
         });
     }, 100);
-            
+
     // Generate the cards
     $scope.cardflow.cards = [];
     var types = ['red','white','rose'];
@@ -64,7 +64,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 	/*
 	** On clicking the button to submit the search
 	*/
-	$scope.search = function() {		
+	$scope.search = function() {
 
 		// Wine search parameters from Snooth
 		apiURl = 'http://api.snooth.com/wines/';
@@ -77,32 +77,51 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', functio
 		// zipCode = '08360';
 		sort = 'qpr'; // qpr = Quality Price Ratio
 		// language = 'es'; // Español
-		
+
 		// Custom parameters
 		region = 'Catalonia'; // + 'Catalunya'
 		designationOrigin = $scope.selectedDOs.join("&q=");
 		vintage = $scope.vintage.year;
-		query = region + '+' + designationOrigin + '+' + vintage + '+' + $scope.keywords;
-
-		var url = apiURl 
-				+ '?akey=' + apiKey 
-				+ '&n=' + numberResults 
-				+ '&a=' + available 
+		if(vintage === null || vintage === "") query = region + '&q=' + designationOrigin// + '+' + vintage// + '+' + $scope.keywords;
+		else query = region + '&q=' + designationOrigin + '&q=' + vintage// + '+' + $scope.keywords;
+		console.log(query);
+		var url = apiURl
+				+ '?akey=' + apiKey
+				+ '&n=' + numberResults
+				+ '&a=' + available
 				+ '&t=' + productType
 				+ '&color=' + productColor
-				// + '&c=' + country 
+				// + '&c=' + country
 				// + '&z=' + zipCode
 				+ '&s=' + sort
 				+ '&q=' + query;
 
+		var params = {
+			url: url,
+			apiKey: apiKey,
+			numResults: numberResults,
+			type: productColor,
+			do: designationOrigin,
+			vintage: vintage,
+			keyword: $scope.keywords,
+			query: query
+		}
+		dataFactory.getAllWines(params)
+		.then(function(response) {
+			$scope.fiveDay = response.data;
+		})
+		.catch(function(response) {
+
+		})
 		// Angular method that makes the request
-		$http.get(url).then(function(response) {
+		/*$http.get(url).then(function(response) {
 			// Handles success
-			$scope.fiveDay = response.data.wines;  			
+			console.log(response);
+			$scope.fiveDay = response.data.wines;
   		}, function(response) {
   			// Handles error
   			$scope.fiveDay = "Request failed";
-  		});
+  		});*/
 
 		// jQuery method that doesn't trigger CORS problem, but $scope is 'undefined'
   		/*$.ajax(

@@ -23,16 +23,5 @@ app.controller('addWineController', ['$scope', '$http','serviceAdmin','dataFacto
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
 		});
 	}
-		$scope.addWine2 = function() {
-
-			dataFactory.addWine($scope.wine)
-			.then(function(response) {
-				console.log(response.data);
-				$location.path('/');
-			})
-			.catch(function(response) {
-
-			})
-		}
 
 }]);

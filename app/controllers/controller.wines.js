@@ -8,10 +8,66 @@ var fs = require('fs');
 	//GET
 exports.findAllWines =  function(req, res) {
 
-	Vino.find(function(err, vinos) {
-		if(!err) res.send(vinos);
-		else console.log('ERROR: ' + err);
-	});
+	var url  	= req.query.url;
+	var apiKey 	= req.query.apiKey;
+	var query  	= req.query.query;
+	var type  	= req.query.type;
+	var vintage = req.query.vintage;
+	var dO  	= req.query.do;
+	var number 	= req.query.numResults;
+	var ownType;
+	var snoothWines;
+	var ownWines;
+
+	if (type == 'red') {
+		ownType = 'Negre'
+	}else if (type == 'white') {
+		ownType = 'Blanc'
+	}else if (type == 'rose') {
+		ownType = 'Rosat'
+	}
+
+	var options = {
+		host: 'api.snooth.com',
+		path: '/wines/' + '?akey=' + apiKey + '&color=' + type + '&q='+ query + '&n=' + 1
+	};
+
+	callback = function(response) {
+  		var string = '';
+  		response.on('data', function (chunk) {
+    		string += chunk;
+  		});
+
+  		response.on('end', function () {
+  			snoothWines = JSON.parse(string);
+  			//res.send(snoothWines.wines);
+  			Vino.find({type: ownType}, function(err, vinos) {
+				if(!err)
+				{
+					ownWines = vinos;
+					var twoArrays = ownWines.concat(snoothWines.wines);
+
+					for(var i=0; i<twoArrays.length; i++)
+					{
+						for(var j=i+1; j<twoArrays.length; j++)
+						{
+							if(twoArrays[i].code === twoArrays[j].code)
+							{
+								twoArrays.splice(j--,1);
+							}
+						}
+					}
+					res.send(twoArrays);
+				}else{
+					res.send(err)
+					console.log('ERROR: '+ err.message);
+				}
+			})
+  		})
+
+  	}
+
+	http.request(options, callback).end();
 }
 
 exports.findWine = function(req, res) {
