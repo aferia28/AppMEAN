@@ -1,46 +1,39 @@
 <div class="row">
 	<div class="col-sm-12 wine-searcher">
-		<img src="../img/grapes.jpeg" class="background-image">
+		<!--<img src="../img/grapes.jpeg" class="background-image">-->
 		<div>
 			<cardflow model="cardflow">
                 <div class="cardflow-card" ng-repeat="card in cardflow.cards" style="background-image: url( {{card.image}} )"></div>
             </cardflow>
         </div>
 		<div class="row">
-			<div class="col-sm-3 wine-search-parameters">
+			<div class="col-sm-12 wine-search-parameters">
 				<form name="formWineSearch" class="form-horizontal">
-					<div class="form-group">
-						<h4 class="text-center">Anyada</h4>
-						<div class="col-sm-offset-2 col-sm-8">
-							<input type="number" class="form-control text-center" name="inputVintage" ng-model="vintage.year" placeholder="1900 - 2016" ng-minlength="1900" ng-maxlength="2016">
-							<div ng-messages="formWineSearch.inputVintage.$error">
-								<div ng-messages-include="../views/messages.html"></div>
+					<div class="row">
+						<div class="form-group col-sm-6">
+							<h4 class="text-center">Anyada</h4>
+							<div class="col-sm-offset-2 col-sm-8">
+								<input type="number" class="form-control text-center" name="inputVintage" ng-model="search_.vintage" placeholder="1900 - 2016" min="1900" max="2016">
+								<div ng-messages="formWineSearch.inputVintage.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+							</div>
+							<div class="col-sm-2"></div>
+						</div>
+						<div class="form-group col-sm-6">
+							<h4 class="text-center">Denominació d'Origen</h4>
+							<div class="col-sm-offset-2 col-sm-10">
+								<select name="repeatSelect" ng-model="search_.denominacioOrigen" id="repeatSelect">
+									<option ng-repeat="option in DOs.avaiableOptions" value="{{option.id}}">{{option.name}}</option>
+								</select>
 							</div>
 						</div>
-						<div class="col-sm-3"></div>
 					</div>
+					<button type="submit" class="btn btn-default btn-md btn-block active" ng-click="search()">Buscar</button>
 					<hr>
-					<div class="form-group">
-						<h4 class="text-center">Denominació d'Origen</h4>
-						<div class="col-sm-offset-2 col-sm-10">
-							<select name="selectDo" id="selectDo" ng-model="DOs.selectedDO">
-      							<option ng-repeat="option in DOs.availableOptions" value="{{option.id}}">{{option.name}}</option>
-    						</select>
-							<!-- <div class="checkbox" ng-repeat="do in DOs">
-								<input id="{{do.id}}" type="checkbox" class="text-left" value="{{do.name}}" ng-click="toggleSelection(do.name)">
-								{{do.name}}
-							</div> -->
-						</div>
-					</div>
-					<hr>
-					<div class="form-group text-left">
-						<p class="help-block">Busques concretament?</p>
-						<input type="text" class="form-control" name="inputKeywords" ng-model="keywords" placeholder="Paraules clau">
-					</div>
-					<button type="submit" class="btn btn-default btn-lg btn-block active" ng-click="search()">Buscar</button>
 				</form>
 			</div>
-			<div class="col-sm-9 wine-search-results">
+			<div class="col-sm-12 wine-search-results">
 	            <div class="row">
 	            	<div ng-repeat="wine in fiveDay | filter:query" class="col-sm-4">
 	            		<div class="row wine-box">
