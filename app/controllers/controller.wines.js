@@ -8,7 +8,7 @@ var fs = require('fs');
 	//GET
 exports.findAllWines =  function(req, res) {
 
-	var host 			= 'http://api.snooth.com';
+	var host 			= 'api.snooth.com';
 	var typeSearch 		= '/wines/';
 	var apiKey 			= 'mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17';
 	var productType 	= 'wine';
@@ -37,7 +37,7 @@ exports.findAllWines =  function(req, res) {
 	{
 		var options = {
 			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + '&s=' + sort + '&q=Catalonia'
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + '&s=' + sort + '&q=' + region + '+' + vintage
 		};
 	}else if(vintage == '' || vintage == undefined || vintage == null)
 	{
@@ -48,7 +48,7 @@ exports.findAllWines =  function(req, res) {
 	}else{
 		var options = {
 			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&q='+ dO + '&n=' + numberResults + '&s=' + sort + '&q=' + vintage
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&q='+ dO +'+'+ vintage + '&n=' + numberResults + '&s=' + sort
 		};
 	}
 
@@ -62,24 +62,30 @@ exports.findAllWines =  function(req, res) {
 
   		response.on('end', function () {
   			snoothWines = JSON.parse(string);
-  			res.send(snoothWines.wines);
+
   			Vino.find({type: ownType}, function(err, vinos) {
 				if(!err)
 				{
-					ownWines = vinos;
-					var twoArrays = ownWines.concat(snoothWines.wines);
-
-					for(var i=0; i<twoArrays.length; i++)
+					if(vinos == null || vinos == undefined || vinos == "")
 					{
-						for(var j=i+1; j<twoArrays.length; j++)
+						console.log('No hay vinos de este tipo en la BD..')
+						res.send(snoothWines);
+					}else{
+						ownWines = vinos;
+						var twoArrays = ownWines.concat(snoothWines.wines);
+
+						for(var i=0; i<twoArrays.length; i++)
 						{
-							if(twoArrays[i].code === twoArrays[j].code)
+							for(var j=i+1; j<twoArrays.length; j++)
 							{
-								twoArrays.splice(j--,1);
+								if(twoArrays[i].code === twoArrays[j].code)
+								{
+									twoArrays.splice(j--,1);
+								}
 							}
 						}
+						res.send(twoArrays);
 					}
-					//res.send(twoArrays);
 				}else{
 					res.send(err)
 					console.log('ERROR: '+ err.message);
