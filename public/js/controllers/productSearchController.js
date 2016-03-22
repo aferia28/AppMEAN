@@ -32,7 +32,7 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 		if(wine.type == "")
 		{
-			$scope.type = getWineType(wine.color)
+			$scope.type = wine.color.toLowerCase();
 		}else if(wine.type != "")
 		{
 			$scope.type = getWineType(wine.type)
