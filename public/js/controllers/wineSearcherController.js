@@ -24,30 +24,30 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFac
     /*
     ** Form for the wine custom query
     */
-   	$scope.vintage = {
-   		year: ''
-   	};
+    $scope.vintage = '';
 
    	$scope.DOs = {
-   		avaiableOptions: [
-   			{	id: 'catalonia', 		name: 'Tots'				},
+   		selectedDO: '',
+   		availableOptions: [
+   			{	id: '',  				name: 'Tots'				},
 			{	id: 'alella', 			name: 'Alella'				},
-			{	id: 'cataluna', 		name: 'Cataluña'			},
-			{	id: 'concadebarbera', 	name: 'Conca de Barberá'	},
-			{	id: 'costersdelsegre',	name: 'Costers del Segre'	},
+			// {	id: 'cataluna', 		name: 'Cataluña'			},
+			{	id: 'conca+barbera', 	name: 'Conca de Barberá'	},
+			{	id: 'costers+segre',	name: 'Costers del Segre'	},
 			{	id: 'emporda', 			name: 'Emporda'				},
 			{	id: 'montsant', 		name: 'Montsant'			},
 			{	id: 'penedes', 			name: 'Penedés'				},
-			{	id: 'pladebages', 		name: 'Pla de Bages'		},
-			{	id: 'priorato', 		name: 'Priorat'				},
+			{	id: 'pla+bages', 		name: 'Pla de Bages'		},
+			{	id: 'priorat', 			name: 'Priorat'				},
 			{	id: 'tarragona', 		name: 'Tarragona'			},
-			{	id: 'terralta', 		name: 'Terra Alta'			}
+			{	id: 'terra+alta', 		name: 'Terra Alta'			}
    		]
    	}
 
 	/*
 	** On clicking the button to submit the search
 	*/
+
 	$scope.search = function() {
 
 		// Wine search parameters from Snooth
@@ -58,8 +58,8 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFac
 		// language = 'es'; // Español
 
 		// Custom parameters
-		designationOrigin = $scope.search_.denominacioOrigen;
-		vintage = $scope.search_.vintage;
+		designationOrigin = $scope.DOs.selectedDO;
+		vintage = $scope.vintage;
 
 		var params = {
 			type: productColor,

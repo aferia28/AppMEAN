@@ -18,6 +18,7 @@ var wineSchema = new Schema({
   rates         : [{ type: Schema.ObjectId, ref: "Puntuacion" }],
   comentarios   : [{ type: Schema.ObjectId, ref: "Comentario" }],
   createAt      : {type: Date},
+  image_url     : {type: String},
   image         : { data: Buffer, contentType: String }
 });
 
