@@ -2,6 +2,22 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
 
     var dataFactory = {};
 
+    dataFactory.getAllWines = function(paramsSearch) {
+        console.log(paramsSearch);
+
+        return $http({
+            url: '/vinos',
+            method: 'GET',
+            params: paramsSearch
+        })
+        .success(function(response) {
+            console.log(response);
+        })
+        .error(function(response) {
+
+        })
+    }
+
     dataFactory.getWine = function (inData) {
 
         return $http({
@@ -65,5 +81,18 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         })
         return defer.promise;
     };
+
+    dataFactory.addWine = function (wine) {
+
+        console.log(wine);
+        return $http.post('/addWine', wine)
+            .success(function(response) {
+                return response;
+            })
+            .error(function(error) {
+                return error;
+            })
+    };
+
     return dataFactory;
 }]);

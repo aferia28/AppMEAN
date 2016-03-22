@@ -23,6 +23,8 @@ module.exports = function(app) {
 	app.put('/modificarPersona/:id', Controller.updatePersona);
 
 
+	app.get('/lastlogin', Controller.latestLogin);
+	app.get('/lastSignup', Controller.lastSignUp)
 
 	app.get('/send/:email', verification.sendEmail);
 
@@ -42,7 +44,7 @@ module.exports = function(app) {
 
 	app.post('/vinosCode/:codeWine', wineController.findWineByCode);
 
-	app.post('/addVino', wineController.addWine);
+	app.post('/addWine', multipartyMiddleware, wineController.addWine);
 
 	app.put('/modificarVino/:id', wineController.updateWine);
 

@@ -1,3 +1,4 @@
+@import 'https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900';
 @import 'https://fonts.googleapis.com/css?family=Parisienne';
 @import 'https://fonts.googleapis.com/css?family=Playfair+Display:400,900,700';
 /*######## VARIABLES ############*/
@@ -391,6 +392,93 @@ html {
   font-size: 17px;
   line-height: 40px;
 }
+.region2 .section4 {
+  height: 350px;
+  background: url('../img/langhe.jpg') no-repeat center center;
+  background-size: cover;
+}
+.region2 .section4 .add-wine {
+  margin-top: 50px;
+  text-align: center;
+}
+.region2 .section4 .add-wine a {
+  padding: 15px 50px 15px 50px;
+  border: 2px solid white;
+  border-radius: 2px;
+  color: white;
+  transition: all 1s ease;
+  text-decoration: none;
+}
+.region2 .section4 .add-wine a:hover {
+  color: black;
+  background-color: white;
+}
+.section-add-wine {
+  background-color: #F8F8F8;
+}
+.section-add-wine h2 {
+  font-size: 60px;
+  position: relative;
+  top: -57px;
+}
+.section-add-wine .addwine-box {
+  margin-top: 125px;
+  z-index: 1;
+  padding-left: 30px;
+  background-color: white;
+}
+.section-add-wine .addwine-box .thumb {
+  width: 24px;
+  height: 24px;
+  float: none;
+  position: relative;
+  top: 7px;
+}
+.section-add-wine .addwine-box form .progress {
+  line-height: 15px;
+}
+.section-add-wine .addwine-box .progress {
+  display: inline-block;
+  width: 100px;
+  border: 3px groove #CCC;
+}
+.section-add-wine .addwine-box .progress div {
+  font-size: smaller;
+  background: orange;
+  width: 0;
+}
+.section-add-wine .addwine-box .box-input {
+  margin-bottom: 25px;
+}
+.section-add-wine .addwine-box .box-input input,
+.section-add-wine .addwine-box .box-input select {
+  display: block;
+  background: #efefef;
+  height: 80px;
+  padding: 0 40px;
+  border: 0;
+  width: 100%;
+  font-size: 20px;
+}
+.section-add-wine .addwine-box .box-input .button-stroke {
+  margin-right: 100px;
+  float: right;
+  padding: 15px 60px 15px 60px;
+  background-color: transparent;
+  border: 4px solid #333;
+  border-bottom-width: 7px;
+  color: #333;
+  text-decoration: none;
+  -webkit-transition: color .3s;
+  transition: color .3s;
+  font-size: 22px;
+}
+.section-add-wine .addwine-box .box-input .button-stroke:hover {
+  background: #333;
+  -webkit-transition: background 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: background 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+  color: white;
+}
 .widget-searcher {
   text-align: center;
   padding-top: 30px;
@@ -580,10 +668,18 @@ html {
   margin-left: 105px;
 }
 /*==================== ADMIN ======================*/
-.aside-admin {
-  background-color: #ffffff;
+.page-admin {
+  font-family: 'Lato', sans-serif !important;
 }
-.admin-box {
+.page-admin table thead {
+  font-weight: bold;
+}
+.page-admin .aside-admin {
+  background-color: #ffffff;
+  border-right: 1px solid #e3e3e3;
+  height: 100vh;
+}
+.page-admin .admin-box {
   position: relative;
   border-radius: 3px;
   background: #ffffff;
@@ -594,33 +690,33 @@ html {
   width: 90%;
   margin: 50px auto;
 }
-.admin-box-header {
+.page-admin .admin-box-header {
   color: #444;
   display: block;
   padding: 10px;
   position: relative;
 }
-.admin-box-header.with-border {
+.page-admin .admin-box-header.with-border {
   border-bottom: 1px solid #f4f4f4;
 }
-.admin-box-body {
+.page-admin .admin-box-body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   padding: 10px;
 }
-.hero-widget {
+.page-admin .hero-widget {
   text-align: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  min-height: 190px !important;
+  min-height: 250px !important;
 }
-.well-sm {
+.page-admin .well-sm {
   padding: 9px;
   border-radius: 3px;
 }
-.well {
+.page-admin .well {
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
