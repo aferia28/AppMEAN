@@ -12,7 +12,7 @@
 					<div class="form-group">
 						<h4 class="text-center">Anyada</h4>
 						<div class="col-sm-offset-2 col-sm-8">
-							<input type="number" class="form-control text-center" name="inputVintage" ng-model="vintage.year" placeholder="1900 - 2016" min="1900" max="2016">
+							<input type="number" class="form-control text-center" name="inputVintage" ng-model="vintage.year" placeholder="1900 - 2016" ng-minlength="1900" ng-maxlength="2016">
 							<div ng-messages="formWineSearch.inputVintage.$error">
 								<div ng-messages-include="../views/messages.html"></div>
 							</div>
