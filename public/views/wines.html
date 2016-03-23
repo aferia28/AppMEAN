@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-sm-12 wine-searcher">
 		<!--<img src="../img/grapes.jpeg" class="background-image">-->
-		<div>
+		<div class="wine-color">
 			<cardflow model="cardflow">
                 <div class="cardflow-card" ng-repeat="card in cardflow.cards" style="background-image: url( {{card.image}} )"></div>
             </cardflow>
@@ -12,7 +12,7 @@
 					<div class="row">
 						<div class="form-group col-sm-4">
 							<h4 class="text-center">Anyada</h4>
-							<div class="col-sm-offset-2 col-sm-8">
+							<div class="col-sm-offset-3 col-sm-6">
 								<input type="number" class="form-control text-center" name="inputVintage" ng-model="vintage" placeholder="1900 - 2016" min="1900" max="2016">
 								<div ng-messages="formWineSearch.inputVintage.$error">
 									<div ng-messages-include="../views/messages.html"></div>
@@ -21,42 +21,41 @@
 						</div>
 						<div class="form-group col-sm-4">
 							<h4 class="text-center">Denominació d'Origen</h4>
-							<div class="col-sm-offset-2 col-sm-10">
-								<select name="selectDo" id="selectDo" ng-model="DOs.selectedDO">
+							<div class="col-sm-offset-2 col-sm-8">
+								<select name="selectDo" id="selectDo" ng-model="DOs.selectedDO" class="form-control">
 									<option ng-repeat="option in DOs.availableOptions" value="{{option.id}}">{{option.name}}</option>
 								</select>
 							</div>
 						</div>
-						<div class="col-sm-4">
-							<button type="submit" style="margin-top: 30px;" class="btn btn-default btn-md btn-block active" ng-click="search()">Buscar</button>
+						<div class="col-sm-offset-1 col-sm-2 search-button">
+							<button type="submit" ng-click="search()">Buscar</button>
 						</div>
 					</div>
-					<hr>
 				</form>
 			</div>
 			<div class="col-sm-12 wine-search-results">
 	            <div class="row">
 	            	<div ng-repeat="wine in fiveDay | filter:query" class="col-sm-4">
-	            		<div class="row wine-box">
-	            			<div class="col-sm-12">
-	            				<p data-code="{{wine.code}}">
-									<a href="#product/{{wine.code}}">
-					              	{{wine.name}}
-					              	</a>
-				            	</p>
-	            			</div>
-			            	<div class="col-sm-12 image-box">
-			            		<img ng-if="wine.image" ng-src="{{wine.image}}">
-			                	<img ng-src="{{wine.image_url}}">
-			              	</div>
-				            <div class="col-sm-12 wine-text">
-				            	{{wine.type}}
-				            	<br>
-				            	{{wine.region}}
-				            </div>
-				            <div class="col-sm-12 wine-vintage">
-								{{wine.vintage}}
-				            </div>
+	            		<div class="wine-box">
+	            			<a href="#product/{{wine.code}}">
+		            			<div class="col-sm-12">
+		            				<p class="wine-title" data-code="{{wine.code}}">
+						              	{{wine.name}}
+					            	</p>
+		            			</div>
+				            	<div class="col-sm-12 image-box">
+				            		<img ng-if="wine.image" ng-src="{{wine.image}}">
+				                	<img ng-src="{{wine.image_url}}">
+				              	</div>
+					            <div class="col-sm-12 wine-text">
+					            	<!-- {{wine.type}}
+					            	<br> -->
+					            	{{wine.region.split(" > ").pop()}}
+					            </div>
+					            <div class="col-sm-12 wine-vintage">
+									{{wine.vintage}}
+					            </div>
+					        </a>
 	            		</div>
 					</div>
 	            </div>
