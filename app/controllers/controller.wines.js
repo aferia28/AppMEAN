@@ -14,7 +14,7 @@ exports.findAllWines =  function(req, res) {
 	var productType 	= 'wine';
 	var numberResults 	= 30;
 	var sort 			= 'qpr';
-	var region 			= 'Catalonia'; // + 'Catalunya'
+	var region 			= 'Catalunya';
 
 	var type  			= req.query.type;
 	var vintage 		= req.query.vintage;
