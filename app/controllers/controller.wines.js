@@ -13,8 +13,9 @@ exports.findAllWines =  function(req, res) {
 	var apiKey 			= 'mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17';
 	var productType 	= 'wine';
 	var numberResults 	= 30;
+	var availableWines	= 0; // 0 = all | 1 = in stock
 	var sort 			= 'qpr';
-	var region 			= 'Catalonia'; // + 'Catalunya'
+	var region 			= 'Catalunya'; // && Cataluña && Catalonia
 
 	var type  			= req.query.type;
 	var vintage 		= req.query.vintage;
@@ -37,18 +38,18 @@ exports.findAllWines =  function(req, res) {
 	{
 		var options = {
 			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + '&s=' + sort + '&q=' + region + '+' + vintage
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + '&a=' + availableWines + '&s=' + sort + '&q=' + region + '+' + vintage
 		};
 	}else if(vintage == '' || vintage == undefined || vintage == null)
 	{
 		var options = {
 			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&q='+ dO + '&n=' + numberResults + '&s=' + sort
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + '&a=' + availableWines + '&s=' + sort + '&q='+ dO 
 		};
 	}else{
 		var options = {
 			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&q='+ dO +'+'+ vintage + '&n=' + numberResults + '&s=' + sort
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + '&a=' + availableWines + '&s=' + sort + '&q=' + dO + '+' + vintage
 		};
 	}
 
