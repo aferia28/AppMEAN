@@ -1,33 +1,186 @@
 <div class="container-fluid header-top-wines">
 	<div class="row">
 		<div class="col-sm-12 section-header-min">
-
+			<h1 style="text-align: center; font-size: 50px; padding-top: 20px">Els més valorats</h1>
 		</div>
 	</div>
 </div>
 <div class="container page-top-wines">
 	<div class="row">
 		<div class="col-sm-12">
-			<h1 style="text-align: center; font-size: 50px; padding-top: 20px">Els més valorats</h1>
+			<ul class="nav nav-tabs">
+				<li><a data-toggle="tab" data-target="#wines-0">Top vins negres</a></li>
+				<li><a data-toggle="tab" data-target="#wines-1">Top vins blancs</a></li>
+				<li><a data-toggle="tab" data-target="#wines-2">Top vins rosats</a></li>
+			</ul>
 		</div>
-		<div ng-repeat="redwine in topWines.red" class="col-sm-12 box-wine">
-			<div class="row">
-				<div ng-class="
-				{
-				'box-name-rate': redwine.TopRank==1 || redwine.TopRank == 3,
-				'white-box': redwine.TopRank==2}" class="col-sm-4">
-					<h3>{{redwine.snoothrank}}</h3>
-					<h4>{{redwine.name}}</h4>
+		<div class="tab-content">
+			<div
+			ng-repeat="wines in topWines"
+			ng-class="{'in active': {{$index}} == 0}"
+			id="wines-{{$index}}"
+			class="col-sm-12 box-wine tab-pane fade">
+				<div ng-repeat="uniqueWines in wines" class="row">
+					<div ng-class="
+					{
+					'box-name-rate': uniqueWines.TopRank==1 || uniqueWines.TopRank == 3,
+					'white-box': uniqueWines.TopRank==2}" class="col-sm-4 box">
+						<div ng-if="uniqueWines.TopRank==1">
+							<h1>1.</h1>
+							<h3>{{uniqueWines.snoothrank}}</h3>
+							<h2>{{uniqueWines.name}}</h2>
+						</div>
+						<div ng-if="uniqueWines.TopRank==2">
+						</div>
+						<div ng-if="uniqueWines.TopRank==3">
+							<h1>3.</h1>
+							<h3>{{uniqueWines.snoothrank}}</h3>
+							<h2>{{uniqueWines.name}}</h2>
+						</div>
+					</div>
+					<div ng-class="{
+					'box-celler': uniqueWines.TopRank==1 || uniqueWines.TopRank == 3,
+					'box-name-rate': uniqueWines.TopRank==2}" class="col-sm-4 box">
+						<div ng-if="uniqueWines.TopRank == 1" class="cell">
+							<h4>Regió</h4>
+							<h4>{{uniqueWines.region.split(' ').pop()}}</h4>
+							<h4>Vinyer</h4>
+							<h4>{{uniqueWines.winery}}</h4>
+							<h4>Anyada</h4>
+							<h4>{{uniqueWines.vintage}}</h4>
+						</div>
+						<div ng-if="uniqueWines.TopRank == 2">
+							<h1>2.</h1>
+							<h3>{{uniqueWines.snoothrank}}</h3>
+							<h2>{{uniqueWines.name}}</h2>
+						</div>
+						<div ng-if="uniqueWines.TopRank == 3" class="cell">
+							<h4>Regió</h4>
+							<h4>{{uniqueWines.region.split(' ').pop()}}</h4>
+							<h4>Vinyer</h4>
+							<h4>{{uniqueWines.winery}}</h4>
+							<h4>Anyada</h4>
+							<h4>{{uniqueWines.vintage}}</h4>
+						</div>
+					</div>
+					<div ng-class="{
+					'white-box': uniqueWines.TopRank==1 || uniqueWines.TopRank == 3,
+					'box-celler': uniqueWines.TopRank==2}"  class="col-sm-4 box">
+						<div ng-if="uniqueWines.TopRank == 1">
+						</div>
+						<div ng-if="uniqueWines.TopRank == 2" class="cell">
+							<h4>Regió</h4>
+							<h4>{{uniqueWines.region.split(' ').pop()}}</h4>
+							<h4>Vinyer</h4>
+							<h4>{{uniqueWines.winery}}</h4>
+							<h4>Anyada</h4>
+							<h4>{{uniqueWines.vintage}}</h4>
+						</div>
+						<div ng-if="uniqueWines.TopRank == 3">
+						</div>
+					</div>
 				</div>
-				<div ng-class="{
-				'box-celler': redwine.TopRank==1 || redwine.TopRank == 3,
-				'box-name-rate': redwine.TopRank==2}" class="col-sm-4">
-					<p>{{redwine.celler}}</p>
-				</div>
-				<div ng-class="{
-				'white-box': redwine.TopRank==1 || redwine.TopRank == 3,
-				'box-celler': redwine.TopRank==2}"  class="col-sm-4"></div>
 			</div>
+			<!--<div ng-repeat="redwine in topWines.red" id="top-negres" class="col-sm-12 box-wine tab-pane fade in active">
+				<div class="row">
+					<div ng-class="
+					{
+					'box-name-rate': redwine.TopRank==1 || redwine.TopRank == 3,
+					'white-box': redwine.TopRank==2}" class="col-sm-4">
+						<div ng-if="redwine.TopRank==1">
+							<h1>1.</h1>
+							<h3>{{redwine.snoothrank}}</h3>
+							<h4>{{redwine.name}}</h4>
+						</div>
+						<div ng-if="redwine.TopRank==2">
+						</div>
+						<div ng-if="redwine.TopRank==3">
+							<h1>3.</h1>
+							<h3>{{redwine.snoothrank}}</h3>
+							<h4>{{redwine.winery}}</h4>
+						</div>
+					</div>
+					<div ng-class="{
+					'box-celler': redwine.TopRank==1 || redwine.TopRank == 3,
+					'box-name-rate': redwine.TopRank==2}" class="col-sm-4">
+						<div ng-if="redwine.TopRank == 1">
+							<h3>Vinyer</h3>
+							<h4>{{redwine.winery}}</h4>
+						</div>
+						<div ng-if="redwine.TopRank == 2">
+							<h1>2.</h1>
+							<h3>{{redwine.snoothrank}}</h3>
+							<h4>{{redwine.name}}</h4>
+						</div>
+						<div ng-if="redwine.TopRank == 3">
+							<h3>Vinyer</h3>
+							<h4>{{redwine.winery}}</h4>
+						</div>
+					</div>
+					<div ng-class="{
+					'white-box': redwine.TopRank==1 || redwine.TopRank == 3,
+					'box-celler': redwine.TopRank==2}"  class="col-sm-4">
+						<div ng-if="redwine.TopRank == 1">
+						</div>
+						<div ng-if="redwine.TopRank == 2">
+							<h3>Vinyer</h3>
+							<h4>{{redwine.winery}}</h4>
+						</div>
+						<div ng-if="redwine.TopRank == 3">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-repeat="whitewine in topWines.white" id="top-blancs" class="col-sm-12 box-wine tab-pane fade">
+				<div class="row">
+					<div ng-class="
+					{
+					'box-name-rate': whitewine.TopRank==1 || whitewine.TopRank == 3,
+					'white-box': whitewine.TopRank==2}" class="col-sm-4">
+						<div ng-if="whitewine.TopRank==1">
+							<h1>1.</h1>
+							<h3>{{whitewine.snoothrank}}</h3>
+							<h4>{{whitewine.name}}</h4>
+						</div>
+						<div ng-if="whitewine.TopRank==2">
+						</div>
+						<div ng-if="whitewine.TopRank==3">
+							<h1>3.</h1>
+							<h3>{{whitewine.snoothrank}}</h3>
+							<h4>{{whitewine.winery}}</h4>
+						</div>
+					</div>
+					<div ng-class="{
+					'box-celler': whitewine.TopRank==1 || whitewine.TopRank == 3,
+					'box-name-rate': whitewine.TopRank==2}" class="col-sm-4">
+						<div ng-if="whitewine.TopRank == 1">
+							<h3>Vinyer</h3>
+							<h4>{{whitewine.winery}}</h4>
+						</div>
+						<div ng-if="whitewine.TopRank == 2">
+							<h1>2.</h1>
+							<h3>{{whitewine.snoothrank}}</h3>
+							<h4>{{whitewine.name}}</h4>
+						</div>
+						<div ng-if="whitewine.TopRank == 3">
+							<h3>Vinyer</h3>
+							<h4>{{whitewine.winery}}</h4>
+						</div>
+					</div>
+					<div ng-class="{
+					'white-box': whitewine.TopRank==1 || whitewine.TopRank == 3,
+					'box-celler': whitewine.TopRank==2}"  class="col-sm-4">
+						<div ng-if="whitewine.TopRank == 1">
+						</div>
+						<div ng-if="whitewine.TopRank == 2">
+							<h3>Vinyer</h3>
+							<h4>{{whitewine.winery}}</h4>
+						</div>
+						<div ng-if="whitewine.TopRank == 3">
+						</div>
+					</div>
+				</div>
+			</div>-->
 		</div>
 	</div>
 </div>

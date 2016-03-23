@@ -641,9 +641,29 @@ html {
   margin-top: 10px;
 }
 .header-top-wines .section-header-min {
-  height: 400px;
+  height: 350px;
   background: url('../img/home-top.jpg') no-repeat center center;
   background-size: cover;
+}
+.page-top-wines .nav-tabs {
+  text-align: center;
+  border: 0;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.page-top-wines .nav-tabs li {
+  float: none;
+  display: inline-block;
+}
+.page-top-wines .nav-tabs li a {
+  color: #3F3F3F;
+  font-size: 25px;
+}
+.page-top-wines .box-wine h2,
+.page-top-wines .box-wine h3,
+.page-top-wines .box-wine h4,
+.page-top-wines .box-wine h5 {
+  text-align: center;
 }
 .page-top-wines .box-wine .box-name-rate {
   background-color: #333333;
@@ -657,6 +677,14 @@ html {
 }
 .page-top-wines .box-wine .white-box {
   background-color: white;
+}
+.page-top-wines .box-wine .box {
+  display: table;
+}
+.page-top-wines .box-wine .box .cell {
+  display: table-cell;
+  vertical-align: middle;
+  color: #999999;
 }
 .profile-header {
   height: 250px;

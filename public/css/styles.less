@@ -712,13 +712,30 @@ html{
 }
 .header-top-wines{
 	.section-header-min{
-		height: 400px;
+		height: 350px;
 		background: url('../img/home-top.jpg') no-repeat center center;
 		background-size: cover;
 	}
 }
 .page-top-wines{
+	.nav-tabs{
+		text-align: center;
+		border: 0;
+		margin-top: 25px;
+		margin-bottom: 25px;
+		li{
+			float: none;
+			display: inline-block;
+			a{
+				color: #3F3F3F;
+				font-size: 25px;
+			}
+		}
+	}
 	.box-wine{
+		h2,h3,h4,h5{
+			text-align: center;
+		}
 		.box-name-rate{
 			background-color: #333333;
 			height: 331px;
@@ -731,6 +748,14 @@ html{
 		}
 		.white-box{
 			background-color: white;
+		}
+		.box{
+			display: table;
+			.cell{
+				display: table-cell;
+				vertical-align: middle;
+				color: #999999;
+			}
 		}
 	}
 }
