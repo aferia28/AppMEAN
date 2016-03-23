@@ -576,9 +576,9 @@ html {
 }
 .page-weather .wine-searcher .wine-search-results .wine-box p {
   font-weight: bold;
+  color: #4b0082;
 }
 .page-weather .wine-searcher .wine-search-results .wine-box a {
-  color: #4b0082;
   text-decoration: none;
 }
 .page-weather .wine-searcher .wine-search-results .wine-box .image-box img {

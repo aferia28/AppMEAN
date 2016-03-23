@@ -37,25 +37,25 @@
 	            <div class="row">
 	            	<div ng-repeat="wine in fiveDay | filter:query" class="col-sm-4">
 	            		<div class="wine-box">
-	            			<div class="col-sm-12">
-	            				<p class="wine-title" data-code="{{wine.code}}">
-									<a href="#product/{{wine.code}}">
-					              	{{wine.name}}
-					              	</a>
-				            	</p>
-	            			</div>
-			            	<div class="col-sm-12 image-box">
-			            		<img ng-if="wine.image" ng-src="{{wine.image}}">
-			                	<img ng-src="{{wine.image_url}}">
-			              	</div>
-				            <div class="col-sm-12 wine-text">
-				            	<!-- {{wine.type}}
-				            	<br> -->
-				            	{{wine.region.split(" > ").pop()}}
-				            </div>
-				            <div class="col-sm-12 wine-vintage">
-								{{wine.vintage}}
-				            </div>
+	            			<a href="#product/{{wine.code}}">
+		            			<div class="col-sm-12">
+		            				<p class="wine-title" data-code="{{wine.code}}">
+						              	{{wine.name}}
+					            	</p>
+		            			</div>
+				            	<div class="col-sm-12 image-box">
+				            		<img ng-if="wine.image" ng-src="{{wine.image}}">
+				                	<img ng-src="{{wine.image_url}}">
+				              	</div>
+					            <div class="col-sm-12 wine-text">
+					            	<!-- {{wine.type}}
+					            	<br> -->
+					            	{{wine.region.split(" > ").pop()}}
+					            </div>
+					            <div class="col-sm-12 wine-vintage">
+									{{wine.vintage}}
+					            </div>
+					        </a>
 	            		</div>
 					</div>
 	            </div>
