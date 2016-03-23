@@ -533,6 +533,12 @@ html {
   background-color: white;
   border-radius: 2px;
 }
+.page-weather .wine-search-parameters #selectDo {
+  text-align-last: center;
+}
+.page-weather .wine-search-results {
+  padding: 0px 50px 50px 50px;
+}
 .page-product .product-content .fa,
 .page-product .product-content .fa-arrow-left {
   color: white;
