@@ -30,7 +30,13 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		$scope.product.com = wine.comentarios;
 		inData.wine = wine;
 
-		$scope.type = getWineType(wine.type)
+		if(wine.type == "")
+		{
+			$scope.type = wine.color.toLowerCase();
+		}else if(wine.type != "")
+		{
+			$scope.type = getWineType(wine.type)
+		}
 		console.log($scope.type);
 
 		if(response.data.canrate == false)

@@ -1,4 +1,4 @@
-var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote', 'angular-cardflow']);
+var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote', 'angular-cardflow','ngFileUpload']);
 
 app.config(function($routeProvider, $authProvider, socialshareConfProvider)
 {
@@ -116,6 +116,17 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
     .when('/admin/perfiles',{
       controller: '',
       templateUrl: 'views/adminperfiles.html',
+      resolve: {
+        authenticated: ["$location", '$auth', function($location, $auth){
+          if(!$auth.isAuthenticated()){
+            return $location.path('/');
+          }
+        }]
+      }
+  })
+    .when('/pageaddwine',{
+      controller: 'addWineController',
+      templateUrl: 'views/addwine.html',
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
