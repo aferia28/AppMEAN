@@ -584,7 +584,6 @@ exports.getTopWines = function (req, res) {
 		],function(err, vinos) {
 			if(!err)
 			{
-				console.log(vinos);
 				redWines = vinos;
 				var options = {
 					host: 'api.snooth.com',
@@ -596,86 +595,152 @@ exports.getTopWines = function (req, res) {
 			  		response.on('data', function (chunk) {
 			    		string += chunk;
 			  		});
-
 			  		response.on('end', function () {
 
 			  			var snoothWines = JSON.parse(string);
 
-			  			var twoArrays = redWines.concat(snoothWines.wines);
-						for(var i=0; i<twoArrays.length; i++)
+			  			redWines = redWines.concat(snoothWines.wines);
+						for(var i=0; i<redWines.length; i++)
 						{
-							for(var j=i+1; j<twoArrays.length; j++)
+							for(var j=i+1; j<redWines.length; j++)
 							{
-								if(twoArrays[i].code === twoArrays[j].code)
+								if(redWines[i].code === redWines[j].code)
 								{
-									twoArrays.splice(j--,1);
+									redWines.splice(j--,1);
 								}
 							}
 						}
-
-						twoArrays.sort(function(a,b) {
+						redWines.sort(function(a,b) {
 							return b.snoothrank - a.snoothrank;
 						})
-						twoArrays = twoArrays.slice(0,3);
-						res.send(twoArrays);
+						redWines = redWines.slice(0,3);
+						for(var i = 0; i<redWines.length; i++)
+						{
+							redWines[i].TopRank = (i+1);
+						}
+						//res.send(redWines);
+						Vino.aggregate([
+							{'$lookup': {
+								from: 'puntuacions',
+								localField:'name',
+								foreignField:'vineName',
+								as:'arrayWines'
+								}
+							},
+							{'$unwind':'$arrayWines'},
+							{$group:{_id: '$code',code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
+							{$sort: {media: -1}},
+							{$match: {type: "Blanc"}},
+							{$limit: 3}
+							],function(err, vinos) {
+								if(!err)
+								{
+									whiteWines = vinos;
+									var options = {
+										host: 'api.snooth.com',
+										path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=white"
+									};
+
+									callback = function(response) {
+								  		var string = '';
+								  		response.on('data', function (chunk) {
+								    		string += chunk;
+								  		});
+								  		response.on('end', function () {
+
+								  			var snoothWines = JSON.parse(string);
+
+								  			whiteWines = whiteWines.concat(snoothWines.wines);
+											for(var i=0; i<whiteWines.length; i++)
+											{
+												for(var j=i+1; j<whiteWines.length; j++)
+												{
+													if(whiteWines[i].code === whiteWines[j].code)
+													{
+														whiteWines.splice(j--,1);
+													}
+												}
+											}
+											whiteWines.sort(function(a,b) {
+												return b.snoothrank - a.snoothrank;
+											})
+											whiteWines = whiteWines.slice(0,3);
+											//res.send(twoArrays);
+								  		});
+								  	}
+
+								  	http.request(options, callback).end();
+
+								}else{
+									res.send(err.message);
+								}
+						})
+
+						Vino.aggregate([
+							{'$lookup': {
+								from: 'puntuacions',
+								localField:'name',
+								foreignField:'vineName',
+								as:'arrayWines'
+								}
+							},
+							{'$unwind':'$arrayWines'},
+							{$group:{_id: '$code',code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
+							{$sort: {media: -1}},
+							{$match: {type: "Rosat"}},
+							{$limit: 3}
+							],function(err, vinos) {
+								if(!err)
+								{
+									roseWines = vinos;
+									var options = {
+										host: 'api.snooth.com',
+										path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=rose"
+									};
+
+									callback = function(response) {
+								  		var string = '';
+								  		response.on('data', function (chunk) {
+								    		string += chunk;
+								  		});
+								  		response.on('end', function () {
+
+								  			var snoothWines = JSON.parse(string);
+
+								  			roseWines = roseWines.concat(snoothWines.wines);
+											for(var i=0; i<roseWines.length; i++)
+											{
+												for(var j=i+1; j<roseWines.length; j++)
+												{
+													if(roseWines[i].code === roseWines[j].code)
+													{
+														roseWines.splice(j--,1);
+													}
+												}
+											}
+											roseWines.sort(function(a,b) {
+												return b.snoothrank - a.snoothrank;
+											})
+											roseWines = roseWines.slice(0,3);
+											//res.send(twoArrays);
+								  		});
+								  	}
+
+								  	http.request(options, callback).end();
+
+								}else{
+									res.send(err.message);
+								}
+						})
+						allWines = {red:redWines,white:whiteWines,rose:roseWines};
+						res.send(allWines);
 			  		});
 			  	}
-
 			  	http.request(options, callback).end();
 			}else{
 				res.send(err.message);
 			}
 		})
-
-	/*Vino.aggregate([
-		{'$lookup': {
-			from: 'puntuacions',
-			localField:'name',
-			foreignField:'vineName',
-			as:'arrayWines'
-			}
-		},
-		{'$unwind':'$arrayWines'},
-		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}},
-		{$sort: {media: -1}},
-		{$match: {type: "Blanco"}},
-		{$limit: 3}
-		],function(err, result) {
-			if(!err)
-			{
-				whiteWines = result;
-
-			}else{
-				res.send(err.message);
-			}
-	})
-
-	Vino.aggregate([
-		{'$lookup': {
-			from: 'puntuacions',
-			localField:'name',
-			foreignField:'vineName',
-			as:'arrayWines'
-			}
-		},
-		{'$unwind':'$arrayWines'},
-		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}},
-		{$sort: {media: -1}},
-		{$match: {type: "Rosado"}},
-		{$limit: 3}
-		],function(err, result) {
-			if(!err)
-			{
-				roseWines = result;
-
-			}else{
-				res.send(err.message);
-			}
-	})*/
-
-	//allWines = {red:redWines,white:whiteWines,rose:roseWines};
-
-	//res.send(allWines);
 }
 
 	//PUT

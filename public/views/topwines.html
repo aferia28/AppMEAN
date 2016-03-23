@@ -1,16 +1,32 @@
-<div class="container-fluid region3">
+<div class="container-fluid header-top-wines">
 	<div class="row">
 		<div class="col-sm-12 section-header-min">
 
 		</div>
+	</div>
+</div>
+<div class="container page-top-wines">
+	<div class="row">
 		<div class="col-sm-12">
 			<h1 style="text-align: center; font-size: 50px; padding-top: 20px">Els més valorats</h1>
 		</div>
-		<div class="col-sm-12">
+		<div ng-repeat="redwine in topWines.red" class="col-sm-12 box-wine">
 			<div class="row">
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4"></div>
+				<div ng-class="
+				{
+				'box-name-rate': redwine.TopRank==1 || redwine.TopRank == 3,
+				'white-box': redwine.TopRank==2}" class="col-sm-4">
+					<h3>{{redwine.snoothrank}}</h3>
+					<h4>{{redwine.name}}</h4>
+				</div>
+				<div ng-class="{
+				'box-celler': redwine.TopRank==1 || redwine.TopRank == 3,
+				'box-name-rate': redwine.TopRank==2}" class="col-sm-4">
+					<p>{{redwine.celler}}</p>
+				</div>
+				<div ng-class="{
+				'white-box': redwine.TopRank==1 || redwine.TopRank == 3,
+				'box-celler': redwine.TopRank==2}"  class="col-sm-4"></div>
 			</div>
 		</div>
 	</div>

@@ -2,6 +2,7 @@ app.controller('topWinesController', ['$scope', '$http','dataFactory', function(
 
 dataFactory.getTopWines()
 .then(function(response) {
+	$scope.topWines = response.data;
 	console.log(response);
 })
 .catch(function(response) {

@@ -392,13 +392,6 @@ html {
   font-size: 17px;
   line-height: 40px;
 }
-<<<<<<< HEAD
-.region3 .section-header-min {
-  height: 400px;
-  background: url('../img/home-top.jpg') no-repeat center center;
-  background-size: cover;
-}
-=======
 .region2 .section4 {
   height: 350px;
   background: url('../img/langhe.jpg') no-repeat center center;
@@ -486,7 +479,6 @@ html {
   transition: background 0.3s cubic-bezier(0.77, 0, 0.175, 1);
   color: white;
 }
->>>>>>> master
 .widget-searcher {
   text-align: center;
   padding-top: 30px;
@@ -647,6 +639,24 @@ html {
 }
 .page-product .product-box-content {
   margin-top: 10px;
+}
+.header-top-wines .section-header-min {
+  height: 400px;
+  background: url('../img/home-top.jpg') no-repeat center center;
+  background-size: cover;
+}
+.page-top-wines .box-wine .box-name-rate {
+  background-color: #333333;
+  height: 331px;
+  color: white;
+}
+.page-top-wines .box-wine .box-celler {
+  background-color: #3F3F3F;
+  height: 331px;
+  color: white;
+}
+.page-top-wines .box-wine .white-box {
+  background-color: white;
 }
 .profile-header {
   height: 250px;
