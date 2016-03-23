@@ -82,7 +82,6 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         return defer.promise;
     };
 
-<<<<<<< HEAD
     dataFactory.getTopWines = function() {
 
         return $http({
@@ -96,7 +95,6 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         })
 
     }
-=======
     dataFactory.addWine = function (wine) {
 
         console.log(wine);
@@ -109,6 +107,5 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
             })
     };
 
->>>>>>> master
     return dataFactory;
 }]);

@@ -525,13 +525,18 @@ exports.addWine = function(req, res) {
 	console.log('body', req.params);
 
 	var file = req.files.file;
-	console.log(file.name);
-    console.log(file.type);
-    console.log(file.path);
-    console.log(file);
+
+	//code wine
+	var codeWine = req.body.wine.name.split(' ');
+	codeWine = codeWine.join('-').toLowerCase();
+	console.log(codeWine);
+	//console.log(file.name);
+    //console.log(file.type);
+    //console.log(file.path);
+    //console.log(file);
 
 	var wine = new Vino({
-		code: req.body.wine.code,
+		code: codeWine,
 		name: req.body.wine.name,
 		type: req.body.wine.type,
 		winery: req.body.wine.winery,
@@ -557,23 +562,6 @@ exports.addWine = function(req, res) {
 }
 
 exports.getTopWines = function (req, res) {
-	//buscar todos los vinos tanto de nuestra bbdd, como de la api..
-	//tengo que guardar cada vino en una array de vinos, sin repetirlos..
-	//una vez guardados todos los vinos en la array, hacer sort y ordenarlos de mayor a menos..
-	//con mongoose hacer una query que me devuelva 5 vinos con puntuación mas alta
-	//NOTA: La api tiene una opcion para hacer query según ranking
-	//NOTA: Para poder hacer esta operacion, hace falta saber la puntuacion media de cada vino.
-	/*Vino.aggregate([{$group:{_id:'$rates'}, media:{$avg:'$rates.puntuacion'}}]).exec(function(err,result) {
-		Puntuacion.populate(result, {path:'rates'}, function(err,res) {
-		if(!err)
-		{
-			//Puntuacion.aggregate([{$match: {_id: {$in: vinos.rates}}},])
-			res.send(result)
-		}else{
-			res.send(err.message)
-		}
-	})
-	})*/
 
 	var whiteWines = [];
 	var redWines = [];
@@ -589,49 +577,57 @@ exports.getTopWines = function (req, res) {
 			}
 		},
 		{'$unwind':'$arrayWines'},
-		{$group:{_id: '$name', type:{$first:'$type'}, media:{'$avg':'$arrayWines.puntuacion'}}},
+		{$group:{_id: '$code', code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
 		{$sort: {media: -1}},
-		{$match: {type: "Tinto"}},
+		{$match: {type: "Negre"}},
 		{$limit: 3}
-		],function(err, result) {
+		],function(err, vinos) {
 			if(!err)
 			{
-				redWines = result;
-				/*var options = {
+				console.log(vinos);
+				redWines = vinos;
+				var options = {
 					host: 'api.snooth.com',
-					path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q="+'Catalonia'+"&s=sr&xp=100&color=red"
+					path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=red"
 				};
 
 				callback = function(response) {
 			  		var string = '';
 			  		response.on('data', function (chunk) {
-			  			console.log(chunk);
 			    		string += chunk;
 			  		});
 
 			  		response.on('end', function () {
 
-			  			var jsonWine = JSON.parse(string);
-			  			console.log(jsonWine);
-			  			for(var i = 0; i<jsonWine.wines.length; i++)
-			  			{
-			  				redWines.push(jsonWine.wines[i]);
-			  			}
-			  			res.send(redWines); //devuelve array de los vinos tintos
-			  			NOTA: Ahora solo hay un vino tinto en nuestra BD con lo qual no hay problema,
-						pero hay que hacer una funcion que los ordene de mas a menos y solo guarde en la array
-						los 3 primeros...
+			  			var snoothWines = JSON.parse(string);
 
+			  			var twoArrays = redWines.concat(snoothWines.wines);
+						for(var i=0; i<twoArrays.length; i++)
+						{
+							for(var j=i+1; j<twoArrays.length; j++)
+							{
+								if(twoArrays[i].code === twoArrays[j].code)
+								{
+									twoArrays.splice(j--,1);
+								}
+							}
+						}
+
+						twoArrays.sort(function(a,b) {
+							return b.snoothrank - a.snoothrank;
+						})
+						twoArrays = twoArrays.slice(0,3);
+						res.send(twoArrays);
 			  		});
 			  	}
 
-			  	http.request(options, callback).end();*/
+			  	http.request(options, callback).end();
 			}else{
 				res.send(err.message);
 			}
 		})
 
-	Vino.aggregate([
+	/*Vino.aggregate([
 		{'$lookup': {
 			from: 'puntuacions',
 			localField:'name',
@@ -675,11 +671,11 @@ exports.getTopWines = function (req, res) {
 			}else{
 				res.send(err.message);
 			}
-	})
+	})*/
 
-	allWines = {red:redWines,white:whiteWines,rose:roseWines};
+	//allWines = {red:redWines,white:whiteWines,rose:roseWines};
 
-	res.send(allWines);
+	//res.send(allWines);
 }
 
 	//PUT
