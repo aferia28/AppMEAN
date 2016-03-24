@@ -1,4 +1,4 @@
-app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFactory', function ($scope, $http, $timeout,dataFactory) {
+app.controller('wineSearcherController', ['$scope', '$http', '$timeout', 'dataFactory', function ($scope, $http, $timeout, dataFactory) {
     /*
     ** Cardflow
     */
@@ -29,7 +29,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFac
    	$scope.DOs = {
    		selectedDO: '',
    		availableOptions: [
-   			{	id: '',  				name: 'Tots'				},
+   			{	id: '',  				name: 'Totes'				},
 			{	id: 'alella', 			name: 'Alella'				},
 			// {	id: 'cataluna', 		name: 'Cataluña'			},
 			{	id: 'conca+barbera', 	name: 'Conca de Barberá'	},
@@ -50,14 +50,8 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFac
 
 	$scope.search = function() {
 
-		// Wine search parameters from Snooth
+		// Wine search parameters selectable from the client side
 		productColor = $scope.cardflow.selectedCard.title;
-		sort = 'qpr'; // qpr = Quality Price Ratio
-		//country = 'ES'; // España
-		// zipCode = '08360';
-		// language = 'es'; // Español
-
-		// Custom parameters
 		designationOrigin = $scope.DOs.selectedDO;
 		vintage = $scope.vintage;
 
@@ -74,6 +68,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout','dataFac
 		.catch(function(response) {
 
 		})
+
 		// Angular method that makes the request
 		/*$http.get(url).then(function(response) {
 			// Handles success

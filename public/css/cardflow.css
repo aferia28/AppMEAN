@@ -1,5 +1,3 @@
-/* just a demo, feel free to make this however you like in your app */
-
 .cardflow-wrapper {
     position:relative;
     overflow:hidden;
@@ -48,7 +46,7 @@
     background: #000;
     background-size:cover;
 
-    border: 3px solid black;
+    border: 3px solid #3F3F3F;
 
     /* keep padding & borders inside box size */
     box-sizing:border-box;
@@ -70,7 +68,7 @@
 }
 
 .cardflow-card.cardflow-active {
-    border-color: #fff;
+    border-color: indigo;
 }
 
 .cardflow-carousel {
@@ -191,7 +189,7 @@ cardflow .cardflow-card.cardflow-active {
 }*/
 
 .page .cardflow-card.cardflow-active {
-    border: 3px solid rgb(251, 224, 120);
+    border: 5px solid indigo;
     -webkit-box-shadow: none;
     box-shadow: none;
     -webkit-transform: scale(1);
