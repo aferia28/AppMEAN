@@ -526,13 +526,18 @@ exports.addWine = function(req, res) {
 	console.log('body', req.params);
 
 	var file = req.files.file;
-	console.log(file.name);
-    console.log(file.type);
-    console.log(file.path);
-    console.log(file);
+
+	//code wine
+	var codeWine = req.body.wine.name.split(' ');
+	codeWine = codeWine.join('-').toLowerCase();
+	console.log(codeWine);
+	//console.log(file.name);
+    //console.log(file.type);
+    //console.log(file.path);
+    //console.log(file);
 
 	var wine = new Vino({
-		code: req.body.wine.code,
+		code: codeWine,
 		name: req.body.wine.name,
 		type: req.body.wine.type,
 		winery: req.body.wine.winery,
@@ -555,6 +560,192 @@ exports.addWine = function(req, res) {
 	});
 
 	//res.send(wine);
+}
+
+exports.getTopWines = function (req, res) {
+
+	var whiteWines = [];
+	var redWines = [];
+	var roseWines = [];
+	var allWines = [];
+
+	Vino.aggregate([
+		{'$lookup': {
+			from: 'puntuacions',
+			localField:'name',
+			foreignField:'vineName',
+			as:'arrayWines'
+			}
+		},
+		{'$unwind':'$arrayWines'},
+		{$group:{_id: '$code', code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
+		{$sort: {media: -1}},
+		{$match: {type: "Negre"}},
+		{$limit: 3}
+		],function(err, vinos) {
+			if(!err)
+			{
+				redWines = vinos;
+				var options = {
+					host: 'api.snooth.com',
+					path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=red"
+				};
+
+				callback = function(response) {
+			  		var string = '';
+			  		response.on('data', function (chunk) {
+			    		string += chunk;
+			  		});
+			  		response.on('end', function () {
+
+			  			var snoothWines = JSON.parse(string);
+
+			  			redWines = redWines.concat(snoothWines.wines);
+						for(var i=0; i<redWines.length; i++)
+						{
+							for(var j=i+1; j<redWines.length; j++)
+							{
+								if(redWines[i].code === redWines[j].code)
+								{
+									redWines.splice(j--,1);
+								}
+							}
+						}
+						redWines.sort(function(a,b) {
+							return b.snoothrank - a.snoothrank;
+						})
+						redWines = redWines.slice(0,3);
+						for(var i = 0; i<redWines.length; i++)
+						{
+							redWines[i].TopRank = (i+1);
+						}
+
+						Vino.aggregate([
+							{'$lookup': {
+								from: 'puntuacions',
+								localField:'name',
+								foreignField:'vineName',
+								as:'arrayWines'
+								}
+							},
+							{'$unwind':'$arrayWines'},
+							{$group:{_id: '$code',code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
+							{$sort: {media: -1}},
+							{$match: {type: "Blanc"}},
+							{$limit: 3}
+							],function(err, vinos) {
+								if(!err)
+								{
+									whiteWines = vinos;
+									var options = {
+										host: 'api.snooth.com',
+										path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=white"
+									};
+
+									callback = function(response) {
+								  		var string = '';
+								  		response.on('data', function (chunk) {
+								    		string += chunk;
+								  		});
+								  		response.on('end', function () {
+
+								  			var snoothWines = JSON.parse(string);
+								  			whiteWines = whiteWines.concat(snoothWines.wines);
+											for(var i=0; i<whiteWines.length; i++)
+											{
+												for(var j=i+1; j<whiteWines.length; j++)
+												{
+													if(whiteWines[i].code === whiteWines[j].code)
+													{
+														whiteWines.splice(j--,1);
+													}
+												}
+											}
+											whiteWines.sort(function(a,b) {
+												return b.snoothrank - a.snoothrank;
+											})
+											whiteWines = whiteWines.slice(0,3);
+											for(var i = 0; i<whiteWines.length; i++)
+											{
+												whiteWines[i].TopRank = (i+1);
+											}
+
+											Vino.aggregate([
+												{'$lookup': {
+													from: 'puntuacions',
+													localField:'name',
+													foreignField:'vineName',
+													as:'arrayWines'
+													}
+												},
+												{'$unwind':'$arrayWines'},
+												{$group:{_id: '$code',code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
+												{$sort: {media: -1}},
+												{$match: {type: "Rosat"}},
+												{$limit: 3}
+												],function(err, vinos) {
+													if(!err)
+													{
+														roseWines = vinos;
+														var options = {
+															host: 'api.snooth.com',
+															path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=rose"
+														};
+
+														callback = function(response) {
+													  		var string = '';
+													  		response.on('data', function (chunk) {
+													    		string += chunk;
+													  		});
+													  		response.on('end', function () {
+
+													  			var snoothWines = JSON.parse(string);
+
+													  			roseWines = roseWines.concat(snoothWines.wines);
+																for(var i=0; i<roseWines.length; i++)
+																{
+																	for(var j=i+1; j<roseWines.length; j++)
+																	{
+																		if(roseWines[i].code === roseWines[j].code)
+																		{
+																			roseWines.splice(j--,1);
+																		}
+																	}
+																}
+																roseWines.sort(function(a,b) {
+																	return b.snoothrank - a.snoothrank;
+																})
+																roseWines = roseWines.slice(0,3);
+																for(var i = 0; i<roseWines.length; i++)
+																{
+																	roseWines[i].TopRank = (i+1);
+																}
+																allWines = {red:redWines,white:whiteWines,rose:roseWines};
+																console.log(allWines);
+																res.send(allWines);
+													  		});
+													  	}
+
+													  	http.request(options, callback).end();
+
+													}else{
+														res.send(err.message);
+													}
+											})
+								  		});
+								  	}
+								  	http.request(options, callback).end();
+								}else{
+									res.send(err.message);
+								}
+						})
+			  		});
+			  	}
+			  	http.request(options, callback).end();
+			}else{
+				res.send(err.message);
+			}
+		})
 }
 
 	//PUT
