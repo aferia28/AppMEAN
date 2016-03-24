@@ -1,7 +1,7 @@
 <div class="container-fluid header-top-wines">
 	<div class="row">
 		<div class="col-sm-12 section-header-min">
-			<h1 style="text-align: center; font-size: 50px; padding-top: 20px">Els més valorats</h1>
+			<h1 style="text-align: center; font-size: 60px; padding-top: 80px; color: white">Els més valorats</h1>
 		</div>
 	</div>
 </div>
@@ -30,7 +30,8 @@
 							<h3>{{uniqueWines.snoothrank}}</h3>
 							<h2>{{uniqueWines.name}}</h2>
 						</div>
-						<div ng-if="uniqueWines.TopRank==2">
+						<div ng-if="uniqueWines.TopRank==2" class="cell">
+							<a href="#product/{{uniqueWines.code}}"><h3>Veure</h3></a>
 						</div>
 						<div ng-if="uniqueWines.TopRank==3">
 							<h1>3.</h1>
@@ -66,7 +67,8 @@
 					<div ng-class="{
 					'white-box': uniqueWines.TopRank==1 || uniqueWines.TopRank == 3,
 					'box-celler': uniqueWines.TopRank==2}"  class="col-sm-4 box">
-						<div ng-if="uniqueWines.TopRank == 1">
+						<div ng-if="uniqueWines.TopRank == 1" class="cell">
+							<a href="#product/{{uniqueWines.code}}"><h3>Veure</h3></a>
 						</div>
 						<div ng-if="uniqueWines.TopRank == 2" class="cell">
 							<h4>Regió</h4>
@@ -76,7 +78,8 @@
 							<h4>Anyada</h4>
 							<h4>{{uniqueWines.vintage}}</h4>
 						</div>
-						<div ng-if="uniqueWines.TopRank == 3">
+						<div ng-if="uniqueWines.TopRank == 3" class="cell">
+							<a href="#product/{{uniqueWines.code}}"><h3>Veure</h3></a>
 						</div>
 					</div>
 				</div>

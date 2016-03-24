@@ -735,7 +735,11 @@ html {
   color: white;
 }
 .page-top-wines .box-wine .white-box {
+  height: 331px;
   background-color: white;
+}
+.page-top-wines .box-wine .white-box h3 {
+  color: #333333;
 }
 .page-top-wines .box-wine .box {
   display: table;
