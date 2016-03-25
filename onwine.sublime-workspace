@@ -1,0 +1,535 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"selec",
+				"selectedColor"
+			],
+			[
+				"di",
+				"div	Tag"
+			],
+			[
+				"selected",
+				"selectedDOs"
+			],
+			[
+				"se",
+				"selected"
+			],
+			[
+				"ava",
+				"availableDOs"
+			],
+			[
+				"DO",
+				"DOs"
+			],
+			[
+				"filter",
+				"filterFilter"
+			],
+			[
+				"de",
+				"designationOrigin"
+			],
+			[
+				"prd",
+				"productColor"
+			],
+			[
+				"s",
+				"sort"
+			],
+			[
+				"api",
+				"apiURl"
+			],
+			[
+				"res",
+				"responseJSON"
+			],
+			[
+				"lan",
+				"language"
+			],
+			[
+				"co",
+				"country"
+			],
+			[
+				"pro",
+				"productType"
+			],
+			[
+				"n",
+				"numberResults"
+			],
+			[
+				"l",
+				"logger"
+			],
+			[
+				"re",
+				"response"
+			],
+			[
+				"wordp",
+				"wordpress"
+			],
+			[
+				"aler",
+				"alerta"
+			],
+			[
+				"alerta",
+				"alerta"
+			],
+			[
+				"opera",
+				"operador2"
+			],
+			[
+				"op",
+				"operador2"
+			],
+			[
+				"ope",
+				"operador2"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"W",
+				"writeHead"
+			],
+			[
+				"write",
+				"writeHead"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "public/css/styles.less",
+			"settings":
+			{
+				"buffer_size": 18197,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Package Control Messages\n========================\n\nCSS Less(ish)\n-------------\n\n  This plugin implements a stripped down version of the functionality in css preprocessors so that you can use css variables and nesting without one.\n  \n  \n  How to use it\n  -------------------------------\n  By simply activating this plugin you're all set!\n  Start using variables, nesting and more via the documentation at https://github.com/kizza/CSS-Less-ish\n  \n  \n  Thank you!\n  -------------------------------\n  I hope you enjoy using this plugin - and that it saves you some time as well.  You can learn more or get in contact at https://github.com/kizza/CSS-Less-ish\n",
+			"settings":
+			{
+				"buffer_size": 654,
+				"line_ending": "Unix",
+				"name": "Package Control Messages",
+				"read_only": true,
+				"scratch": true
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 267.0,
+		"last_filter": "Package Control: ip",
+		"selected_items":
+		[
+			[
+				"Package Control: ip",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/Carlos/Repositories/AppMEAN_aferia28",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/css",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/views"
+	],
+	"file_history":
+	[
+		"/Users/Carlos/Downloads/angular-cardflow-master/examples/simple.html",
+		"/Users/Carlos/Downloads/angular-cardflow-master/examples/cardflow.css",
+		"/Users/Carlos/Downloads/angular-cardflow-master/examples/carousel.html",
+		"/Users/Carlos/Downloads/angular-cardflow-master/examples/demo.css",
+		"/Users/Carlos/Downloads/angular-cardflow-master/cardflow.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/app/models/wine.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/app.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/package.json",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/views/layouts/index.html",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/js/core.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/views/wines.html",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/.gitignore",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/app/controllers/controller.wines.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/app/routes/route.registro.api.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/js/controllers/productSearchController.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/views/product.html",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/js/controllers/controller.registro.front.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/views/signup.html",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/app/controllers/controller.registro.api.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/js/controllers/homeController.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/js/controllers/controller.auth.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/app/controllers/controller.auth.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/app/models/persona.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/onwine.sublime-project",
+		"/Users/Carlos/Repositories/MEANapp/app.js",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/.editorconfig",
+		"/Users/Carlos/Repositories/AppMEAN_aferia28/public/js/controllers/wineSearcherController.js",
+		"/Users/Carlos/Repositories/CEP/onWine/public/js/controllers/wineSearcherController.js",
+		"/Volumes/134.0.11.110/web/wp-config.php",
+		"/Users/Carlos/Downloads/192_168_86_67.sql",
+		"/Users/Carlos/Google Drive/Izando Marketing/ENVÍO FINAL Dreams&Adventures/2. Coach-Facilitador/2.7 Geoffrey McMullan/geoffrey_mcmullan.html",
+		"/Users/Carlos/Google Drive/Izando Marketing/ENVÍO FINAL Dreams&Adventures/2. Coach-Facilitador/2.6 Jaccopo Nicelli/jacopo_nicelli.html",
+		"/Users/Carlos/Google Drive/Izando Marketing/ENVÍO FINAL Dreams&Adventures/plantilla_team-members.html",
+		"/untitled.html",
+		"/Users/Carlos/Downloads/templatera_26Jun2015.xml",
+		"/Users/Carlos/Desktop/DWEC UF2 Exam/js/index.js",
+		"/Users/Carlos/Desktop/DWEC UF2 Exam/js/classes/Character.js",
+		"/Users/Carlos/Repositories/CEP/aferia28_PB2/UF5 - NF4 Interficies Grafiques/Adria ExamenUF5/src/examen/GestionFichero.java",
+		"/Users/Carlos/Desktop/DWEC-Adri/UF2 - Objects Javascript/Adria_EXAMEN UF2/layoutit/src/clases_js/personatge.js",
+		"/Users/Carlos/Desktop/DWEC-Adri/UF2 - Objects Javascript/Adria_EXAMEN UF2/layoutit/src/clases_js/joc.js",
+		"/Users/Carlos/Desktop/DWEC-Adri/UF2 - Objects Javascript/Adria_EXAMEN UF2/layoutit/src/js/scripts.js",
+		"/Users/Carlos/Desktop/URL_Sobbles",
+		"/Users/Carlos/Repositories/CEP/Sobbles/README.md",
+		"/Users/Carlos/Repositories/CEP/DWEC/UF4 - Comunicació asíncrona client-servidor/Examen UF4 - BBC/bbc.js",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/Fitxers Stones/Goats Head Soup.xml",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/AD_UF3_Examen/Esquema i fitxer XML/cruisers.xml",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/AD_UF3_Examen/Esquema i fitxer XML/classics.xml",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/AD_UF3_Examen/Esquema i fitxer XML/triumph.xsd",
+		"/Users/Carlos/Desktop/profile.html",
+		"/Applications/MAMP/htdocs/wordpress/wp-config.php",
+		"/Applications/MAMP/htdocs/wordpress/wp-config-sample.php",
+		"/Users/Carlos/Desktop/DWEC UF2 Exam/Character.js",
+		"/Users/Carlos/Desktop/DWEC UF2 Exam/Game.js",
+		"/Users/Carlos/Desktop/DWEC UF2 Exam/index.js",
+		"/Users/Carlos/Desktop/66_arxius_necessaris_practica_patrimoni_v2/MySQL_patrimoni.sql",
+		"/Users/Carlos/Desktop/66_arxius_necessaris_practica_patrimoni_v2/SQLServer_patrimoni.sql",
+		"/Users/Carlos/Desktop/capraboacasa.sql",
+		"/Users/Carlos/Desktop/PaginaAsignacioUFAlumne.aspx.cs",
+		"/Users/Carlos/Desktop/PaginaAsignacioUFAlumne.aspx",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Usuarios/Newsletter Masters 2/Includes/megaphoenix_common_news.php",
+		"/Users/Carlos/Repositories/CEP/DWEC/UF3 - Esdeveniments. Manegament de formularis. Model d'objectes del document. /A3.2.3_Esquelet/MasterMind.css",
+		"/Users/Carlos/Repositories/CEP/DWEC/UF3 - Esdeveniments. Manegament de formularis. Model d'objectes del document. /A3.2.3_Esquelet/MasterMind.html",
+		"/Users/Carlos/Repositories/CEP/DWEC/UF3 - Esdeveniments. Manegament de formularis. Model d'objectes del document. /A3.2.3_Esquelet/MasterMind.sublime-project",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Usuarios/Newsletter Cursos 2/Mailings/Includes/megaphoenix_common_news.php",
+		"/Users/Carlos/Repositories/CEP/P2/Exercici44_3/src/exercici44_3/Exercici44_3.java",
+		"/Users/Carlos/Google Drive/CEP/DAW2/P2/UF5 - Llibreries de classes fonamentals/UF5 NF2 - Aplicació de les estructures d'emmagatzematge en la POO/Exercici44_3/src/exercici44_3/Exercici44_3.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/NF2 - Aplicacio de les estructures d’emmagatzematge en la POO/Exercici43_3/src/exercici43_3/Principal.java",
+		"/Users/Carlos/Repositories/CEP/DWEC/UF3 - Esdeveniments. Manegament de formularis. Model d'objectes del document. /A3.2.2 - Calculadora/calculadora.js",
+		"/Users/Carlos/Google Drive/CEP/DAW2/P2/UF5 - Llibreries de classes fonamentals/UF5 NF2 - Aplicació de les estructures d'emmagatzematge en la POO/Exercici43_3/src/exercici43_3/Exercici43_3.java",
+		"/Users/Carlos/Emagister/Emails/Newsletter/Publi/2015-02-17 ES UPC_TIC/TIC_emagister_febrer15.html",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Usuarios/Newsletter Cursos 2/Mailings/Includes/phoenix_common_news.php",
+		"/Users/Carlos/Repositories/CEP/aferia28_PB2/UF5 - NF1 Control d'Excepcions/Cine/build/classes/cine/Principal.class",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Usuarios/Newsletter Masters 2/Includes/phoenix_common_news.php",
+		"/Applications/MAMP/htdocs/SugarCE-Full-6.5.20/index.php",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Solucions/Cine/src/cine/Cine.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Solucions/Cine/src/cine/Principal.java",
+		"/Users/Carlos/Repositories/CEP/aferia28:PB2/UF5 Control d'Excepcions/Principal.java",
+		"/Users/Carlos/Repositories/CEP/aferia28:PB2/UF5 Control d'Excepcions/Cine/nbproject/build-impl.xml",
+		"/Users/Carlos/Repositories/CEP/aferia28:PB2/UF5 Control d'Excepcions/Cine/build.xml",
+		"/Users/Carlos/Google Drive/CEP/DAW2/P2/UF4 - Programació orientada a objectes. Fonaments/UF4 NF1 - Introducció a la POO/Exercicis/DAW2A P2 UF4 NF1 - F1 UML.svg",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/Teclat.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/Principal.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/GestioButaques.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/ExcepcioSeientIncorrecte.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/ExcepcioNomPersonaIncorrecte.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/ExcepcioFilaIncorrecta.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/ExcepcioButacaOcupada.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/ExcepcioButacaLliure.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/Cine.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/CharacterFormatException.java",
+		"/Users/Carlos/Repositories/CEP/P2/UF5 - Llbreries de classes fonamentals/Cine/src/cine/Butaca.java",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Usuarios/Newsletter Cursos/Mailings/Includes/phoenix_common_news.php",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Usuarios/Newsletter Masters/Includes/phoenix_common_news.php",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/hoteles_basico_dwes.sql",
+		"/Users/Carlos/Desktop/icon_style.css",
+		"/Users/Carlos/Desktop/CEP DAM Modules Flaticon.html",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Usuarios/Newsletter Cursos/Mailings/Includes/phoenix_user_body_news.php",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Usuarios/Newsletter Cursos/Mailings/Includes/phoenix_user_body.php",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/Examen/Examen.aspx.cs",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/Examen/App_Code/Identitat.cs",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/DWES_UF1_EXA01/packages.config",
+		"/Users/Carlos/EclipseProjects/WebPowerFiles/Lead/Lead Confirm/Mailings/Includes/static_content.php",
+		"/Users/Carlos/Emagister/Emails/Emagister Mails.sublime-workspace",
+		"/Users/Carlos/Emagister/Emails/Newsletter/Estática/2014-12-18 CO/REAL_cursos_estaticos_recipients_estacional_15.csv",
+		"/Users/Carlos/Emagister/Emails/Newsletter/Estática/2014-12-18 AR/REAL_cursos_estaticos_recipients_estacional_11.csv",
+		"/Users/Carlos/Emagister/Emails/Newsletter/Estática/2014-12-18 CL/REAL_cursos_estaticos_recipients_estacional_14.csv",
+		"/Users/Carlos/Emagister/Emails/Newsletter/Estática/AR 2014-12-04/News temática DEC AR.xlsx",
+		"/Users/Carlos/Google Drive/CEP/DAW2/P2/UF4/NF2 - Desenvolupament de programes organitzats en classes/Exemples/09_POO_creacio_objectes/src/pkg09_poo_creacio_objectes/Classe1.java",
+		"/Users/Carlos/Google Drive/CEP/DAW2/P2/UF4/NF2 - Desenvolupament de programes organitzats en classes/Exemples/09_POO_creacio_objectes/src/pkg09_poo_creacio_objectes/Main.java",
+		"/Users/Carlos/Google Drive/CEP/DAW2/P2/Ejercicios/holaMon/src/holamon/HolaMon.java",
+		"/Users/Carlos/Desktop/usuaris-1/usuarisManteniment.aspx.cs",
+		"/Users/Carlos/Desktop/usuaris-1/usuarisManteniment.aspx",
+		"/Users/Carlos/Desktop/usuaris-1/rolsManteniment.aspx.cs",
+		"/Users/Carlos/Desktop/usuaris-1/rolsManteniment.aspx",
+		"/Users/Carlos/Desktop/usuaris-1/Web.config",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/usuaris/usuarisManteniment.aspx",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/usuaris/usuarisManteniment.aspx.cs",
+		"/Users/Carlos/Desktop/usuaris-1/usuaris.master",
+		"/Users/Carlos/Desktop/usuaris-1/usuaris.master.cs",
+		"/Users/Carlos/Desktop/usuaris-1/packages.config",
+		"/Users/Carlos/Desktop/usuaris-1/index.aspx.cs",
+		"/Users/Carlos/Desktop/usuaris-1/index.aspx",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/usuaris/usuaris.master.cs",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/usuaris/Estils/usuaris.css",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/usuaris/usuaris.master",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/usuaris/index.aspx",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/usuaris/index.aspx.cs",
+		"/Users/Carlos/VirtualBox VMs/Windows 8.1 Pro/shared/usuaris/packages.config"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"cardflow",
+			"selected",
+			"data",
+			"tipo",
+			"mail",
+			"true",
+			"[*html][*html]",
+			"*",
+			"h3",
+			"style=\"color:#a01a00;",
+			".hb-team-member-img",
+			"entity",
+			"head>",
+			"head",
+			"mcndividercontent",
+			"templatecontainer",
+			"\\n",
+			" ",
+			"\\t",
+			" ",
+			"pfichas",
+			"demanardades",
+			"getCourseNewsNoPrice",
+			"printcourses",
+			"hoteles_basico",
+			"\"\"",
+			"precio",
+			"listboxusupos"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"productColor",
+			"style=\"color:#a01a00; font-size:24px;",
+			",",
+			"hoteles_basico_dwes",
+			"\""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "public/css/styles.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18197,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 654,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								654,
+								654
+							]
+						],
+						"settings":
+						{
+							"auto_indent": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_width": 2,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "onwine.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"app",
+				"app.js"
+			],
+			[
+				"pac",
+				"package.json"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Repositories/AppMEAN_aferia28/onwine.sublime-workspace"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 211.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
