@@ -379,6 +379,7 @@ exports.addFavorite = function(req, res) {
 	var usuario = req.query.usuario;
 
 	var usu = JSON.parse(usuario);
+	//var favouriteWine;
 
 	Usuario.findOne({_id: usu._id, favoritos: code_wine}, function(err, user){
 		if(!err)
@@ -527,7 +528,7 @@ exports.addWine = function(req, res) {
 	console.log('files', req.files);
 
 	//code wine
-	var codeWine = req.body.name.split(' ');
+	var codeWine = req.body.wine.name.split(' ');
 	codeWine = codeWine.join('-').toLowerCase();
 	console.log(codeWine);
 	//console.log(file.name);
@@ -537,18 +538,18 @@ exports.addWine = function(req, res) {
 
 	var wine = new Vino({
 		code: codeWine,
-		name: req.body.name,
-		type: req.body.type,
-		winery: req.body.winery,
-		region: req.body.region,
-		varietal: req.body.varietal,
-		year: req.body.vintage,
-		alcohol: req.body.alcohol,
-		price: req.body.price,
+		name: req.body.wine.name,
+		type: req.body.wine.type,
+		winery: req.body.wine.winery,
+		region: req.body.wine.region,
+		varietal: req.body.wine.varietal,
+		year: req.body.wine.vintage,
+		alcohol: req.body.wine.alcohol,
+		price: req.body.wine.price,
 		createAt: Date.now(),
 	});
 
-	if (file != undefined) {
+	if (req.files != undefined) {
 		var file = req.files.file;
 
 		wine.image.data = fs.readFileSync(file.path),

@@ -12,13 +12,14 @@ app.controller('addWineController', ['$scope', '$http','serviceAdmin','dataFacto
 
 		var wine = $scope.wine;
 
-		if ($scope.picFile === undefined) {
+		if ($scope.picFile === undefined || $scope.picFile === null) {
 			$http({
 				url: '/addWine',
 				method: 'POST',
-				data: wine
+				data: {wine:wine}
 			})
 			.success(function(data) {
+				$scope.wine = {};
 				console.log('Vino guardado: ', data)
 			})
 			.error(function(data) {
@@ -30,6 +31,8 @@ app.controller('addWineController', ['$scope', '$http','serviceAdmin','dataFacto
 				data: {wine:wine, file:$scope.picFile}
 			})
 			.then(function(response) {
+					$scope.wine = {};
+					$scope.picFile = {};
 					console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ', response.data);
 			}, function(response) {
 					console.log('Error status: ' + response.status);

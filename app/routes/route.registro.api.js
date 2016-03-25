@@ -20,7 +20,9 @@ module.exports = function(app) {
 
 	app.delete('/eliminarPersona/:id', Controller.deleteUser)
 
-	app.put('/modificarPersona/:id', Controller.updatePersona);
+	app.put('/modificarPersona/:id',multipartyMiddleware, Controller.updatePersona);
+
+	app.put('/eliminarfavorito/:id', Controller.deleteFavoriteWine);
 
 
 	app.get('/lastlogin', Controller.latestLogin);

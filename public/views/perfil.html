@@ -1,56 +1,109 @@
-<div class="row">
-	<div class="col-sm-12 profile-header">
-		<div class="profile-sub-header">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12 profile-header">
+			<div class="profile-sub-header">
+			</div>
 		</div>
 	</div>
-	<div class="col-sm-12 profile-content">
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="col-sm-12">
-						<img src="../img/profile.png" class="profile-photo">
+</div>
+<div class="container profile-content">
+	<div class="row">
+		<div class="col-sm-12 profile-content">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="row">
+						<div class="col-sm-12">
+							<img class="profile-photo">
+							<!--"-->
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="favourites" ng-click="showFavourites = !showFavourites">Favorits</div>
+							</div>
+						</div>
+						<div class="col-sm-12 box-favorites" ng-show="showFavourites">
+							<li style="font-weight: 300" ng-repeat="favourite_wine in userProfile.favoritos" data-code="{{favourite_wine}}">
+								<a href="#product/{{favourite_wine}}">{{favourite_wine}}</a>
+								<i class="fa fa-trash" style="color: red;" ng-click="deleteFavorite(favourite_wine)"></i>
+							</li>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="row">
-					<div class="col-sm-12">
-						<div>
-							<h5>Nombre: </h5>
+				<div class="col-sm-6">
+					<div class="row">
+						<div class="col-sm-12">
+							<form class="" name="updateForm" method="put">
+								<table class="table profile-table">
+									<tbody>
+										<tr>
+											<td><p>Nom</p></td>
+											<td>
+												<input type="text" ng-model="userProfile.nombre" value="{{userProfile.nombre}}" ng-disabled="!editName">
+											</td>
+											<td>
+												<i class="fa fa-pencil" ng-click="editName = !editName"></i>
+											</td>
+										</tr>
+										<tr>
+											<td><p>Cognoms</p></td>
+											<td>
+												<input type="text" ng-model="userProfile.apellidos" value="{{userProfile.apellidos}}" ng-disabled="!editLast">
+											</td>
+											<td>
+												<i class="fa fa-pencil" ng-click="editLast = !editLast"></i>
+											</td>
+										</tr>
+										<tr>
+											<td><p>Email</p></td>
+											<td>
+												<input type="email" ng-model="userProfile.email" value="{{userProfile.email}}" ng-disabled="!editEmail">
+											</td>
+											<td>
+												<i class="fa fa-pencil" ng-click="editEmail = !editEmail"></i>
+											</td>
+										</tr>
+										<tr>
+											<td><p>Contrasenya</p></td>
+											<td>
+												<a href="#"><p>Restableix la contrasenya</p></a>
+											</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td><p>Avatar</p></td>
+											<td>
+												<input style="border:0px" type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
+												<div ng-messages="updateForm.file.$error">
+													<div ng-messages-include="../views/messages.html"></div>
+												</div>
+												<img ng-show="updateForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+												<button ng-click="picFile = null" ng-show="picFile">Remove</button>
+												<span class="progress" ng-show="picFile.progress >= 0">
+										        	<div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
+										      	</span>
+										      	<span ng-show="picFile.result">Upload Successful</span>
+											</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td><p>Admin</p></td>
+											<td ng-if="userProfile.isAdmin">
+												<i class="fa fa-check" style="color: green"></i>
+											</td>
+											<td ng-if="!userProfile.isAdmin">
+												<i class="fa fa-times" style="color: red"></i>
+											</td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+								<button class="btn-save" ng-click="updateProfile()"> Guardar</button>
+							</form>
 						</div>
-						<div>
-							<p>{{userProfile.nombre}}</p>
-						</div>
-					</div>
-					<div class="col-sm-12">
-						<div>
-							<h5>Apellidos: </h5>
-						</div>
-						<div>
-							<p>{{userProfile.apellidos}}</p>
-						</div>
-					</div>
-					<div class="col-sm-12">
-						<div>
-							<h5>Email: </h5>
-						</div>
-						<div>
-							<p>{{userProfile.email}}</p>
-						</div>
-					</div>
-					<div class="col-sm-12">
-						<div>
-							<h5>Contraseña: </h5>
-						</div>
-						<div>
-							<p>{{ userProfile.password }}</p>
-						</div>
-					</div>
-					<div class="col-sm-12">
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+

@@ -763,9 +763,6 @@ html {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.35);
 }
-.profile-header .profile-sub-header .seguidores p {
-  color: white;
-}
 .profile-content h5 {
   font-weight: bold;
 }
@@ -775,6 +772,69 @@ html {
   border: 2px solid whitesmoke;
   margin-top: -97px;
   margin-left: 105px;
+}
+.profile-content .profile-table {
+  margin-top: 80px;
+}
+.profile-content .profile-table td {
+  vertical-align: middle;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.profile-content .profile-table td p {
+  margin: 0;
+}
+.profile-content .profile-table td input {
+  width: 100%;
+  height: 32px;
+  border: 1px solid #c8bfac;
+  text-align: center;
+}
+.profile-content .profile-table td input:disabled {
+  background-color: #e6e6e6;
+}
+.profile-content .profile-table td input:focus {
+  box-shadow: #000000;
+}
+.profile-content .fa-pencil {
+  cursor: pointer;
+}
+.profile-content .fa-pencil:hover {
+  color: green;
+}
+.profile-content .favourites {
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 2px solid black;
+  font-size: 20px;
+  width: 70%;
+  margin-top: 100px;
+}
+.profile-content .btn-save {
+  padding: 15px 50px 15px 50px;
+  border: 2px solid black;
+  background-color: transparent;
+  border-radius: 2px;
+  color: black;
+  transition: all 1s ease;
+  text-decoration: none;
+  float: right;
+}
+.profile-content .box-favorites {
+  width: 70%;
+  margin-top: 10px;
+  -webkit-box-shadow: 10px 10px 5px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px -8px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px -8px rgba(0, 0, 0, 0.75);
+}
+.profile-content .box-favorites li {
+  padding-top: 3px;
+  text-decoration: none;
+  list-style: none;
+}
+.profile-content .box-favorites li a {
+  color: #333333;
 }
 /*==================== ADMIN ======================*/
 .page-admin {
