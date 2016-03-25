@@ -1,4 +1,4 @@
-
+var fs = require('fs');
 var Persona = require('../models/persona');
 var jwt = require('jwt-simple');
 var config = require('../config');
@@ -66,25 +66,65 @@ exports.setPersona = function(req, res){
     })
 }
 
-	//PUT
+//PUT
 exports.updatePersona = function(req, res) {
 
-	console.log(req.body);
+	console.log('Body', req.body);
+	console.log('Body', req.query);
+	console.log('Files', req.files);
+	var isAdmin = false;
+
+	if(req.body.profile.isAdmin != undefined){
+		isAdmin = req.body.profile.isAdmin;
+	}
 
 	Persona.findById(req.params.id, function(err, persona) {
-		persona.nombre 		= req.body.nombre;
-		persona.apellidos 	= req.body.apellidos;
-		persona.email 		= req.body.email;
-		persona.isAdmin 	= req.body.isAdmin;
+		persona.nombre 		= req.body.profile.nombre;
+		persona.apellidos 	= req.body.profile.apellidos;
+		persona.email 		= req.body.profile.email;
+		persona.isAdmin 	= isAdmin;
+		if (req.files != undefined) {
+			var file = req.files.file;
+
+			persona.image.data = fs.readFileSync(file.path),
+			persona.image.contentType = file.type
+		}
 
 		persona.save(function(err) {
 			if(err) return err.status(500).send(err.message);
-			else {console.log('persona actualizada correctamente');res.status(200).jsonp(persona)}
+			else {console.log('persona actualizada correctamente');res.send(persona)}
 		});
 	});
 };
 
+exports.deleteFavoriteWine = function(req, res) {
+
+	console.log('PUT');
+	console.log('Body', req.body);
+	var favorite = req.body.code;
+	console.log(favorite);
+	favorite = favorite.toString();
+
+	Persona.update(
+		{_id:req.params.id},
+		{$pull:{favoritos: favorite}}, function(err) {
+		if(!err)
+		{
+			console.log('Vino eliminado');
+			Persona.findById(req.params.id, function(err, persona) {
+				if(!err){
+					console.log('Favoritos actualizados');
+					res.send(persona);
+				}else{
+					res.send(err);
+				}
+			})
+		}else{
+			res.send(err)
+		}
+	})
 	//DELETE
+}
 exports.deleteUser = function(req, res) {
 
 	Persona.remove({_id : req.params.id}, function(err, persona) {

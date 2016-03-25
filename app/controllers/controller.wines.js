@@ -44,7 +44,7 @@ exports.findAllWines =  function(req, res) {
 	{
 		var options = {
 			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q='+ dO 
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q='+ dO
 		};
 	}else{
 		var options = {
@@ -379,6 +379,7 @@ exports.addFavorite = function(req, res) {
 	var usuario = req.query.usuario;
 
 	var usu = JSON.parse(usuario);
+	//var favouriteWine;
 
 	Usuario.findOne({_id: usu._id, favoritos: code_wine}, function(err, user){
 		if(!err)
@@ -523,9 +524,8 @@ exports.addWine = function(req, res) {
 	console.log("POST");
 	console.log('query', req.query);
 	console.log('body', req.body);
-	console.log('body', req.params);
-
-	var file = req.files.file;
+	console.log('params', req.params);
+	console.log('files', req.files);
 
 	//code wine
 	var codeWine = req.body.wine.name.split(' ');
@@ -549,8 +549,12 @@ exports.addWine = function(req, res) {
 		createAt: Date.now(),
 	});
 
-	wine.image.data = fs.readFileSync(file.path),
-	wine.image.contentType = file.type
+	if (req.files != undefined) {
+		var file = req.files.file;
+
+		wine.image.data = fs.readFileSync(file.path),
+		wine.image.contentType = file.type
+	}
 
 	wine.save(function(err) {
 		if(!err){

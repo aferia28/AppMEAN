@@ -11,7 +11,8 @@ var personaSchema = new Schema({
   verified: { type: Boolean},
   favoritos:  [{ type: String }],
   createAt: {type:Date},
-  lastLogIn: {type:Date}
+  lastLogIn: {type:Date},
+  image         : { data: Buffer, contentType: String }
 });
 
 module.exports = mongoose.model('Persona', personaSchema);
