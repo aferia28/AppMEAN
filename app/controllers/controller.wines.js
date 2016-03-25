@@ -44,7 +44,7 @@ exports.findAllWines =  function(req, res) {
 	{
 		var options = {
 			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q='+ dO 
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q='+ dO
 		};
 	}else{
 		var options = {
@@ -523,12 +523,11 @@ exports.addWine = function(req, res) {
 	console.log("POST");
 	console.log('query', req.query);
 	console.log('body', req.body);
-	console.log('body', req.params);
-
-	var file = req.files.file;
+	console.log('params', req.params);
+	console.log('files', req.files);
 
 	//code wine
-	var codeWine = req.body.wine.name.split(' ');
+	var codeWine = req.body.name.split(' ');
 	codeWine = codeWine.join('-').toLowerCase();
 	console.log(codeWine);
 	//console.log(file.name);
@@ -538,19 +537,23 @@ exports.addWine = function(req, res) {
 
 	var wine = new Vino({
 		code: codeWine,
-		name: req.body.wine.name,
-		type: req.body.wine.type,
-		winery: req.body.wine.winery,
-		region: req.body.wine.region,
-		varietal: req.body.wine.varietal,
-		year: req.body.wine.vintage,
-		alcohol: req.body.wine.alcohol,
-		price: req.body.wine.price,
+		name: req.body.name,
+		type: req.body.type,
+		winery: req.body.winery,
+		region: req.body.region,
+		varietal: req.body.varietal,
+		year: req.body.vintage,
+		alcohol: req.body.alcohol,
+		price: req.body.price,
 		createAt: Date.now(),
 	});
 
-	wine.image.data = fs.readFileSync(file.path),
-	wine.image.contentType = file.type
+	if (file != undefined) {
+		var file = req.files.file;
+
+		wine.image.data = fs.readFileSync(file.path),
+		wine.image.contentType = file.type
+	}
 
 	wine.save(function(err) {
 		if(!err){
