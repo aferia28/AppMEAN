@@ -107,11 +107,18 @@ exports.deleteFavoriteWine = function(req, res) {
 
 	Persona.update(
 		{_id:req.params.id},
-		{$pull:{favoritos: favorite}}, function(err, persona) {
+		{$pull:{favoritos: favorite}}, function(err) {
 		if(!err)
 		{
 			console.log('Vino eliminado');
-			res.send(persona);
+			Persona.findById(req.params.id, function(err, persona) {
+				if(!err){
+					console.log('Favoritos actualizados');
+					res.send(persona);
+				}else{
+					res.send(err);
+				}
+			})
 		}else{
 			res.send(err)
 		}
