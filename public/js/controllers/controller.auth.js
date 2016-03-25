@@ -28,7 +28,7 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http', functi
 	$scope.pageClass = 'page-signup';
 }]);
 
-app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies', function($auth, $location, $scope, $http, $cookies){
+app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies','serviceAdmin', function($auth, $location, $scope, $http, $cookies, serviceAdmin){
 
 	var vm = this;
 	console.log("Dentro LoginController Cliente");
@@ -44,12 +44,13 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http','$cooki
 
             var token = $auth.getToken();
             console.log("Token recuperado: " + token);
-
             $cookies.put('authenticationApp', token);
 
             $http.get('persona')
 				.success(function(data) {
 					$scope.persona = data;
+					serviceAdmin.setProperty(data);
+					serviceAdmin.setAdmin(data.isAdmin);
 				});
 		})
 		.catch(function(response){
@@ -60,12 +61,13 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http','$cooki
 	//$scope.pageClass = 'page-login';
 }]);
 
-app.controller('LogoutController',['$auth', '$location','$cookies', function($auth, $location, $cookies){
-
+app.controller('LogoutController',['$auth', '$location','$cookies','$scope','serviceAdmin', function($auth, $location, $cookies, $scope,serviceAdmin){
 
 		$auth.logout();
+		$scope.persona = {};
+		serviceAdmin.setProperty('');
+		serviceAdmin.setAdmin(false);
 		$cookies.remove('authenticationApp');
-		//localStorage.clear();
 		$location.path("/");
 
 

@@ -1,14 +1,177 @@
 var Vino = require('../models/wine.js');
+var Usuario = require('../models/persona.js');
 var Puntuacion = require('../models/puntuacion.js');
 var Comentario = require('../models/comentario.js');
 var http = require('http');
+var fs = require('fs');
+
 	//GET
 exports.findAllWines =  function(req, res) {
 
-	Vino.find(function(err, vinos) {
-		if(!err) res.send(vinos);
-		else console.log('ERROR: ' + err);
-	});
+	var host 			= 'api.snooth.com';
+	var typeSearch 		= '/wines/';
+	var apiKey 			= 'mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17';
+	var productType 	= 'wine';
+	var numberResults 	= 30;
+	// var availableWines	= 0; // 0 = all | 1 = in stock
+	var sort 			= 'qpr';
+	var region 			= 'Catalunya'; // && Cataluña && Catalonia
+
+	var type  			= req.query.type;
+	var vintage 		= req.query.vintage;
+	var dO  			= req.query.do;
+
+
+	var ownType;
+	var snoothWines;
+	var ownWines;
+
+	if (type == 'red') {
+		ownType = 'Negre'
+	}else if (type == 'white') {
+		ownType = 'Blanc'
+	}else if (type == 'rose') {
+		ownType = 'Rosat'
+	}
+
+	if(dO == '' || dO == undefined || dO == null)
+	{
+		var options = {
+			host: 'api.snooth.com',
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + region + '+' + vintage
+		};
+	}else if(vintage == '' || vintage == undefined || vintage == null)
+	{
+		var options = {
+			host: 'api.snooth.com',
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q='+ dO 
+		};
+	}else{
+		var options = {
+			host: 'api.snooth.com',
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + dO + '+' + vintage
+		};
+	}
+
+	console.log(options);
+
+	callback = function(response) {
+  		var string = '';
+  		response.on('data', function (chunk) {
+    		string += chunk;
+  		});
+
+  		response.on('end', function () {
+  			snoothWines = JSON.parse(string);
+
+  			if(dO == '' || dO == undefined || dO == null)
+			{
+				Vino.find({$and:[
+						{type: ownType},
+						{year: vintage}
+					]},function(err, vinos) {
+						if(!err)
+						{
+							if(vinos == null || vinos == undefined || vinos == '')
+							{
+								console.log('No hay vinos de este tipo en la BD..');
+								res.send(snoothWines.wines);
+							}else{
+								console.log('Buscando los vino de ' + vintage + 'en la BD...');
+								ownWines = vinos;
+								var twoArrays = ownWines.concat(snoothWines.wines);
+
+								for(var i=0; i<twoArrays.length; i++)
+								{
+									for(var j=i+1; j<twoArrays.length; j++)
+									{
+										if(twoArrays[i].code === twoArrays[j].code)
+										{
+											twoArrays.splice(j--,1);
+										}
+									}
+								}
+								res.send(twoArrays);
+							}
+						}else{
+							res.send(err)
+							console.log('ERROR: '+ err.message);
+						}
+				})
+			}else if(vintage == '' || vintage == undefined || vintage == null)
+			{
+				Vino.find({$and: [
+						{type: ownType},
+						{region: {$in: [dO]}}
+					]}, function(err, vinos) {
+						if(!err)
+						{
+							if(vinos == null || vinos == undefined || vinos == '')
+							{
+								console.log('No hay vinos de este tipo en la BD..');
+								res.send(snoothWines.wines);
+							}else{
+								console.log('Buscando los vino de ' + dO + 'en la BD...');
+								ownWines = vinos;
+								var twoArrays = ownWines.concat(snoothWines.wines);
+
+								for(var i=0; i<twoArrays.length; i++)
+								{
+									for(var j=i+1; j<twoArrays.length; j++)
+									{
+										if(twoArrays[i].code === twoArrays[j].code)
+										{
+											twoArrays.splice(j--,1);
+										}
+									}
+								}
+								res.send(twoArrays);
+							}
+						}else{
+							res.send(err)
+							console.log('ERROR: '+ err.message);
+						}
+					})
+			}else{
+				//dO + vintage
+				Vino.find({$and: [
+						{type: ownType},
+						{region: {$in: dO}},
+						{vintage: vintage}
+					]}, function(err, vinos) {
+				if(!err)
+				{
+					if(vinos == null || vinos == undefined || vinos == "")
+					{
+						console.log('No hay vinos de este tipo en la BD..')
+						res.send(snoothWines.wines);
+					}else{
+						ownWines = vinos;
+						var twoArrays = ownWines.concat(snoothWines.wines);
+
+						for(var i=0; i<twoArrays.length; i++)
+						{
+							for(var j=i+1; j<twoArrays.length; j++)
+							{
+								if(twoArrays[i].code === twoArrays[j].code)
+								{
+									twoArrays.splice(j--,1);
+								}
+							}
+						}
+						res.send(twoArrays);
+					}
+				}else{
+					res.send(err)
+					console.log('ERROR: '+ err.message);
+				}
+			})
+		}
+  	})
+
+  	}
+
+	http.request(options, callback).end();
 }
 
 exports.findWine = function(req, res) {
@@ -22,7 +185,7 @@ exports.findWine = function(req, res) {
 	var canrate;
 
 	var xuser = JSON.parse(usuario);
-	console.log('>>>>>>>>>>>>>>>>>' + xuser._id);
+	console.log('User logged: ' + 'Id: ' + xuser._id + " | " + "Name: " + xuser.nombre);
 
 	var options = {
 		host: 'api.snooth.com',
@@ -33,7 +196,6 @@ exports.findWine = function(req, res) {
   		var string = '';
   		response.on('data', function (chunk) {
     		string += chunk;
-    		console.log('RESPONSE ON DATA');
   		});
 
   		response.on('end', function () {
@@ -45,14 +207,10 @@ exports.findWine = function(req, res) {
 
     		Vino.find({code: codeWine}, function(err, vino) {
     			if(err){
-    				console.log(err);
+    				console.log(err.message);
     			}else{
     				if(vino == '')
     				{
-    					//en la colección vino -> puntuacion (que es una array de colección puntuación) buscar la colección que tiene como usuario (que es un campo) el usuario logeado.
-    					//si esta el usuario, quiere decir que ha puntuado ese vino concreto. En este caso no se permite puntuar.
-    					//ademas, habrá que recoger todas las puntuacion de la colección vino - > puntuaciones y hacer la media, para despues hacer otra media con snoothrank
-    					//Estas dos cosas se pueden hacer por separado.
     					if (puntuacionApi == 'n/a'){
     						puntuacionApi = 0;
     						res.send(apiWine);
@@ -64,18 +222,14 @@ exports.findWine = function(req, res) {
 
     					Vino.find({code: apiWine.code}).populate({path: 'rates', match: { usuario: {$eq:xuser._id}}}).exec(function(err, puntuacion) {
 
-    						console.log('PUNTUACION >>>>>>>>>>' + puntuacion);
-
     						if(puntuacion[0].rates != '')
     						{
     							if(puntuacion[0].rates[0].usuario == xuser._id)
 	    						{
 	    							console.log('ESTE USUARIO YA HA PUNTUADO ESTE VINO');
-	    							//No puede puntuar
 	    							canrate = false;
 	    						}else{
 	    							console.log('ESTE USUARIO TODAVÍA NO HA PUNTUADO ESTE VINO');
-	    							//Puede puntuar
 	    							canrate = true
 	    						}
     						}
@@ -84,7 +238,7 @@ exports.findWine = function(req, res) {
     					Vino.findOne({code: apiWine.code}).populate({path: 'rates'}).populate({path: 'comentarios'}).exec(function(err, puntuaciones) {
 
     						var c=0;
-    						console.log('>>>>>>>>>>>>>>>', puntuaciones);
+
 	    					for(var i = 0; i<puntuaciones.rates.length; i++)
 	    					{
 	    						c = c + puntuaciones.rates[i].puntuacion;
@@ -113,11 +267,11 @@ exports.findWine = function(req, res) {
 				    			varietal: apiWine.varietal,
 				    			vintage: apiWine.vintage,
 				    			alcohol: apiWine.alcohol,
-				    			image: apiWine.image,
+				    			image_url: apiWine.image,
 				    			reviews: apiWine.reviews,
 				    			wm_notes: apiWine.wm_notes,
 				    			snoothrank: puntuacionTotal,
-				    			comentarios: puntuaciones.comentarios,
+				    			comentarios: puntuaciones.comentarios, //aqui las puntuaciones en realidad es un vino
 				    			canrate: canrate
 				    		}
 				    		res.send(objectToSend);
@@ -140,20 +294,21 @@ exports.addComment = function(req, res) {
 	var wi = JSON.parse(wine);
 	var usu = JSON.parse(usuario);
 
-	Vino.findOne({code: wi.code}, function(err, vino) {
+	Vino.findOne({code: wi.code}).populate({path: 'comentarios'}).exec(function(err, vino) {
 		if(!err)
 		{
-			if(vino == undefined)
+			console.log(vino)
+			if(vino === null)
 			{
-				if(x.type == 'Red Wine')
+				if(wi.type == 'Red Wine' || wi.color == 'Red')
 				{
-					type = 'Tinto';
-				}else if(x.type == 'White Wine')
+					type = 'Negre';
+				}else if(wi.type == 'White Wine' || wi.color == 'White')
 				{
-					type = 'Blanco';
-				}else if(x.type == 'Rose Wine')
+					type = 'Blanc';
+				}else if(wi.type == 'Rose Wine' || wi.color == 'Rose')
 				{
-					type = 'Rosado';
+					type = 'Rosat';
 				}
 				var comentario = new Comentario({
 					usuario: usu,
@@ -165,15 +320,20 @@ exports.addComment = function(req, res) {
 					if(!err) console.log('Comentario guardado');
 					else console.log('ERROR: ' + err.message);
 				})
-
 				var wine = new Vino({
-    				code: x.code,
-					name: x.name,
+    				code: wi.code,
+					name: wi.name,
+					price: wi.price,
 					type: type,
-					winery: x.winery,
-					grape_type: x.varietal,
-					year: x.vintage,
-					alcohol: x.alcohol,
+					region: wi.region,
+					winery: wi.winery,
+					varietal: wi.varietal,
+					vintage: wi.vintage,
+					alcohol: wi.alcohol,
+					image_url: wi.image,
+					reviews: wi.reviews,
+					wm_notes: wi.wm_notes,
+					snoothrank: wi.snoothrank,
 					comentarios:[comentario]
     			})
 
@@ -185,6 +345,7 @@ exports.addComment = function(req, res) {
 				res.send(wine);
 			}else{
 
+				console.log(vino);
 				var comentario = new Comentario({
 					usuario: usu,
 					texto: comment,
@@ -212,6 +373,43 @@ exports.addComment = function(req, res) {
 	})
 }
 
+exports.addFavorite = function(req, res) {
+
+	var code_wine = req.query.codeWine;
+	var usuario = req.query.usuario;
+
+	var usu = JSON.parse(usuario);
+
+	Usuario.findOne({_id: usu._id, favoritos: code_wine}, function(err, user){
+		if(!err)
+		{
+			if(user == null)
+			{
+				Usuario.findOne({_id: usu._id}, function(err, user_) {
+					if(!err)
+					{
+						console.log(user_);
+						user_.favoritos.push(code_wine);
+						user_.save(function(err) {
+							if(err){
+								console.log('Error guardando el vino en favoritos', err.message);
+							}else{
+								console.log('Vino guardado en favoritos correctamente..!');
+								res.send(user_);
+							}
+						})
+					}else{
+						console.log(err.message);
+					}
+				})
+			}else{
+				console.log('El vino ya lo tienes en favoritos');
+			}
+		}else{
+			console.log(err.message);
+		}
+	})
+}
 	//GET
 exports.findWineById = function(req, res) {
 
@@ -231,22 +429,23 @@ exports.findWineByCode = function(req, res) {
 	var x = JSON.parse(wine);
 	var y = JSON.parse(usuario);
 
-	console.log('Codigo del vino: ' + x.code);
+	console.log('Codigo del vino: ' + x.image);
 
     Vino.find({code: x.code}, function(err, vino) {
     	if(!err)
     	{
+    		console.log('>>>>>>>', vino);
     		if(vino == '')
     		{
-    			if(x.type == 'Red Wine')
+    			if(x.type == 'Red Wine' || x.color == 'Red')
 				{
-					type = 'Tinto';
-				}else if(x.type == 'White Wine')
+					type = 'Negre';
+				}else if(x.type == 'White Wine' || x.color == 'White')
 				{
-					type = 'Blanco';
-				}else if(x.type == 'Rose Wine')
+					type = 'Blanc';
+				}else if(x.type == 'Rose Wine' || x.color == 'Rose')
 				{
-					type = 'Rosado';
+					type = 'Rosat';
 				}
 
 				var puntuacion = new Puntuacion({
@@ -257,28 +456,36 @@ exports.findWineByCode = function(req, res) {
 				})
 
 				puntuacion.save(function(err) {
-					if(!err) console.log('Puntuacion guardada');
+					if(!err) console.log('>>> Puntuacion guardada');
 					else console.log('ERROR: ' + err.message);
 				})
 
-    			var wine = new Vino({
+				x.vintage = parseInt(x.vintage);
+
+    			var wine_ = new Vino({
     				code: x.code,
 					name: x.name,
+					price: x.price,
 					type: type,
+					region: x.region,
 					winery: x.winery,
-					grape_type: x.varietal,
-					year: x.vintage,
+					varietal: x.varietal,
 					alcohol: x.alcohol,
+					image_url: x.image,
+					reviews: x.reviews,
+					wm_notes: x.wm_notes,
+					snoothrank: x.snoothrank,
+					year: x.vintage,
 					rates:[puntuacion]
     			})
 
-    			wine.save(function(err) {
-					if(!err) console.log('Vino guardado!');
+    			wine_.save(function(err) {
+					if(!err) console.log('>>>> Vino guardado!');
 					else console.log('ERROR: ' + err.message);
 				});
 
     			//crear rating
-    			res.send(wine);
+    			res.send(wine_);
     			//el vino no existe.post
     		}else{
 
@@ -314,25 +521,231 @@ exports.findWineByCode = function(req, res) {
 exports.addWine = function(req, res) {
 
 	console.log("POST");
-	console.log(req.body);
+	console.log('query', req.query);
+	console.log('body', req.body);
+	console.log('body', req.params);
+
+	var file = req.files.file;
+
+	//code wine
+	var codeWine = req.body.wine.name.split(' ');
+	codeWine = codeWine.join('-').toLowerCase();
+	console.log(codeWine);
+	//console.log(file.name);
+    //console.log(file.type);
+    //console.log(file.path);
+    //console.log(file);
 
 	var wine = new Vino({
-		code: req.body.code,
-		name: req.body.name,
-		type: req.body.type,
-		winery: req.body.winery,
-		grape_type: req.body.grape_type,
-		year: req.body.year,
-		alcohol: req.body.alcohol,
-		rank: req.body.rank
+		code: codeWine,
+		name: req.body.wine.name,
+		type: req.body.wine.type,
+		winery: req.body.wine.winery,
+		region: req.body.wine.region,
+		varietal: req.body.wine.varietal,
+		year: req.body.wine.vintage,
+		alcohol: req.body.wine.alcohol,
+		price: req.body.wine.price,
+		createAt: Date.now(),
 	});
 
+	wine.image.data = fs.readFileSync(file.path),
+	wine.image.contentType = file.type
+
 	wine.save(function(err) {
-		if(!err) console.log('Vino guardado!');
+		if(!err){
+			res.send(wine); console.log('Vino guardado!');
+		}
 		else console.log('ERROR: ' + err.message);
 	});
 
-	res.send(wine);
+	//res.send(wine);
+}
+
+exports.getTopWines = function (req, res) {
+
+	var whiteWines = [];
+	var redWines = [];
+	var roseWines = [];
+	var allWines = [];
+
+	Vino.aggregate([
+		{'$lookup': {
+			from: 'puntuacions',
+			localField:'name',
+			foreignField:'vineName',
+			as:'arrayWines'
+			}
+		},
+		{'$unwind':'$arrayWines'},
+		{$group:{_id: '$code', code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
+		{$sort: {media: -1}},
+		{$match: {type: "Negre"}},
+		{$limit: 3}
+		],function(err, vinos) {
+			if(!err)
+			{
+				redWines = vinos;
+				var options = {
+					host: 'api.snooth.com',
+					path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=red"
+				};
+
+				callback = function(response) {
+			  		var string = '';
+			  		response.on('data', function (chunk) {
+			    		string += chunk;
+			  		});
+			  		response.on('end', function () {
+
+			  			var snoothWines = JSON.parse(string);
+
+			  			redWines = redWines.concat(snoothWines.wines);
+						for(var i=0; i<redWines.length; i++)
+						{
+							for(var j=i+1; j<redWines.length; j++)
+							{
+								if(redWines[i].code === redWines[j].code)
+								{
+									redWines.splice(j--,1);
+								}
+							}
+						}
+						redWines.sort(function(a,b) {
+							return b.snoothrank - a.snoothrank;
+						})
+						redWines = redWines.slice(0,3);
+						for(var i = 0; i<redWines.length; i++)
+						{
+							redWines[i].TopRank = (i+1);
+						}
+
+						Vino.aggregate([
+							{'$lookup': {
+								from: 'puntuacions',
+								localField:'name',
+								foreignField:'vineName',
+								as:'arrayWines'
+								}
+							},
+							{'$unwind':'$arrayWines'},
+							{$group:{_id: '$code',code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
+							{$sort: {media: -1}},
+							{$match: {type: "Blanc"}},
+							{$limit: 3}
+							],function(err, vinos) {
+								if(!err)
+								{
+									whiteWines = vinos;
+									var options = {
+										host: 'api.snooth.com',
+										path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=white"
+									};
+
+									callback = function(response) {
+								  		var string = '';
+								  		response.on('data', function (chunk) {
+								    		string += chunk;
+								  		});
+								  		response.on('end', function () {
+
+								  			var snoothWines = JSON.parse(string);
+								  			whiteWines = whiteWines.concat(snoothWines.wines);
+											for(var i=0; i<whiteWines.length; i++)
+											{
+												for(var j=i+1; j<whiteWines.length; j++)
+												{
+													if(whiteWines[i].code === whiteWines[j].code)
+													{
+														whiteWines.splice(j--,1);
+													}
+												}
+											}
+											whiteWines.sort(function(a,b) {
+												return b.snoothrank - a.snoothrank;
+											})
+											whiteWines = whiteWines.slice(0,3);
+											for(var i = 0; i<whiteWines.length; i++)
+											{
+												whiteWines[i].TopRank = (i+1);
+											}
+
+											Vino.aggregate([
+												{'$lookup': {
+													from: 'puntuacions',
+													localField:'name',
+													foreignField:'vineName',
+													as:'arrayWines'
+													}
+												},
+												{'$unwind':'$arrayWines'},
+												{$group:{_id: '$code',code:{$first: '$code'}, name:{$first: '$name'}, type:{$first:'$type'}, snoothrank:{'$avg':'$arrayWines.puntuacion'}}},
+												{$sort: {media: -1}},
+												{$match: {type: "Rosat"}},
+												{$limit: 3}
+												],function(err, vinos) {
+													if(!err)
+													{
+														roseWines = vinos;
+														var options = {
+															host: 'api.snooth.com',
+															path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=rose"
+														};
+
+														callback = function(response) {
+													  		var string = '';
+													  		response.on('data', function (chunk) {
+													    		string += chunk;
+													  		});
+													  		response.on('end', function () {
+
+													  			var snoothWines = JSON.parse(string);
+
+													  			roseWines = roseWines.concat(snoothWines.wines);
+																for(var i=0; i<roseWines.length; i++)
+																{
+																	for(var j=i+1; j<roseWines.length; j++)
+																	{
+																		if(roseWines[i].code === roseWines[j].code)
+																		{
+																			roseWines.splice(j--,1);
+																		}
+																	}
+																}
+																roseWines.sort(function(a,b) {
+																	return b.snoothrank - a.snoothrank;
+																})
+																roseWines = roseWines.slice(0,3);
+																for(var i = 0; i<roseWines.length; i++)
+																{
+																	roseWines[i].TopRank = (i+1);
+																}
+																allWines = {red:redWines,white:whiteWines,rose:roseWines};
+																console.log(allWines);
+																res.send(allWines);
+													  		});
+													  	}
+
+													  	http.request(options, callback).end();
+
+													}else{
+														res.send(err.message);
+													}
+											})
+								  		});
+								  	}
+								  	http.request(options, callback).end();
+								}else{
+									res.send(err.message);
+								}
+						})
+			  		});
+			  	}
+			  	http.request(options, callback).end();
+			}else{
+				res.send(err.message);
+			}
+		})
 }
 
 	//PUT
@@ -342,7 +755,7 @@ exports.updateWine = function(req, res) {
 		vino.name 		= req.body.name;
 		vino.type 		= req.body.type;
 		vino.winery 	= req.body.winery;
-		vino.grape_type = req.body.grape_type;
+		vino.varietal	= req.body.varietal;
 		vino.year 		= req.body.year;
 		vino.alcohol 	= req.body.alcohol;
 

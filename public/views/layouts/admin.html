@@ -8,6 +8,7 @@
 
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
@@ -31,12 +32,12 @@
 
 
 </head>
-<body style="height:100%; width:100%;">
+<body style="height:100%; width:100%;" class="page-admin">
 	<div class="container-fluid">
 		<div class="row">
-			<aside class="col-sm-2">
+			<aside class="col-sm-2 aside-admin">
 				<h1>
-					ADMIN
+					<a href="#/admin">ADMIN</a>
 				</h1>
 				<hr style="color:white">
 				<nav class="navbar navbar-default" role="navigation">
@@ -56,16 +57,8 @@
 			        </div><!-- /.navbar-collapse -->
     			</nav>
     			<hr style="color:white">
-    			<div id="social">
-    				<a href=""><img src="../img/icons/facebook53.png"></a>
-    				<a href=""><img src="../img/icons/twitter25.png"></a>
-    				<a href=""><img src="../img/icons/pinterest18.png"></a>
-    			</div>
-    			<div class="copyright">
-    				<p>Copyright</p>
-    			</div>
 			</aside>
-			<div class="col-sm-10" ui-view>
+			<div class="col-sm-10" ui-view style="height: 100vh;">
 			</div>
 		</div>
 	</div>

@@ -19,10 +19,10 @@ exports.getPersona = function(req, res){
 	//Recupera la persona que hay logeada.
 
 	var token 		= req.headers.authorization.split(' ')[1];
-	console.log(token);
+	//console.log(token);
 
 	var playload	= jwt.decode(token, config.TOKEN_SECRET);
-	console.log(playload);
+	//console.log(playload);
 
 	Persona.findById(playload.sub, function(err, persona){
 		if(err){
@@ -30,7 +30,7 @@ exports.getPersona = function(req, res){
 			res.send(err);
 		}else{
 			res.send(persona);
-			console.log(persona);
+			console.log("User logged: " + persona.email);
 		}
 	});
 }
@@ -72,9 +72,10 @@ exports.updatePersona = function(req, res) {
 	console.log(req.body);
 
 	Persona.findById(req.params.id, function(err, persona) {
-		persona.nombre = req.body.nombre;
-		persona.apellidos = req.body.apellidos;
-		persona.email = req.body.email;
+		persona.nombre 		= req.body.nombre;
+		persona.apellidos 	= req.body.apellidos;
+		persona.email 		= req.body.email;
+		persona.isAdmin 	= req.body.isAdmin;
 
 		persona.save(function(err) {
 			if(err) return err.status(500).send(err.message);
@@ -92,4 +93,36 @@ exports.deleteUser = function(req, res) {
 		res.json(persona);
 	})
 
+}
+
+exports.latestLogin = function(req, res) {
+
+	Persona.aggregate(
+		[
+			{$sort: {lastLogIn: -1}},
+			{$limit: 3}
+		], function(err, personas) {
+		if(!err)
+		{
+			res.send(personas)
+		}else{
+			res.send(err)
+		}
+	})
+}
+
+exports.lastSignUp = function(req, res) {
+
+	Persona.aggregate(
+		[
+			{$sort: {createAt: -1}},
+			{$limit: 3}
+		], function(err, personas) {
+		if(!err)
+		{
+			res.send(personas)
+		}else{
+			res.send(err)
+		}
+	})
 }

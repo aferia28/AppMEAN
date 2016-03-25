@@ -52,4 +52,28 @@ admin_app.controller('profilesController', ['$scope', '$http', '$stateParams','$
 		})
 	}
 
+	$scope.latestLogin = function() {
+
+		$http.get('/lastlogin')
+		.success(function(data) {
+			console.log(data);
+			$scope.loginUsers = data;
+		})
+		.error(function(data){
+			//handle error
+		})
+	}
+
+	$scope.latestSignUp = function() {
+
+		$http.get('/lastSignup')
+		.success(function(data) {
+			console.log(data);
+			$scope.signupUsers = data;
+		})
+		.error(function(data){
+			//handle error
+		})
+	}
+
 }]);

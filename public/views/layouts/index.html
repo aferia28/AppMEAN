@@ -3,49 +3,44 @@
 <head>
 	<title>APPMean</title>
 	<meta charset="utf-8"/>
-	<!-- font-->
+	<!-- ******************** Fonts ******************** -->
 	<link href='https://fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
+    <!-- ******************** jQuery ******************** -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <!-- ******************** Bootstrap ******************** -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" type="text/css" href="../css/styles.css">
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <!-- ******************** AngularJS ******************** -->
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.8/css/ngDialog.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.8/css/ngDialog-theme-default.css">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
 	<!-- Include the core AngularJS library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js"></script>
-
     <!-- Include the AngularJS routing library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-summernote/0.7.1/angular-summernote.js"></script>
-  	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.4/ng-file-upload-shim.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.4/ng-file-upload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.8/js/ngDialog.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-cookies.js"></script>
     <script type="text/javascript" src="http://720kb.github.io/angular-socialshare/assets/ext/dist/angular-socialshare.min.js"></script>
-
-
     <script src="js/core.js"></script>
-
     <!-- Controllers -->
     <script src="js/controllers/wineSearcherController.js"></script>
     <script src="js/controllers/productSearchController.js"></script>
     <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/topwinesController.js"></script>
     <script src="js/controllers/profileController.js"></script>
     <script src="js/controllers/sidebarController.js"></script>
+    <script src="js/controllers/addWineController.js"></script>
     <!--<script src="js/controllers/controller.registro.front.js"></script>-->
     <script src="js/controllers/controller.auth.js"></script>
     <!-- Directives -->
@@ -53,8 +48,16 @@
     <!-- Services -->
     <script src="js/services/weatherService.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/satellizer/0.13.3/satellizer.js"></script>
+    <script src="js/factories/dataFactory.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/satellizer/0.13.3/satellizer.js"></script>
+    <!-- ngTouch -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-touch.js"></script>
+	<!-- ******************** Custom styles ******************** -->
+	<link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/cardflow.css">
+    <!-- ******************** Custom scripts ******************** -->
+    <script type="text/javascript" src="js/scripts/cardflow.js"></script>
 </head>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -85,7 +88,6 @@
 	        $('#wrapper').toggleClass('toggled');
 	  });
 	});
-
 </script>
 <body ng-controller="sidebarController">
 <div id="wrapper">
@@ -93,31 +95,25 @@
     <!-- Sidebar -->
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
         <ul class="nav sidebar-nav">
-            <li class="sidebar-brand">
-                <a href="#">
-                   Brand
-                </a>
-            </li>
-            <li ng-if="isAuthenticated()">
-                <a href="#/home">Home</a>
+            <li>
+                <a href="#/home" style="font-family: 'bromello'; font-size: 38px; padding-top: 35px; padding-bottom: 35px;">onWine</a>
             </li>
             <li ng-if="isAuthenticated()">
                 <a href="#winesearcher">Wines</a>
             </li>
             <li ng-if="isAuthenticated()">
-                <a href="#perfil/{{user._id}}">Perfil</a>
+                <a href="#perfil/{{userLogged()._id}}">Perfil</a>
             </li>
-            <!--<li><a href="#perfil/{{persona._id}}">Perfil</a></li>-->
             <li ng-if="isAuthenticated()">
                 <a href="#logout">Logout</a>
             </li>
             <li ng-if="!isAuthenticated()">
-            	<a href="">SignUp</a>
+            	<a href="" ng-click="openSignUp()">SignUp</a>
             </li>
             <li ng-if="!isAuthenticated()">
-            	<a href="">Login</a>
+            	<a href="" ng-click="openSignIn()">Login</a>
             </li>
-            <li ng-if="isAuthenticated() && user.isAdmin == true">
+            <li ng-if="userLogged().isAdmin">
             	<a href="admin">Admin</a>
             </li>
         </ul>
@@ -126,11 +122,16 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-            <span class="hamb-top"></span>
-			<span class="hamb-middle"></span>
-			<span class="hamb-bottom"></span>
-        </button>
+        <div>
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+    			<span class="hamb-bottom"></span>
+            </button>
+            <div class="hamburger" style="background-color: white !important; left: 100px !important;">
+            <h4 class="sidebar-brand">onWine</h4>
+            </div>
+        </div>
         <div ng-view class="page {{ pageClass }}">
         </div>
     </div>

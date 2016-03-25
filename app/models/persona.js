@@ -1,3 +1,4 @@
+var Vino = require('./wine');
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
@@ -7,7 +8,10 @@ var personaSchema = new Schema({
   email:  { type: String },
   password:   { type: String },
   isAdmin: { type: Boolean },
-  verified: { type: Boolean}
+  verified: { type: Boolean},
+  favoritos:  [{ type: String }],
+  createAt: {type:Date},
+  lastLogIn: {type:Date}
 });
 
 module.exports = mongoose.model('Persona', personaSchema);

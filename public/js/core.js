@@ -1,4 +1,5 @@
-var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote']);
+var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote', 'angular-cardflow','ngFileUpload']);
+
 app.config(function($routeProvider, $authProvider, socialshareConfProvider)
 {
   socialshareConfProvider.configure([{
@@ -86,9 +87,9 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
       }
 
   })
-    .when('/private',{
-      controller: '',
-      templateUrl: 'views/private.html',
+    .when('/topwines',{
+      controller: 'topWinesController',
+      templateUrl: 'views/topwines.html',
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
@@ -122,9 +123,19 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
           }
         }]
       }
-
+  })
+    .when('/pageaddwine',{
+      controller: 'addWineController',
+      templateUrl: 'views/addwine.html',
+      resolve: {
+        authenticated: ["$location", '$auth', function($location, $auth){
+          if(!$auth.isAuthenticated()){
+            return $location.path('/');
+          }
+        }]
+      }
   })
   	.otherwise({
   		redirectTo: '/'
-  });
+    });
 });
