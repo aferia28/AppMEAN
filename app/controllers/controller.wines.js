@@ -1,9 +1,9 @@
-var Vino = require('../models/wine.js');
-var Usuario = require('../models/persona.js');
-var Puntuacion = require('../models/puntuacion.js');
-var Comentario = require('../models/comentario.js');
-var http = require('http');
-var fs = require('fs');
+var Vino  		= require('../models/wine.js');
+var Usuario 	= require('../models/persona.js');
+var Puntuacion 	= require('../models/puntuacion.js');
+var Comentario 	= require('../models/comentario.js');
+var http 		= require('http');
+var fs 			= require('fs');
 
 	//GET
 exports.findAllWines =  function(req, res) {
@@ -243,9 +243,7 @@ exports.findWine = function(req, res) {
 	    					{
 	    						c = c + puntuaciones.rates[i].puntuacion;
 	    					}
-
 	    					puntuacionPropia = c / puntuaciones.rates.length;
-
 	    					if(puntuacionApi == "n/a")
 	    					{
 	    						puntuacionApi = 0;
@@ -258,21 +256,21 @@ exports.findWine = function(req, res) {
 							console.log(puntuacionTotal);
 
 							var objectToSend = {
-								code: apiWine.code,
-				    			name: apiWine.name,
-				    			price: apiWine.price,
-				    			type: apiWine.type,
-				    			region: apiWine.region,
-				    			winery: apiWine.winery,
-				    			varietal: apiWine.varietal,
-				    			vintage: apiWine.vintage,
-				    			alcohol: apiWine.alcohol,
-				    			image_url: apiWine.image,
-				    			reviews: apiWine.reviews,
-				    			wm_notes: apiWine.wm_notes,
-				    			snoothrank: puntuacionTotal,
-				    			comentarios: puntuaciones.comentarios, //aqui las puntuaciones en realidad es un vino
-				    			canrate: canrate
+								code 		: apiWine.code,
+				    			name 		: apiWine.name,
+				    			price 		: apiWine.price,
+				    			type 		: apiWine.type,
+				    			region 		: apiWine.region,
+				    			winery 		: apiWine.winery,
+				    			varietal	: apiWine.varietal,
+				    			vintage 	: apiWine.vintage,
+				    			alcohol		: apiWine.alcohol,
+				    			image_url	: apiWine.image,
+				    			reviews 	: apiWine.reviews,
+				    			wm_notes 	: apiWine.wm_notes,
+				    			snoothrank 	: puntuacionTotal,
+				    			comentarios : puntuaciones.comentarios, //aqui las puntuaciones en realidad es un vino
+				    			canrate 	: canrate
 				    		}
 				    		res.send(objectToSend);
     					});
@@ -288,11 +286,11 @@ exports.findWine = function(req, res) {
 exports.addComment = function(req, res) {
 
 	var comment = req.query.comentario;
-	var wine = req.query.wine;
+	var wine  	= req.query.wine;
 	var usuario = req.query.usuario;
 
-	var wi = JSON.parse(wine);
-	var usu = JSON.parse(usuario);
+	var wi  	= JSON.parse(wine);
+	var usu  	= JSON.parse(usuario);
 
 	Vino.findOne({code: wi.code}).populate({path: 'comentarios'}).exec(function(err, vino) {
 		if(!err)
@@ -321,20 +319,20 @@ exports.addComment = function(req, res) {
 					else console.log('ERROR: ' + err.message);
 				})
 				var wine = new Vino({
-    				code: wi.code,
-					name: wi.name,
-					price: wi.price,
-					type: type,
-					region: wi.region,
-					winery: wi.winery,
-					varietal: wi.varietal,
-					vintage: wi.vintage,
-					alcohol: wi.alcohol,
-					image_url: wi.image,
-					reviews: wi.reviews,
-					wm_notes: wi.wm_notes,
-					snoothrank: wi.snoothrank,
-					comentarios:[comentario]
+    				code 	 		: wi.code,
+					name 			: wi.name,
+					price 			: wi.price,
+					type 			: type,
+					region 			: wi.region,
+					winery 			: wi.winery,
+					varietal 		: wi.varietal,
+					vintage 		: wi.vintage,
+					alcohol 		: wi.alcohol,
+					image_url 		: wi.image,
+					reviews 		: wi.reviews,
+					wm_notes 		: wi.wm_notes,
+					snoothrank 		: wi.snoothrank,
+					comentarios 	:[comentario]
     			})
 
     			wine.save(function(err) {
@@ -375,11 +373,10 @@ exports.addComment = function(req, res) {
 
 exports.addFavorite = function(req, res) {
 
-	var code_wine = req.query.codeWine;
-	var usuario = req.query.usuario;
+	var code_wine 	= req.query.codeWine;
 
-	var usu = JSON.parse(usuario);
-	//var favouriteWine;
+	var usuario 	= req.query.usuario;
+	var usu  		= JSON.parse(usuario);
 
 	Usuario.findOne({_id: usu._id, favoritos: code_wine}, function(err, user){
 		if(!err)
@@ -422,9 +419,9 @@ exports.findWineById = function(req, res) {
 
 exports.findWineByCode = function(req, res) {
 
-	var userRank = req.query.rank;
-	var wine = req.query.wine;
-	var usuario = req.query.usuario;
+	var userRank 	= req.query.rank;
+	var wine 		= req.query.wine;
+	var usuario 	= req.query.usuario;
 	var type;
 
 	var x = JSON.parse(wine);
@@ -450,10 +447,10 @@ exports.findWineByCode = function(req, res) {
 				}
 
 				var puntuacion = new Puntuacion({
-					usuario: y,//usuario que hay logeado en ese momento,
-					usuName: y.nombre,
-					vineName: x.name,
-					puntuacion: userRank
+					usuario 	: y,//usuario que hay logeado en ese momento,
+					usuName 	: y.nombre,
+					vineName 	: x.name,
+					puntuacion 	: userRank
 				})
 
 				puntuacion.save(function(err) {
@@ -464,20 +461,20 @@ exports.findWineByCode = function(req, res) {
 				x.vintage = parseInt(x.vintage);
 
     			var wine_ = new Vino({
-    				code: x.code,
-					name: x.name,
-					price: x.price,
-					type: type,
-					region: x.region,
-					winery: x.winery,
-					varietal: x.varietal,
-					alcohol: x.alcohol,
-					image_url: x.image,
-					reviews: x.reviews,
-					wm_notes: x.wm_notes,
-					snoothrank: x.snoothrank,
-					year: x.vintage,
-					rates:[puntuacion]
+    				code 		: x.code,
+					name 		: x.name,
+					price 		: x.price,
+					type 		: type,
+					region 		: x.region,
+					winery 		: x.winery,
+					varietal	: x.varietal,
+					alcohol		: x.alcohol,
+					image_url 	: x.image,
+					reviews		: x.reviews,
+					wm_notes 	: x.wm_notes,
+					snoothrank 	: x.snoothrank,
+					year 		: x.vintage,
+					rates 		:[puntuacion]
     			})
 
     			wine_.save(function(err) {
@@ -491,10 +488,10 @@ exports.findWineByCode = function(req, res) {
     		}else{
 
     			var puntuacion = new Puntuacion({
-					usuario: y,//usuario que hay logeado en ese momento,
-					usuName: y.nombre,
-					vineName: x.name,
-					puntuacion: userRank
+					usuario 	: y,//usuario que hay logeado en ese momento,
+					usuName 	: y.nombre,
+					vineName 	: x.name,
+					puntuacion 	: userRank
 				})
 
 				puntuacion.save(function(err) {
@@ -528,8 +525,8 @@ exports.addWine = function(req, res) {
 	console.log('files', req.files);
 
 	//code wine
-	var codeWine = req.body.wine.name.split(' ');
-	codeWine = codeWine.join('-').toLowerCase();
+	var codeWine	= req.body.wine.name.split(' ');
+	codeWine  		= codeWine.join('-').toLowerCase();
 	console.log(codeWine);
 	//console.log(file.name);
     //console.log(file.type);
@@ -537,15 +534,15 @@ exports.addWine = function(req, res) {
     //console.log(file);
 
 	var wine = new Vino({
-		code: codeWine,
-		name: req.body.wine.name,
-		type: req.body.wine.type,
-		winery: req.body.wine.winery,
-		region: req.body.wine.region,
+		code 	: codeWine,
+		name 	: req.body.wine.name,
+		type 	: req.body.wine.type,
+		winery 	: req.body.wine.winery,
+		region 	: req.body.wine.region,
 		varietal: req.body.wine.varietal,
-		year: req.body.wine.vintage,
-		alcohol: req.body.wine.alcohol,
-		price: req.body.wine.price,
+		year 	: req.body.wine.vintage,
+		alcohol : req.body.wine.alcohol,
+		price 	: req.body.wine.price,
 		createAt: Date.now(),
 	});
 
@@ -569,9 +566,9 @@ exports.addWine = function(req, res) {
 exports.getTopWines = function (req, res) {
 
 	var whiteWines = [];
-	var redWines = [];
-	var roseWines = [];
-	var allWines = [];
+	var redWines   = [];
+	var roseWines  = [];
+	var allWines   = [];
 
 	Vino.aggregate([
 		{'$lookup': {

@@ -85,7 +85,6 @@ exports.updatePersona = function(req, res) {
 		persona.isAdmin 	= isAdmin;
 		if (req.files != undefined) {
 			var file = req.files.file;
-
 			persona.image.data = fs.readFileSync(file.path),
 			persona.image.contentType = file.type
 		}
@@ -128,7 +127,6 @@ exports.deleteFavoriteWine = function(req, res) {
 exports.deleteUser = function(req, res) {
 
 	Persona.remove({_id : req.params.id}, function(err, persona) {
-
 		if(err) console.log('ERROR: ' + err);
 		res.json(persona);
 	})

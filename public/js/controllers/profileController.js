@@ -42,8 +42,8 @@ app.controller('profileController', ['$scope', '$http','$rootScope','$routeParam
 			.then(function(response) {
 					$scope.userProfile = response.data;
 					console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ', response.data);
-			}, function(data) {
-					console.log('Error status: ', data);
+			}, function(response) {
+					console.log('Error status: ', response.status);
 			}, function(evt) {
 				var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
 	            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
