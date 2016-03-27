@@ -39,14 +39,14 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http','ngDial
 	$scope.pageClass = 'page-signup';
 }]);
 
-app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies','serviceAdmin', function($auth, $location, $scope, $http, $cookies, serviceAdmin){
+app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies','serviceAdmin','ngDialog', function($auth, $location, $scope, $http, $cookies, serviceAdmin, ngDialog){
 
 	var vm = this;
 	console.log("Dentro LoginController Cliente");
 	$scope.login = function(){
 
 		$auth.login($scope.persona)
-		.then(function(){
+		.then(function(response){
 
 			// Si se ha logueado correctamente, lo tratamos aquí.
             // Podemos también redirigirle a una ruta
@@ -63,10 +63,16 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http','$cooki
 					serviceAdmin.setProperty(data);
 					serviceAdmin.setAdmin(data.isAdmin);
 				});
-		})
-		.catch(function(response){
-			response.send(500);
-			console.log("Ha habido algun error en el login.");
+		}, function(response){
+			console.log('Signup status: ', response.status);
+			console.log('Error message: ', response.data.message);
+
+			ngDialog.open({template: '<div class="modal-header"><h3 class="modal-title"></h3><p>'+ response.status +'</p></div><div class="modal-body"><p>'+ response.data.message +'</p></div>',
+				className: 'ngdialog-theme-default',
+				controller: '',
+				closeByNavigation: true,
+				plain: true
+			});
 		});
 	}
 	//$scope.pageClass = 'page-login';
