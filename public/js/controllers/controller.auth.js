@@ -1,4 +1,4 @@
-app.controller('SignUpController', ['$auth','$location','$scope','$http', function($auth, $location, $scope, $http){
+app.controller('SignUpController', ['$auth','$location','$scope','$http','ngDialog', function($auth, $location, $scope, $http,ngDialog){
 
 	var vm = this;
 	console.log("Dentro de SignUp controller");
@@ -8,19 +8,30 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http', functi
 		console.log("h");
       	if(isValid)
       	{
-      			$auth.signup($scope.persona)
-					.then(function(){
-						$http.get('/send/'+$scope.persona.email)
-      						.success(function(data) {
-      							console.log('Controller FrontEnd: Email enviado');
-					            console.log("Uusiario creado satisfactoriamente");
-      						});
-      						//$location.path("/");
-					})
-					.catch(function(response){
-						response.send(500);
-						console.log('algun error en el registro.');
+  			$auth.signup($scope.persona)
+				.then(function(response){
+					$http.get('/send/'+$scope.persona.email)
+  						.then(function(data) {
+  							console.log('Controller FrontEnd: Email enviado');
+				            console.log("Usiario creado satisfactoriamente, revisar email");
+				            ngDialog.close();
+
+				            //verificationPopUp
+  						}, function(response){
+  							//error handler
+  							console.log('SignUp status: ' + response.status);
+  						});
+				}, function(response){
+					console.log('Signup status: ', response.status);
+					console.log('Error message: ', response.data.message);
+
+					ngDialog.open({template: '<div class="modal-header"><h3 class="modal-title"></h3><p>'+ response.status +'</p></div><div class="modal-body"><p>'+ response.data.message +'</p></div>',
+						className: 'ngdialog-theme-default',
+						controller: '',
+						closeByNavigation: true,
+						plain: true
 					});
+				});
       	}else{
         	alert("Las dos contraseñas deben ser iguales");
       	}
