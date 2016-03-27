@@ -1,4 +1,4 @@
-app.controller('SignUpController', ['$auth','$location','$scope','$http','ngDialog', function($auth, $location, $scope, $http,ngDialog){
+app.controller('SignUpController', ['$auth','$location','$scope','$http','ngDialog','serviceRequestErrors', function($auth, $location, $scope, $http,ngDialog,serviceRequestErrors){
 
 	var vm = this;
 	console.log("Dentro de SignUp controller");
@@ -16,6 +16,13 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http','ngDial
 				            console.log("Usiario creado satisfactoriamente, revisar email");
 				            ngDialog.close();
 
+				            ngDialog.open({template: '<div class="modal-header"><h3 class="modal-title"></h3><p>Verifica email</p></div><div class="modal-body"><p>Revisa el teu email per tal de verificar la compta =)</p></div>',
+								className: 'ngdialog-theme-default',
+								controller: '',
+								closeByNavigation: true,
+								plain: true
+							});
+
 				            //verificationPopUp
   						}, function(response){
   							//error handler
@@ -25,12 +32,7 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http','ngDial
 					console.log('Signup status: ', response.status);
 					console.log('Error message: ', response.data.message);
 
-					ngDialog.open({template: '<div class="modal-header"><h3 class="modal-title"></h3><p>'+ response.status +'</p></div><div class="modal-body"><p>'+ response.data.message +'</p></div>',
-						className: 'ngdialog-theme-default',
-						controller: '',
-						closeByNavigation: true,
-						plain: true
-					});
+					serviceRequestErrors.popupError(response);
 				});
       	}else{
         	alert("Las dos contraseñas deben ser iguales");
