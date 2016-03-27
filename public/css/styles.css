@@ -1,5 +1,6 @@
 @import 'https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900';
 @import 'https://fonts.googleapis.com/css?family=Parisienne';
+@import 'https://fonts.googleapis.com/css?family=Playfair+Display:400,900,700';
 /*######## VARIABLES ############*/
 @font-face {
   font-family: 'bromello';
@@ -10,11 +11,12 @@
 body {
   position: relative;
   overflow-x: hidden;
+  font-family: 'Playfair Display', serif !important;
 }
 body,
 html {
   height: 100%;
-  font-family: 'Lato', sans-serif !important;
+  font-family: 'Playfair Display', serif;
 }
 /*-------------------------------*/
 /*           Wrappers            */
@@ -74,7 +76,7 @@ html {
 }
 .sidebar-nav li {
   position: relative;
-  line-height: 20px;
+  line-height: 50px;
   display: inline-block;
   width: 100%;
 }
@@ -100,13 +102,13 @@ html {
   background-color: #ec1b5a;
 }
 .sidebar-nav li:nth-child(3):before {
-  background-color: #79aefe;
+  background-color: #400e20;
 }
 .sidebar-nav li:nth-child(4):before {
-  background-color: #314190;
+  background-color: #cfc47b;
 }
 .sidebar-nav li:nth-child(5):before {
-  background-color: #279636;
+  background-color: #560554;
 }
 .sidebar-nav li:nth-child(6):before {
   background-color: #7d5d81;
@@ -133,6 +135,7 @@ html {
   color: #ddd;
   text-decoration: none;
   padding: 10px 15px 10px 30px;
+  font-size: 27px;
 }
 .sidebar-nav li a:hover,
 .sidebar-nav li a:active,
@@ -163,14 +166,15 @@ html {
 /*       Hamburger-Cross         */
 /*-------------------------------*/
 .hamburger {
+  background-color: #3F3F3F;
+  padding: 50px;
   position: fixed;
-  top: 20px;
+  top: 40%;
   z-index: 999;
-  display: block;
+  display: inline-block;
   width: 32px;
   height: 32px;
-  margin-left: 15px;
-  background: transparent;
+  margin-left: 0px;
   border: none;
 }
 .hamburger:hover,
@@ -203,9 +207,9 @@ html {
 .hamburger.is-open .hamb-middle,
 .hamburger.is-open .hamb-bottom {
   position: absolute;
-  left: 0;
-  height: 4px;
-  width: 100%;
+  left: 20px;
+  height: 3px;
+  width: 50%;
 }
 .hamburger.is-closed .hamb-top,
 .hamburger.is-closed .hamb-middle,
@@ -213,7 +217,7 @@ html {
   background-color: white;
 }
 .hamburger.is-closed .hamb-top {
-  top: 5px;
+  top: 35px;
   -webkit-transition: all 0.35s ease-in-out;
 }
 .hamburger.is-closed .hamb-middle {
@@ -221,15 +225,15 @@ html {
   margin-top: -2px;
 }
 .hamburger.is-closed .hamb-bottom {
-  bottom: 5px;
+  bottom: 35px;
   -webkit-transition: all 0.35s ease-in-out;
 }
 .hamburger.is-closed:hover .hamb-top {
-  top: 0;
+  top: 30px;
   -webkit-transition: all 0.35s ease-in-out;
 }
 .hamburger.is-closed:hover .hamb-bottom {
-  bottom: 0;
+  bottom: 30px;
   -webkit-transition: all 0.35s ease-in-out;
 }
 .hamburger.is-open .hamb-top,
@@ -286,194 +290,307 @@ html {
   background-color: rgba(250, 250, 250, 0.8);
   z-index: 1;
 }
+.sidebar-brand {
+  text-align: right;
+  font-family: 'bromello';
+  position: absolute;
+  left: 4px;
+  bottom: 16px;
+  font-size: 34px;
+  color: black;
+}
 .region1 {
-  font-family: 'Lato', sans-serif !important;
   height: 100%;
-  background: url('../img/background_home2.jpg') no-repeat center center;
+  background: url('../img/home-header.jpg') no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  -webkit-filter: grayscale(50%);
-  /* Chrome, Safari, Opera */
-  filter: grayscale(50%);
 }
-.region1 .home-title {
-  text-align: right;
-  font-family: 'bromello';
-}
-.region1 .home-title h1 {
-  font-size: 70px;
-  color: white;
-}
-.region1 .widget-button {
-  margin-top: 370px;
-}
-.region1 .widget-button .signIn {
-  padding: 10px 100px;
-  background-color: #6a1734;
-  color: white;
-  border-radius: 3px;
-}
-.region1 .widget-button .signUp {
-  padding: 10px 100px;
-  background-color: transparent;
-  border-radius: 3px;
-  border: 2px solid white;
-  color: white;
-}
-.region1 .square {
-  height: 250px;
-  margin-top: 25px;
+.region1 .widget-container-buttons {
+  bottom: -400px;
   text-align: center;
 }
-.region1 .square .s-top {
-  background: url('../img/wine1.jpg') no-repeat center center;
-  background-size: 150%;
-  height: 100%;
-  filter: grayscale(100%) !important;
-  -webkit-filter: grayscale(100%);
-  -webkit-transition: all .3s ease;
-  bottom: 0;
+.region1 .round-button {
+  cursor: pointer;
+  width: 70px;
+  display: inline-block;
+  margin-left: 40px;
 }
-.region1 .square .s-top h5 {
+.region1 .round-button-circle {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 50%;
+  border: 1px solid white;
+  overflow: hidden;
+  background-color: transparent;
+}
+.region1 .round-button-circle:hover {
+  border: 2px solid white;
+}
+.region1 .round-button a {
+  display: block;
+  float: left;
+  width: 100%;
+  padding-top: 50%;
+  padding-bottom: 50%;
+  line-height: 1em;
+  margin-top: -0.5em;
   font-weight: 300;
-  font-size: x-large;
-  padding-top: 10px;
-  padding-left: 10px;
+  text-align: center;
   color: white;
+  font-size: 1.2em;
+  text-decoration: none;
 }
-.region1 .square .s-top:hover {
-  background-size: 140%;
-  position: relative;
-  filter: grayscale(0%);
-  -webkit-filter: grayscale(0%);
-  filter: none;
-}
-.region1 .square .s-favorite {
-  background: url('../img/wine2.jpeg') no-repeat center center;
+.region2 .section-header {
+  height: 100vh;
+  background: url('../img/winebar-1.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
-  background-size: 150%;
-  height: 100%;
-  filter: grayscale(100%) !important;
-  -webkit-filter: grayscale(100%);
-  -webkit-transition: all .3s ease;
-  bottom: 0;
 }
-.region1 .square .s-favorite h5 {
-  font-weight: 300;
-  font-size: x-large;
-  padding-top: 10px;
-  padding-left: 10px;
+.region2 .section-header h2 {
+  text-align: center;
   color: white;
+  font-size: 60px;
+  margin-top: 30%;
 }
-.region1 .square .s-favorite:hover {
-  background-size: 140%;
-  position: relative;
-  filter: grayscale(0%);
-  -webkit-filter: grayscale(0%);
-  filter: none;
+.region2 .section1 {
+  padding-left: 50px !important;
+  padding-right: 50px !important;
 }
-.region1 .square .s-find {
-  background: url('../img/image-bottom-left.jpg') no-repeat center center;
+.region2 .section1 .widget-text {
+  padding-top: 200px !important;
+  padding-bottom: 200px !important;
+}
+.region2 .section1 .widget-text p {
+  line-height: 35px;
+  text-align: center;
+  font-size: 20px;
+}
+.region2 .section3 .widget-text-title,
+.region2 .section2 .widget-text-title {
+  padding-top: 73px;
+  padding-bottom: 73px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.region2 .section3 .widget-text-title h3,
+.region2 .section2 .widget-text-title h3 {
+  color: #3F3F3F;
+  margin-top: 80px;
+  text-align: center;
+  font-size: 65px;
+  margin-bottom: 45px;
+  text-decoration: none;
+}
+.region2 .section3 .widget-text-title p,
+.region2 .section2 .widget-text-title p {
+  text-align: left;
+  font-size: 17px;
+  line-height: 40px;
+}
+.region2 .section4 {
+  height: 350px;
+  background: url('../img/langhe.jpg') no-repeat center center;
   background-size: cover;
-  background-size: 150%;
-  height: 100%;
-  filter: grayscale(100%) !important;
-  -webkit-filter: grayscale(100%);
-  -webkit-transition: all .3s ease;
-  bottom: 0;
 }
-.region1 .square .s-find h5 {
-  font-weight: 300;
-  font-size: x-large;
-  padding-top: 10px;
-  padding-left: 10px;
+.region2 .section4 .add-wine {
+  margin-top: 50px;
+  text-align: center;
+}
+.region2 .section4 .add-wine a {
+  padding: 15px 50px 15px 50px;
+  border: 2px solid white;
+  border-radius: 2px;
+  color: white;
+  transition: all 1s ease;
+  text-decoration: none;
+}
+.region2 .section4 .add-wine a:hover {
+  color: black;
+  background-color: white;
+}
+.section-add-wine {
+  background-color: #F8F8F8;
+}
+.section-add-wine h2 {
+  font-size: 60px;
+  position: relative;
+  top: -57px;
+}
+.section-add-wine .addwine-box {
+  margin-top: 125px;
+  z-index: 1;
+  padding-left: 30px;
+  background-color: white;
+}
+.section-add-wine .addwine-box .thumb {
+  width: 24px;
+  height: 24px;
+  float: none;
+  position: relative;
+  top: 7px;
+}
+.section-add-wine .addwine-box form .progress {
+  line-height: 15px;
+}
+.section-add-wine .addwine-box .progress {
+  display: inline-block;
+  width: 100px;
+  border: 3px groove #CCC;
+}
+.section-add-wine .addwine-box .progress div {
+  font-size: smaller;
+  background: orange;
+  width: 0;
+}
+.section-add-wine .addwine-box .box-input {
+  margin-bottom: 25px;
+}
+.section-add-wine .addwine-box .box-input input,
+.section-add-wine .addwine-box .box-input select {
+  display: block;
+  background: #efefef;
+  height: 80px;
+  padding: 0 40px;
+  border: 0;
+  width: 100%;
+  font-size: 20px;
+}
+.section-add-wine .addwine-box .box-input .button-stroke {
+  margin-right: 100px;
+  float: right;
+  padding: 15px 60px 15px 60px;
+  background-color: transparent;
+  border: 4px solid #333;
+  border-bottom-width: 7px;
+  color: #333;
+  text-decoration: none;
+  -webkit-transition: color .3s;
+  transition: color .3s;
+  font-size: 22px;
+}
+.section-add-wine .addwine-box .box-input .button-stroke:hover {
+  background: #333;
+  -webkit-transition: background 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: background 0.3s cubic-bezier(0.77, 0, 0.175, 1);
   color: white;
 }
-.region1 .square .s-find:hover {
-  background-size: 140%;
-  position: relative;
-  filter: grayscale(0%);
-  -webkit-filter: grayscale(0%);
-  filter: none;
+.widget-searcher {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
-.region1 .square .s-profile {
-  background: url('../img/background_home.jpeg') no-repeat center center;
-  background-size: cover;
-  background-size: 150%;
-  height: 100%;
-  filter: grayscale(100%) !important;
-  -webkit-filter: grayscale(100%);
-  -webkit-transition: all .3s ease;
-  bottom: 0;
-}
-.region1 .square .s-profile h5 {
-  font-weight: 300;
-  font-size: x-large;
-  padding-top: 10px;
-  padding-left: 10px;
-  color: white;
-}
-.region1 .square .s-profile:hover {
-  background-size: 140%;
-  position: relative;
-  filter: grayscale(0%);
-  -webkit-filter: grayscale(0%);
-  filter: none;
-}
+/*-------------------------------*/
+/*        Wine Searcher          */
+/*-------------------------------*/
 .page-weather {
   background-size: cover;
   opacity: 0.8;
 }
-.page-weather .box-content .box-content-top {
-  background: #ffffff;
-  border-radius: 0px;
-  padding: 0 15px 15px 25px;
+.page-weather .wine-searcher .wine-searcher .background-image {
+  -webkit-filter: blur(3px);
+  /* Chrome, Safari, Opera */
+  filter: blur(3px);
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
-.page-weather .box-content .box-content-bottom {
-  background: rgba(255, 255, 255, 0.8);
-  overflow-y: scroll;
-  height: 500px;
+.page-weather .wine-searcher .wine-color {
+  padding: 50px 50px 15px 50px;
 }
-.page-weather .box-content .box-content-bottom .wine-box {
+.page-weather .wine-searcher .wine-search-parameters {
+  padding: 15px 45px 15px 45px;
+  background-color: #333333;
+  border-radius: 5px;
+}
+.page-weather .wine-searcher .wine-search-parameters h4 {
+  color: #f5f5f5;
+}
+.page-weather .wine-searcher .wine-search-parameters #selectDo {
+  text-align-last: center;
+}
+.page-weather .wine-searcher .wine-search-parameters .search-button {
+  padding-top: 15px;
+}
+.page-weather .wine-searcher .wine-search-parameters button {
+  -moz-box-shadow: inset 0px 1px 0px 0px #e6cafc;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #e6cafc;
+  box-shadow: inset 0px 1px 0px 0px #e6cafc;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c579ff), color-stop(1, #a341ee));
+  background: -moz-linear-gradient(center top, #c579ff 5%, #a341ee 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c579ff', endColorstr='#a341ee');
+  background-color: #c579ff;
+  -webkit-border-top-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  border-top-left-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -moz-border-radius-topright: 20px;
+  border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  -moz-border-radius-bottomright: 20px;
+  border-bottom-right-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  border-bottom-left-radius: 20px;
+  text-indent: 0;
+  border: 1px solid #a946f5;
+  display: inline-block;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  font-style: normal;
+  height: 65px;
+  line-height: 65px;
+  width: 131px;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 1px 1px 0px #8628ce;
+}
+.page-weather .wine-searcher .wine-search-parameters button:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #a341ee), color-stop(1, #c579ff));
+  background: -moz-linear-gradient(center top, #a341ee 5%, #c579ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a341ee', endColorstr='#c579ff');
+  background-color: #a341ee;
+}
+.page-weather .wine-searcher .wine-search-parameters button:active {
+  position: relative;
+  top: 1px;
+}
+.page-weather .wine-searcher .wine-search-results {
+  padding: 50px 50px 20px 50px;
+}
+.page-weather .wine-searcher .wine-search-results .wine-box {
   -webkit-box-shadow: 3px 1px 10px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 3px 1px 10px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 3px 1px 10px 0px rgba(0, 0, 0, 0.75);
-  background-color: whitesmoke;
-  height: 245px;
-}
-.page-weather .box-content .box-content-bottom .wine-box p {
+  background-color: plum;
+  height: 270px;
+  padding: 15px;
+  margin-bottom: 15px;
   text-align: center;
 }
-.page-weather .box-content .box-content-bottom .wine-box .image-box {
-  text-align: center;
+.page-weather .wine-searcher .wine-search-results .wine-box p {
+  font-weight: bold;
+  color: #4b0082;
 }
-.page-weather .box-content .box-content-bottom .wine-box .image-box img {
+.page-weather .wine-searcher .wine-search-results .wine-box a {
+  text-decoration: none;
+}
+.page-weather .wine-searcher .wine-search-results .wine-box .image-box img {
   margin: auto;
+  border-radius: 5px;
 }
-.page-weather .box-content .box-content-bottom .wine-box .wine-text {
-  text-align: center;
+.page-weather .wine-searcher .wine-search-results .wine-box .wine-text,
+.page-weather .wine-searcher .wine-search-results .wine-box .wine-vintage {
+  color: #333333;
 }
-.page-weather .box-content .box-content-bottom .wine-box .wine-vintage {
-  text-align: center;
-}
-.page-weather .search-box {
-  height: 100%;
-  border-right: 2px solid black;
-}
-.page-weather .search-box .search-box-top {
-  text-align: center;
-  border-radius: 0px;
-  padding: 0 25px 15px 25px;
-}
-.page-weather .search-box .search-box-bottom {
-  text-align: center;
-}
-.page-login {
-  background: url('../img/login-background.jpeg') no-repeat center center;
-  background-size: cover;
-  opacity: 0.8;
+.page-weather .wine-searcher .wine-search-results .wine-box .wine-text {
+  padding-top: 10px;
 }
 .page-product .product-content .fa,
 .page-product .product-content .fa-arrow-left {
@@ -525,21 +642,18 @@ html {
   background-color: #DB4437;
   text-align: center;
 }
-.page-product .product-price {
-  margin: 10px 0 10px 0;
+.page-product .buy-box {
+  margin-top: 35px;
+  margin-bottom: 35px;
 }
-.page-product .product-price span {
-  font-size: 35px;
+.page-product .buy-box .product-price span {
+  font-size: 25px;
   color: black;
   padding: 10px 10px 10px 10px;
 }
-.page-product .box-add {
-  margin-top: 15px;
-}
 .page-product .box-add .product-add-input input {
-  border-radius: 20px;
   width: 15%;
-  height: 42px;
+  height: 32px;
   border: 1px solid #c8bfac;
   text-align: center;
 }
@@ -547,31 +661,29 @@ html {
   box-shadow: #000000;
 }
 .page-product .box-add .product-add-input button {
-  background-color: #942049;
+  background-color: transparent;
   margin-left: 15px;
-  border-radius: 20px;
-  height: 42px;
-  color: white;
-  border: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 32px;
+  color: black;
+  border: 1px solid black;
 }
-.page-product .rating {
-  margin-top: 11px;
-}
-.page-product .rating span {
-  font-size: 35px;
-}
-.page-product .rating span button {
+.page-product .rating span button,
+.page-product .like span button {
   border: 0;
   background: transparent;
   padding: 0;
 }
 .page-product .rating span .fa-star,
-.page-product .rating span .fa-star-o {
-  color: #cfc47b;
+.page-product .like span .fa-star,
+.page-product .rating span .fa-star-o,
+.page-product .like span .fa-star-o {
+  color: black;
 }
 .page-product .rank-box,
 .page-product .product-rate {
-  margin: 25px 0 10px 0;
+  margin-top: 35px;
 }
 .page-product .rank-box .fa-glass,
 .page-product .product-rate .fa-glass {
@@ -587,6 +699,56 @@ html {
 .page-product .product-box-content {
   margin-top: 10px;
 }
+.header-top-wines .section-header-min {
+  height: 350px;
+  background: url('../img/home-top.jpg') no-repeat center center;
+  background-size: cover;
+}
+.page-top-wines .nav-tabs {
+  text-align: center;
+  border: 0;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.page-top-wines .nav-tabs li {
+  float: none;
+  display: inline-block;
+}
+.page-top-wines .nav-tabs li a {
+  color: #3F3F3F;
+  font-size: 25px;
+}
+.page-top-wines .box-wine h2,
+.page-top-wines .box-wine h3,
+.page-top-wines .box-wine h4,
+.page-top-wines .box-wine h5 {
+  text-align: center;
+}
+.page-top-wines .box-wine .box-name-rate {
+  background-color: #333333;
+  height: 331px;
+  color: white;
+}
+.page-top-wines .box-wine .box-celler {
+  background-color: #3F3F3F;
+  height: 331px;
+  color: white;
+}
+.page-top-wines .box-wine .white-box {
+  height: 331px;
+  background-color: white;
+}
+.page-top-wines .box-wine .white-box h3 {
+  color: #333333;
+}
+.page-top-wines .box-wine .box {
+  display: table;
+}
+.page-top-wines .box-wine .box .cell {
+  display: table-cell;
+  vertical-align: middle;
+  color: #999999;
+}
 .profile-header {
   height: 250px;
   background: url('../img/profileheader.jpg') no-repeat center center;
@@ -601,9 +763,6 @@ html {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.35);
 }
-.profile-header .profile-sub-header .seguidores p {
-  color: white;
-}
 .profile-content h5 {
   font-weight: bold;
 }
@@ -614,6 +773,130 @@ html {
   margin-top: -97px;
   margin-left: 105px;
 }
+.profile-content .profile-table {
+  margin-top: 80px;
+}
+.profile-content .profile-table td {
+  vertical-align: middle;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.profile-content .profile-table td p {
+  margin: 0;
+}
+.profile-content .profile-table td input {
+  width: 100%;
+  height: 32px;
+  border: 1px solid #c8bfac;
+  text-align: center;
+}
+.profile-content .profile-table td input:disabled {
+  background-color: #e6e6e6;
+}
+.profile-content .profile-table td input:focus {
+  box-shadow: #000000;
+}
+.profile-content .fa-pencil {
+  cursor: pointer;
+}
+.profile-content .fa-pencil:hover {
+  color: green;
+}
+.profile-content .favourites {
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 2px solid black;
+  font-size: 20px;
+  width: 70%;
+  margin-top: 100px;
+}
+.profile-content .btn-save {
+  padding: 15px 50px 15px 50px;
+  border: 2px solid black;
+  background-color: transparent;
+  border-radius: 2px;
+  color: black;
+  transition: all 1s ease;
+  text-decoration: none;
+  float: right;
+}
+.profile-content .box-favorites {
+  width: 70%;
+  margin-top: 10px;
+  -webkit-box-shadow: 10px 10px 5px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px -8px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px -8px rgba(0, 0, 0, 0.75);
+}
+.profile-content .box-favorites li {
+  padding-top: 3px;
+  text-decoration: none;
+  list-style: none;
+}
+.profile-content .box-favorites li a {
+  color: #333333;
+}
+/*==================== ADMIN ======================*/
+.page-admin {
+  font-family: 'Lato', sans-serif !important;
+}
+.page-admin table thead {
+  font-weight: bold;
+}
+.page-admin .aside-admin {
+  background-color: #ffffff;
+  border-right: 1px solid #e3e3e3;
+  height: 100vh;
+}
+.page-admin .admin-box {
+  position: relative;
+  border-radius: 3px;
+  background: #ffffff;
+  border-top: 3px solid #4797c1;
+  margin-bottom: 20px;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 50px auto;
+}
+.page-admin .admin-box-header {
+  color: #444;
+  display: block;
+  padding: 10px;
+  position: relative;
+}
+.page-admin .admin-box-header.with-border {
+  border-bottom: 1px solid #f4f4f4;
+}
+.page-admin .admin-box-body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 10px;
+}
+.page-admin .hero-widget {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  min-height: 250px !important;
+}
+.page-admin .well-sm {
+  padding: 9px;
+  border-radius: 3px;
+}
+.page-admin .well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+/*==================== ADMIN ======================*/
 /* ANIMATIONS
 ============================================================================= */
 .page.ng-leave {
@@ -623,21 +906,6 @@ html {
   z-index: 8888;
 }
 /* page specific animations ------------------------ */
-/* home -------------------------- */
-.page-signup.ng-leave {
-  -webkit-transform-origin: 0% 0%;
-  -webkit-animation: rotateFall 1s both ease-in;
-  -moz-transform-origin: 0% 0%;
-  -moz-animation: rotateFall 1s both ease-in;
-  transform-origin: 0% 0%;
-  animation: rotateFall 1s both ease-in;
-}
-.page-signup.ng-enter {
-  -webkit-animation: scaleUp 0.5s both ease-in;
-  -moz-animation: scaleUp 0.5s both ease-in;
-  animation: scaleUp 0.5s both ease-in;
-}
-/* about ------------------------ */
 .page-weather.ng-leave {
   -webkit-animation: slideOutLeft 1s both ease-in;
   -moz-animation: slideOutLeft 1s both ease-in;
@@ -648,93 +916,10 @@ html {
   -moz-animation: slideInRight 1s both ease-in;
   animation: slideInRight 1s both ease-in;
 }
-/* contact ---------------------- */
-.page-login.ng-leave {
-  -webkit-transform-origin: 50% 50%;
-  -webkit-animation: rotateOutNewspaper 0.5s both ease-in;
-  -moz-transform-origin: 50% 50%;
-  -moz-animation: rotateOutNewspaper 0.5s both ease-in;
-  transform-origin: 50% 50%;
-  animation: rotateOutNewspaper 0.5s both ease-in;
-}
 .page-login.ng-enter {
   -webkit-animation: slideInUp 0.5s both ease-in;
   -moz-animation: slideInUp 0.5s both ease-in;
   animation: slideInUp 0.5s both ease-in;
-}
-/* rotate and fall */
-@-webkit-keyframes rotateFall {
-  0% {
-    -webkit-transform: rotateZ(0deg);
-  }
-  20% {
-    -webkit-transform: rotateZ(10deg);
-    -webkit-animation-timing-function: ease-out;
-  }
-  40% {
-    -webkit-transform: rotateZ(17deg);
-  }
-  60% {
-    -webkit-transform: rotateZ(16deg);
-  }
-  100% {
-    -webkit-transform: translateY(100%) rotateZ(17deg);
-  }
-}
-@-moz-keyframes rotateFall {
-  0% {
-    -moz-transform: rotateZ(0deg);
-  }
-  20% {
-    -moz-transform: rotateZ(10deg);
-    -moz-animation-timing-function: ease-out;
-  }
-  40% {
-    -moz-transform: rotateZ(17deg);
-  }
-  60% {
-    -moz-transform: rotateZ(16deg);
-  }
-  100% {
-    -moz-transform: translateY(100%) rotateZ(17deg);
-  }
-}
-@keyframes rotateFall {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  20% {
-    transform: rotateZ(10deg);
-    animation-timing-function: ease-out;
-  }
-  40% {
-    transform: rotateZ(17deg);
-  }
-  60% {
-    transform: rotateZ(16deg);
-  }
-  100% {
-    transform: translateY(100%) rotateZ(17deg);
-  }
-}
-/* scale up */
-@keyframes scaleUp {
-  from {
-    opacity: 0.3;
-    transform: scale(0.8);
-  }
-}
-@-moz-keyframes scaleUp {
-  from {
-    opacity: 0.3;
-    -moz-transform: scale(0.8);
-  }
-}
-@-webkit-keyframes scaleUp {
-  from {
-    opacity: 0.3;
-    -webkit-transform: scale(0.8);
-  }
 }
 /* slide in from the right */
 @keyframes slideInRight {
@@ -800,25 +985,6 @@ html {
   }
   to {
     -webkit-transform: translateY(0);
-  }
-}
-/* rotate out newspaper */
-@-webkit-keyframes rotateOutNewspaper {
-  to {
-    -webkit-transform: translateZ(-3000px) rotateZ(360deg);
-    opacity: 0;
-  }
-}
-@-moz-keyframes rotateOutNewspaper {
-  to {
-    -moz-transform: translateZ(-3000px) rotateZ(360deg);
-    opacity: 0;
-  }
-}
-@keyframes rotateOutNewspaper {
-  to {
-    transform: translateZ(-3000px) rotateZ(360deg);
-    opacity: 0;
   }
 }
 /*============================================================================= */

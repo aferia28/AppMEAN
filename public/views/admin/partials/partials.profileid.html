@@ -1,7 +1,7 @@
-<h1>Perfil</h1>
+<h1>Perfil de {{userProfile.nombre}}</h1>
 <div class="row" data-ng-init="getProfileById()">
-	<div class="col-sm-5"></div>
-	<div class="col-sm-7">
+	<div class="col-sm-3"></div>
+	<div class="col-sm-9">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="row">
@@ -9,7 +9,7 @@
 						<h2></h2>
 					</div>
 					<div class="col-sm-12">
-						<table>
+						<table class="table">
 							<tr>
 								<td><label>Nombre</label></td>
 								<td><input type="text" class="form-control" ng-model="userProfile.nombre"></td>
@@ -24,12 +24,16 @@
 							</tr>
 							<tr>
 								<td><label>Admin</label></td>
-								<td ng-if="userProfile.isAdmin == true">true</td>
-								<td ng-if="userProfile.isAdmin == false">false</td>
+								<td>
+									<select name="singleSelect" ng-model="userProfile.isAdmin">
+								      <option value='true'>Admin</option>
+								      <option value='false'>No Admin</option>
+								    </select><br>
+								</td>
 							</tr>
 							<tr>
 								<td><label>Password</label></td>
-								<td><input type="text" class="form-control" ng-model="userProfile.password"></td>
+								<td>Resetear password</td>
 							</tr>
 						</table>
 					</div>

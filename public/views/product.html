@@ -1,5 +1,6 @@
 <div class="row">
-	<div id="product-header" class="col-sm-12 product-content product-header-red">
+	<div id="product-header" class="col-sm-12 product-content"
+	ng-class="{'product-header-white': type=='white', 'product-header-red': type=='red', 'product-header-rose': type == 'rosé'}">
 		<a href="#/winesearcher"><i class="fa fa-angle-double-left"></i></a>
 		<div class="col-sm-12 product-title">
 			<h2>{{product.name}}</h2>
@@ -9,7 +10,9 @@
 	<div class="col-sm-4">
 		<div class="row">
 			<div class="col-sm-12 product-photo">
+				<img ng-src="{{product.image.data}}">
 				<img ng-src="{{product.image}}">
+				<img ng-src="{{product.image_url}}">
 			</div>
 		</div>
 	</div>
@@ -73,11 +76,11 @@
 			</div>
 			<div class="col-sm-12 buy-box">
 				<div class="row">
-					<div class="col-sm-3 product-price">
+					<div class="col-sm-2 product-price">
 						<span ng-if="product.price > 0">{{product.price | number}} €</span>
 						<span ng-if="product.price < 0.1">Precio no disponible</span>
 					</div>
-					<div class="col-sm-5 box-add">
+					<div class="col-sm-4 box-add">
 						<div class="row">
 							<div class="col-sm-12 product-add-input">
 								<input>
@@ -85,13 +88,53 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4 rating">
+					<div class="col-sm-1 like" style="text-align: center; margin-top: 11px;">
+						<div class="row">
+							<span>
+								<button id="likeBtn"
+								ng-click="addFavorite()"
+								ng-class="{'fa fa-heart fa-2x': hoverheart, 'fa fa-heart-o fa-2x': !hoverheart}"
+								ng-mouseover="hoverheart=true"
+								ng-mouseleave="hoverheart=false">
+								</button>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-5 rating" style="margin-top:11px;">
 						<span class="">
-							<button id='oneStar' class="fa fa-star-o" ng-click="addOwnWine(1)" ng-disabled="isDisabled"></button>
-							<button id='twoStars' class="fa fa-star-o" ng-click="addOwnWine(2)" ng-disabled="isDisabled"></button>
-							<button id='threeStars' class="fa fa-star-o" ng-click="addOwnWine(3)" ng-disabled="isDisabled"></button>
-							<button id='fourStars' class="fa fa-star-o" ng-click="addOwnWine(4)" ng-disabled="isDisabled"></button>
-							<button id='fiveStars' class="fa fa-star-o" ng-click="addOwnWine(5)" ng-disabled="isDisabled"></button>
+							<button id='oneStar'
+							ng-class="{'fa fa-star fa-2x':hovering, 'fa fa-star-o fa-2x':!hovering}"
+							ng-mouseenter="hovering=true"
+							ng-mouseleave="hovering=false" ng-click="addOwnWine(1)" ng-disabled="isDisabled">
+							</button>
+							<button id='twoStars'
+							ng-class="{'fa fa-star fa-2x':hovering2, 'fa fa-star-o fa-2x':!hovering2}"
+							ng-mouseenter="hovering2=true;hovering=true"
+							ng-mouseleave="hovering2=false;hovering=false"
+							ng-click="addOwnWine(2)"
+							ng-disabled="isDisabled">
+							</button>
+							<button id='threeStars'
+							ng-class="{'fa fa-star fa-2x':hovering3, 'fa fa-star-o fa-2x':!hovering3}"
+							ng-mouseenter="hovering3=true;hovering2=true;hovering=true"
+							ng-mouseleave="hovering3=false;hovering2=false;hovering=false"
+							ng-click="addOwnWine(3)"
+							ng-disabled="isDisabled">
+							</button>
+							<button id='fourStars'
+							ng-class="{'fa fa-star fa-2x':hovering4, 'fa fa-star-o fa-2x':!hovering4}"
+							ng-mouseenter="hovering4=true;hovering3=true;hovering2=true;hovering=true"
+							ng-mouseleave="hovering4=false;hovering3=false;hovering2=false;hovering=false"
+							ng-click="addOwnWine(4)"
+							ng-disabled="isDisabled">
+							</button>
+							<button id='fiveStars'
+							ng-class="{'fa fa-star fa-2x':hovering5, 'fa fa-star-o fa-2x':!hovering5}"
+							ng-mouseenter="hovering5=true; hovering4=true; hovering3=true; hovering2=true; hovering=true"
+							ng-mouseleave="hovering5=false; hovering4=false;hovering3=false;hovering2=false;hovering=false"
+							ng-click="addOwnWine(5)"
+							ng-disabled="isDisabled">
+							</button>
 						</span>
 
 					</div>
@@ -181,6 +224,8 @@
 				  			</div>
 				  		</div>
 				  </div>
+				  <div>
+				  </div>
 				  <div id="comentarios" class="tab-pane fade">
 				    <h4>Comentarios:</h4>
 					<div class="reviews" ng-repeat="comment in product.reviews">
@@ -204,17 +249,19 @@
 					</div>
 				  </div>
 				  <div id="comentariosUsuarios" class="tab-pane fade">
-				  <button ng-click="clickToOpen()">Comentar</button>
-					<div class="reviews row" ng-repeat="comment in product.comentarios">
-						<div class="col-sm-6">
+				  	<div class="col-sm-6">
 							<h4>Comentarios:</h4>
-						</div>
+					</div>
+				  	<div class="col-sm-6">
+				  		<button ng-click="clickToOpen()">Comentar</button>
+				  	</div>
+					<div class="reviews row" ng-repeat="comment in product.com">
 						<div class="col-sm-12">
 							<p>
-							<strong>{{comment.usuario}}</strong> on:{{comment.time}}
+								<strong>{{comment.usuario}}</strong> on: {{comment.time | date}}
 							</p>
 							<p>
-							{{comment.texto}}
+								{{comment.texto}}
 							</p>
 							<hr>
 						</div>
@@ -230,10 +277,10 @@
 		<h3>Comentario</h3>
 	</div>
 	<div class="modal-text">
-		<summernote type="text" config="options" ng-model="comentario"></summernote>
+		<summernote type="text" config="options" ng-model="textComment"></summernote>
 	</div>
 	<div>
-		<button ng-click="getComentario()">
+		<button ng-click="addComentario()">
 			Comentar
 		</button>
 	</div>

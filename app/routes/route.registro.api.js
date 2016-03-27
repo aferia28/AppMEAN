@@ -20,13 +20,25 @@ module.exports = function(app) {
 
 	app.delete('/eliminarPersona/:id', Controller.deleteUser)
 
-	app.put('/modificarPersona/:id', Controller.updatePersona);
+	app.put('/modificarPersona/:id',multipartyMiddleware, Controller.updatePersona);
+
+	app.put('/eliminarfavorito/:id', Controller.deleteFavoriteWine);
+
+
+	app.get('/lastlogin', Controller.latestLogin);
+	app.get('/lastSignup', Controller.lastSignUp)
 
 	app.get('/send/:email', verification.sendEmail);
 
 	app.get('/verify', verification.verifiedEmail);
 
-	app.get('/addCommentWine/:codeWine', wineController.addComment);
+
+
+	app.post('/addFavorite/:codeWine', wineController.addFavorite);
+
+	app.post('/addCommentWine/:codeWine', wineController.addComment);
+
+	app.get('/topwines', wineController.getTopWines)
 
 	app.get('/getWine', wineController.findWine);
 
@@ -34,9 +46,9 @@ module.exports = function(app) {
 
 	app.get('/vinos/:id', wineController.findWineById);
 
-	app.get('/vinosCode/:codeWine', wineController.findWineByCode);
+	app.post('/vinosCode/:codeWine', wineController.findWineByCode);
 
-	app.post('/addVino', wineController.addWine);
+	app.post('/addWine', multipartyMiddleware, wineController.addWine);
 
 	app.put('/modificarVino/:id', wineController.updateWine);
 

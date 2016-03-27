@@ -1,0 +1,82 @@
+<div class="container-fluid section-add-wine">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+				<div class="col-sm-12 addwine-box">
+					<h2>Afegir Ví</h2>
+					<form method="post" ng-submit="addWine()" name="formAddWine">
+						<div class="col-sm-4">
+							<input 	type="file"
+								ngf-select
+								ng-model="picFile"
+								name="file"
+								accept="image/*"
+								ngf-max-size="2MB"
+	            				ngf-model-invalid="errorFile">
+	            				<div ng-messages="formAddWine.file.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+								<img ng-show="formAddWine.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+								<span class="progress" ng-show="picFile.progress >= 0">
+						        	<div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
+						      	</span>
+						      	<span ng-show="picFile.result">Upload Successful</span>
+						</div>
+						<div class="col-sm-8">
+							<div class="box-input">
+								<input type="text" ng-minlength="10" required name="nom" placeholder="* Nom del ví" ng-model="wine.name">
+								<div ng-messages="formAddWine.nom.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+							</div>
+							<div class="box-input">
+								<select name="repeatSelect" required id="repeatSelect" ng-model="wine.type">
+							    	<option ng-repeat="option in types.availableOptions" value="{{option.id}}">{{option.name}}</option>
+							    </select>
+							</div>
+							<div class="box-input">
+								<input type="text" ng-minlength="8" required name="denominacio" placeholder="* Denominació" ng-model="wine.region">
+								<div ng-messages="formAddWine.denominacio.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+							</div>
+							<div class="box-input">
+								<input type="text" required ng-minlength="8" name="celler" placeholder="* Celler" ng-model="wine.winery">
+								<div ng-messages="formAddWine.celler.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+							</div>
+							<div class="box-input">
+								<input type="text" required name="varietat" ng-minlength="5" placeholder="* Varietat de Raïm" ng-model="wine.varietal">
+								<div ng-messages="formAddWine.varietat.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+							</div>
+							<div class="box-input">
+								<input type="number" placeholder="* Anyada: 1900 - 2016" name="wineVintage" min='1900' max='2016' required ng-model="wine.vintage">
+								<div ng-messages="formAddWine.wineVintage.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+							</div>
+							<div class="box-input">
+								<input type="number" min="0" max="100" required name="alcohol" placeholder="* Alcohol" ng-model="wine.alcohol">
+								<div ng-messages="formAddWine.alcohol.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+							</div>
+							<div class="box-input">
+								<input type="number" min="0" placeholder="Preu" ng-model="wine.price">
+								<div ng-messages="formAddWine.alcohol.$error">
+									<div ng-messages-include="../views/messages.html"></div>
+								</div>
+							</div>
+							<div class="box-input">
+								<button type="submit" ng-disabled="!formAddWine.$valid" class="button-stroke">Afegir</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

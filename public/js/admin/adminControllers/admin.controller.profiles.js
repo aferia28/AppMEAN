@@ -41,14 +41,42 @@ admin_app.controller('profilesController', ['$scope', '$http', '$stateParams','$
 
 		var id = $stateParams.id;
 
-		$http.put('/modificarPersona/'+id, $scope.userProfile)
+		$http({
+			url:'/modificarPersona/' + id,
+			method:'PUT',
+			data:{profile:$scope.userProfile}
+		})
 		.success(function(data) {
-			$location.path('/perfiles/allprofiles');
 			console.log('Persona modificada correctamente');
 			$scope.userProfile = data;
+			$location.path('/perfiles/allprofiles');
 		})
 		.error(function(err) {
 			console.log('Error' + err);
+		})
+	}
+
+	$scope.latestLogin = function() {
+
+		$http.get('/lastlogin')
+		.success(function(data) {
+			console.log(data);
+			$scope.loginUsers = data;
+		})
+		.error(function(data){
+			//handle error
+		})
+	}
+
+	$scope.latestSignUp = function() {
+
+		$http.get('/lastSignup')
+		.success(function(data) {
+			console.log(data);
+			$scope.signupUsers = data;
+		})
+		.error(function(data){
+			//handle error
 		})
 	}
 

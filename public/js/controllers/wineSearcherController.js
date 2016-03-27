@@ -1,118 +1,100 @@
-app.controller('wineSearcherController', ['$scope', '$http', function($scope, $http) {
+app.controller('wineSearcherController', ['$scope', '$http', '$timeout', 'dataFactory', function ($scope, $http, $timeout, dataFactory) {
+    /*
+    ** Cardflow
+    */
+    $scope.cardflow={
+    	selectedCard: {title: 'red'}
+    };
+    // Use a timeout to have access to all the elements
+    $timeout(function() {
+        $scope.$watch(function() { return $scope.cardflow.current; }, function() {
+            console.log('Current wine color selected: ' + $scope.cardflow.cards[$scope.cardflow.current].title);
+            $scope.cardflow.selectedCard.title = $scope.cardflow.cards[$scope.cardflow.current].title;
+        });
+    }, 100);
 
-	$("aside").fadeOut("slow", function() {
-		$("#content").removeClass("col-sm-10").addClass("col-sm-12");
-	});
+    // Generate the cards
+    $scope.cardflow.cards = [];
+    var types = ['red','white','rose'];
+    for (indexCardflow = 0; indexCardflow < 3; indexCardflow++) {
+        var t = types[indexCardflow % types.length];
+        $scope.cardflow.cards.push({image:'../img/' + t + '-wine-cardflow.jpg', title: t});
+    }
 
-	var tipo;
-	var resultado;
+    /*
+    ** Form for the wine custom query
+    */
+    $scope.vintage = '';
 
-		$scope.types = {
-	    	availableOptions: [
-	    		{id: 'all', name: 'Todos'},
-	      		{id: 'red', name: 'Tinto'},
-	      		{id: 'white', name: 'Blanco'},
-	      		{id: 'rose', name: 'Rosado'}
-	    	],
-	   };
+   	$scope.DOs = {
+   		selectedDO: '',
+   		availableOptions: [
+   			{	id: '',  				name: 'Totes'				},
+			{	id: 'alella', 			name: 'Alella'				},
+			// {	id: 'cataluna', 		name: 'Cataluña'			},
+			{	id: 'conca+barbera', 	name: 'Conca de Barberá'	},
+			{	id: 'costers+segre',	name: 'Costers del Segre'	},
+			{	id: 'emporda', 			name: 'Emporda'				},
+			{	id: 'montsant', 		name: 'Montsant'			},
+			{	id: 'penedes', 			name: 'Penedés'				},
+			{	id: 'pla+bages', 		name: 'Pla de Bages'		},
+			{	id: 'priorat', 			name: 'Priorat'				},
+			{	id: 'tarragona', 		name: 'Tarragona'			},
+			{	id: 'terra+alta', 		name: 'Terra Alta'			}
+   		]
+   	}
 
-	   $scope.years = {
-	   		availableYears: [
-	   			{id: '2015', name: '2015'},
-	   			{id: '2014', name: '2014'},
-	   			{id: '2013', name: '2013'},
-	   			{id: '2012', name: '2012'},
-	   			{id: '2011', name: '2012'},
-	   			{id: '2010', name: '2010'}
-	   		],
-	   };
+	/*
+	** On clicking the button to submit the search
+	*/
 
-	   $scope.DOs = {
-	   		availableDO: [
-	   			{id: 'abona', name: 'Abona'},
-	   			{id: 'alella', name: 'Alella'},
-	   			{id: 'alicante', name: 'Alicante'},
-	   			{id: 'almansa', name: 'Almansa'},
-	   			{id: 'arlanza', name: 'Arlanza'},
-	   			{id: 'arribes', name: 'Arribes'},
-	   			{id: 'bierzo', name: 'Bierzo'},
-	   			{id: 'binissalem', name: 'Binissalem'},
-	   			{id: 'bullas', name: 'Bullas'},
-	   			{id: 'calatayud', name: 'Calatayud'},
-	   			{id: 'campodeborja', name: 'Campo de Borja'},
-	   			{id: 'cariñena', name: 'Cariñena'},
-	   			{id: 'cataluna', name: 'Cataluña'},
-	   			{id: 'cava', name: 'Cava'},
-	   			{id: 'chacolidealava', name: 'Chacoli de Álava'},
-	   			{id: 'chacolidegetaria', name: 'Chacoli de Getaria'},
-	   			{id: 'chacolidevizcaya', name: 'Chacoli de Vizcaya'},
-	   			{id: 'cigales', name: 'Cigales'},
-	   			{id: 'concadebarbera', name: 'Conca de Barberá'},
-	   			{id: 'condadodehuelva', name: 'Condado de Huelva'},
-	   			{id: 'costersdelsegre', name: 'Costers del Segre'},
-	   			{id: 'elhierro', name: '2012'},
-	   			{id: 'emporda', name: 'Emporda'},
-	   			{id: 'grancanaria', name: 'Gran Canaria'},
-	   			{id: 'jerez', name: 'Jerez'},
-	   			{id: 'jumilla', name: 'Jumilla'},
-	   			{id: 'lagomera', name: 'La Gomera'},
-	   			{id: 'lamancha', name: 'La Mancha'},
-	   			{id: 'lapalma', name: 'La Palma'},
-	   			{id: 'lanzarote', name: 'Lanzarote'},
-	   			{id: 'malaga', name: 'Málaga'},
-	   			{id: 'manchuela', name: 'Manchuela'},
-	   			{id: 'sanlucardebarrameda', name: 'San Lucar de Barrameda'},
-	   			{id: 'mentrida', name: 'Mentrida'},
-	   			{id: 'mondejar', name: 'Mondejar'},
-	   			{id: 'monterrei', name: 'Monterrei'},
-	   			{id: 'montilla', name: 'Montilla'},
-	   			{id: 'montsant', name: 'Montsant'},
-	   			{id: 'navarra', name: 'Navarra'},
-	   			{id: 'penedes', name: 'Penedés'},
-	   			{id: 'pladebages', name: 'Pla de Bages'},
-	   			{id: 'pladellevant', name: 'Pla de Llevant'},
-	   			{id: 'priorat', name: 'Priorat'},
-	   			{id: 'riasbaixas', name: 'Rias Baixas'},
-	   			{id: 'ribeirasacra', name: 'Ribeira Sacra'},
-	   			{id: 'ribeiro', name: 'Ribeiro'},
-	   			{id: 'riberadelduero', name: 'Ribera del Duero'},
-	   			{id: 'riberadelguadiana', name: 'Ribera del Guadiana'},
-	   			{id: 'riberadeljucar', name: 'Ribera del Jucar'},
-	   			{id: 'rioja', name: 'Rioja'},
-	   			{id: 'rueda', name: 'Rueda'},
-	   			{id: 'sierrasdelmalaga', name: 'Sierras de Málaga'},
-	   			{id: 'tacoronte', name: 'Tacoronte'},
-	   			{id: 'tarragona', name: 'Tarragona'},
-	   			{id: 'terralta', name: 'Terra Alta'},
-	   			{id: 'tierradelleon', name: 'Tierra del León'},
-	   			{id: 'tierradelvinozamora', name: 'Tierra del Vino de Zamora'},
-	   			{id: 'toro', name: 'Toro'},
-	   			{id: 'ucles', name: 'Ucles'},
-	   			{id: 'requena', name: 'Requena'},
-	   			{id: 'valdeorras', name: 'Valdeorras'},
-	   			{id: 'valdepenas', name: 'Valdepenas'},
-	   			{id: 'valencia', name: 'Valencia'},
-	   			{id: 'valledeguimar', name: 'Valle de Güimar'},
-	   			{id: 'valledelaorotava', name: 'Valle de la Ortolava'},
-	   			{id: 'vinosdemadrid', name: 'Vinos de Madrid'},
-	   			{id: 'ycoden', name: 'Ycoden'},
-	   			{id: 'yecla', name: 'Yecla'}
-	   		],
-	   };
+	$scope.search = function() {
 
-		$scope.buscar = function(){
+		// Wine search parameters selectable from the client side
+		productColor = $scope.cardflow.selectedCard.title;
+		designationOrigin = $scope.DOs.selectedDO;
+		vintage = $scope.vintage;
 
-			tipo = $scope.types.repeatSelect;
-
-			console.log(tipo);
-
-			$http.get('http://api.snooth.com/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&color=' + tipo + '&lang=es&c=ES')
-			.success(function(data){
-	  			$scope.fiveDay = data;
-
-	  			console.log(data);
-	  		})
+		var params = {
+			type: productColor,
+			do: designationOrigin,
+			vintage: vintage,
 		}
+
+		dataFactory.getAllWines(params)
+		.then(function(response) {
+			$scope.fiveDay = response.data;
+		})
+		.catch(function(response) {
+
+		})
+
+		// Angular method that makes the request
+		/*$http.get(url).then(function(response) {
+			// Handles success
+			console.log(response);
+			$scope.fiveDay = response.data.wines;
+  		}, function(response) {
+  			// Handles error
+  			$scope.fiveDay = "Request failed";
+  		});*/
+
+		// jQuery method that doesn't trigger CORS problem, but $scope is 'undefined'
+  		/*$.ajax(
+		{
+			url: url,
+			dataType: 'json',
+			error: function(jqXHR, textStatus, errorThrown)
+			{
+                $scope.fiveDay = "Request failed";
+            },
+            success: function(response)
+            {
+            	console.log(response);
+            	$scope.fiveDay = response.wines;
+            }
+		});*/
+	}
 
 	$scope.pageClass = 'page-weather';
 }]);
