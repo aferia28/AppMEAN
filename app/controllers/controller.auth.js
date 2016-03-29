@@ -18,11 +18,13 @@ exports.emailSignup = function(req, res){
 	Persona.findOne({email: req.body.email.toLowerCase()}, function(err, persona) {
 		if (persona) {
 			console.log('Error: Este email ya esta en uso...');
+			res.status(400).send({message: "Email ya esta en uso"});
 		}else{
 
 			if(req.body.password.length < 8)
 			{
 				console.log('Error: La contraseña debe tener 8 caracteres como mínimo..');
+				res.status(400).send({message: "La contraseña debe tener 8 caracteres como mínimo"});
 			}
 			else{
 				bcrypt.genSalt(10, function(err, salt) {
@@ -50,7 +52,7 @@ exports.emailSignup = function(req, res){
 						    		return res.status(500).send(err.message);
 						    	}else{
 						    		//res.status(200).jsonp(persona); Esta linea esta comentada porque si no la comenta salta un error: Error: Can't set headers after they are sent
-						    										  //Según documentación, aparece porque hay dos respuestas seguidas.
+						    										 //Según documentación, aparece porque hay dos respuestas seguidas.
 						    		res.send({token: service.createToken(persona)});
 						    	}
 						    });
@@ -69,7 +71,7 @@ exports.emailLogin = function(req, res){
 	Persona.findOne({email: req.body.email.toLowerCase()}, function(err, persona){
 		if(!persona){
 			console.log('Email incorrecto');
-			//return res.status(401).send({message: "Email incorrecto"});
+			res.status(401).send({message: "Email incorrecto"});
 		}else
 		if(err){
 			return res.status(500).send(err.message);
@@ -105,9 +107,11 @@ exports.emailLogin = function(req, res){
 						}
 			    	}else{
 			    		console.log('EMAIL no verificado');
+			    		res.status(400).send({message: "Email no verificado."});;
 			    	}
 			    }else {
 			    	console.log("Contraseña incorrecta para: " + persona.email);
+			    	res.status(400).send({message: "contraseña incorrecta"});
 			    }
 			});
 		}

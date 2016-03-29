@@ -1,4 +1,4 @@
-app.controller('SignUpController', ['$auth','$location','$scope','$http', function($auth, $location, $scope, $http){
+app.controller('SignUpController', ['$auth','$location','$scope','$http','ngDialog','serviceRequestErrors', function($auth, $location, $scope, $http,ngDialog,serviceRequestErrors){
 
 	var vm = this;
 	console.log("Dentro de SignUp controller");
@@ -8,19 +8,32 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http', functi
 		console.log("h");
       	if(isValid)
       	{
-      			$auth.signup($scope.persona)
-					.then(function(){
-						$http.get('/send/'+$scope.persona.email)
-      						.success(function(data) {
-      							console.log('Controller FrontEnd: Email enviado');
-					            console.log("Uusiario creado satisfactoriamente");
-      						});
-      						//$location.path("/");
-					})
-					.catch(function(response){
-						response.send(500);
-						console.log('algun error en el registro.');
-					});
+  			$auth.signup($scope.persona)
+				.then(function(response){
+					$http.get('/send/'+$scope.persona.email)
+  						.then(function(data) {
+  							console.log('Controller FrontEnd: Email enviado');
+				            console.log("Usiario creado satisfactoriamente, revisar email");
+				            ngDialog.close();
+
+				            ngDialog.open({template: '<div class="modal-header"><h3 class="modal-title"></h3><p>Verifica email</p></div><div class="modal-body"><p>Revisa el teu email per tal de verificar la compta =)</p></div>',
+								className: 'ngdialog-theme-default',
+								controller: '',
+								closeByNavigation: true,
+								plain: true
+							});
+
+				            //verificationPopUp
+  						}, function(response){
+  							//error handler
+  							console.log('SignUp status: ' + response.status);
+  						});
+				}, function(response){
+					console.log('Signup status: ', response.status);
+					console.log('Error message: ', response.data.message);
+
+					serviceRequestErrors.popupError(response);
+				});
       	}else{
         	alert("Las dos contraseñas deben ser iguales");
       	}
@@ -28,14 +41,14 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http', functi
 	$scope.pageClass = 'page-signup';
 }]);
 
-app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies','serviceAdmin', function($auth, $location, $scope, $http, $cookies, serviceAdmin){
+app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies','serviceAdmin','ngDialog','serviceRequestErrors', function($auth, $location, $scope, $http, $cookies, serviceAdmin, ngDialog,serviceRequestErrors){
 
 	var vm = this;
 	console.log("Dentro LoginController Cliente");
 	$scope.login = function(){
 
 		$auth.login($scope.persona)
-		.then(function(){
+		.then(function(response){
 
 			// Si se ha logueado correctamente, lo tratamos aquí.
             // Podemos también redirigirle a una ruta
@@ -52,10 +65,11 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http','$cooki
 					serviceAdmin.setProperty(data);
 					serviceAdmin.setAdmin(data.isAdmin);
 				});
-		})
-		.catch(function(response){
-			response.send(500);
-			console.log("Ha habido algun error en el login.");
+		}, function(response){
+			console.log('Signup status: ', response.status);
+			console.log('Error message: ', response.data.message);
+
+			serviceRequestErrors.popupError(response);
 		});
 	}
 	//$scope.pageClass = 'page-login';

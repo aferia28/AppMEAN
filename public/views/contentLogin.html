@@ -4,7 +4,7 @@
 		<div class="row">
 			<h3 style="font-family: 'Playfair Display', serif;text-align: center; font-weight: 400; color: white; font-size: 46px;">
 				A on? a <strong style="font-family: 'bromello' !important">onWine</strong>
-				</br>
+				<br>
 				Aquí trobaràs el ví que busques
 			</h3>
 		</div>
@@ -17,18 +17,17 @@
 </div>
 <script type="text/ng-template" id="popupSignIn">
 	<div class="modal-header">
-		<h3 class="modal-title">Login to our Site</h3>
-		<p>Enter your username and password to log on:</p>
+		<h3 class="modal-title text-center">Identifica't</h3>
 	</div>
 	<div class="modal-body">
 		<form ng-submit="login()" method="post" class="login-form">
 			<div class="form-group">
-				<input class="form-username form-control" placeholder="Username.." type="email" ng-model="persona.email"/>
+				<input class="form-username form-control" placeholder="Correu electrònic" type="email" ng-model="persona.email"/>
 			</div>
 			<div class="form-group">
-				<input class="form-username form-control" placeholder="Password.." type="password" ng-model="persona.password"/>
+				<input class="form-username form-control" placeholder="Contrasenya" type="password" ng-model="persona.password"/>
 			</div>
-		    <button type="submit" class="btn" style="width: 100%;">Sign In</button>
+		    <button type="submit" class="btn" style="width: 100%;">Entra</button>
 		</form>
 	</div>
 </script>
@@ -79,6 +78,15 @@
 			<button class="btn" type="submit" id="send_email">Sign Up</button>
 			<span id="message"></span>
 		</form>
+	</div>
+</script>
+<script type="text/ng-template" id="verificationPopUp">
+	<div class="modal-header">
+		<h3 class="modal-title"></h3>
+		<p>Verifica el teu correu electronic</p>
+	</div>
+	<div class="modal-body">
+		<p>T'em enviat un correu electronic perque verifiquis la teva conta. Revisa'l siusplau =)</p>
 	</div>
 </script>
 <style type="text/css">
