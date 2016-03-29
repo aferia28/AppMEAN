@@ -41,7 +41,7 @@ app.controller('SignUpController', ['$auth','$location','$scope','$http','ngDial
 	$scope.pageClass = 'page-signup';
 }]);
 
-app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies','serviceAdmin','ngDialog', function($auth, $location, $scope, $http, $cookies, serviceAdmin, ngDialog){
+app.controller('LoginController', ['$auth', '$location','$scope','$http','$cookies','serviceAdmin','ngDialog','serviceRequestErrors', function($auth, $location, $scope, $http, $cookies, serviceAdmin, ngDialog,serviceRequestErrors){
 
 	var vm = this;
 	console.log("Dentro LoginController Cliente");
@@ -69,12 +69,7 @@ app.controller('LoginController', ['$auth', '$location','$scope','$http','$cooki
 			console.log('Signup status: ', response.status);
 			console.log('Error message: ', response.data.message);
 
-			ngDialog.open({template: '<div class="modal-header"><h3 class="modal-title"></h3><p>'+ response.status +'</p></div><div class="modal-body"><p>'+ response.data.message +'</p></div>',
-				className: 'ngdialog-theme-default',
-				controller: '',
-				closeByNavigation: true,
-				plain: true
-			});
+			serviceRequestErrors.popupError(response);
 		});
 	}
 	//$scope.pageClass = 'page-login';

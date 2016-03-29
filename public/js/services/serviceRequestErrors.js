@@ -1,5 +1,4 @@
 app.service('serviceRequestErrors', function ($http,$auth,ngDialog) {
-
     return {
         popupError: function(res) {
             ngDialog.open(
