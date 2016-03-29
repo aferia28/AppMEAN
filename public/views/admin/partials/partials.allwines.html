@@ -1,0 +1,18 @@
+<div class="row" data-ng-init="showAllWines()">
+	<div class="col-sm-12">
+	<input ng-model="wineQuery" placeholder="Nom.." id="wineQuery" style="margin-top: 20px"> <!-- INPUT PARA FILTRAR POR NOMBRE-->
+		<table class="table" style="margin-top: 20px">
+			<thead>
+				<td>Nom</td>
+				<td>Tipus</td>
+				<td>Anyada</td>
+			</thead>
+			<tr ng-repeat="wine in allWines | filter:wineQuery">
+				<td>{{ wine.name }}</td>
+				<td>{{ wine.type }}</td>
+				<td>{{ wine.year }}</td>
+				<td><a ui-sref="vinos.winesid({ id: wine._id })"><i class="fa fa-eye"></i><a/></td>
+			</tr>
+		</table>
+	</div>
+</div>

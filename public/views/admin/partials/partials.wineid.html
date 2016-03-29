@@ -1,0 +1,57 @@
+<h1>Ví {{wine.name}}</h1>
+<div class="row" data-ng-init="adminGetWineById()">
+	<div class="col-sm-3"></div>
+	<div class="col-sm-9">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2></h2>
+					</div>
+					<div class="col-sm-12">
+						<table class="table">
+							<tr>
+								<td><label>Nom</label></td>
+								<td><input type="text" class="form-control" ng-model="wine.name"></td>
+							</tr>
+							<tr>
+								<td><label>Tipus</label></td>
+								<td><input type="text" class="form-control" ng-model="wine.type"></td>
+							</tr>
+							<tr>
+								<td><label>Anyada</label></td>
+								<td><input type="text" class="form-control" ng-model="wine.year"></td>
+							</tr>
+							<tr>
+								<td><label>Vinya</label></td>
+								<td><input type="text" class="form-control" ng-model="wine.winery"></td>
+							</tr>
+							<tr>
+								<td><label>Region</label></td>
+								<td><input type="text" class="form-control" ng-model="wine.region"></td>
+							</tr>
+							<tr>
+								<td><label>Varietat</label></td>
+								<td><input type="text" class="form-control" ng-model="wine.varietal"></td>
+							</tr>
+							<tr>
+								<td><label>Alcohol</label></td>
+								<td><input type="text" class="form-control" ng-model="wine.alcohol"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-6">
+								<button class="btn btn-primary" ng-click="updateWine()">Modificar</button>
+							</div>
+							<div class="col-sm-6">
+								<button class="btn btn-danger" ng-click="deleteWine()">Esborrar Ví</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

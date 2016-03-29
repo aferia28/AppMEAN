@@ -39,13 +39,19 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-4" ng-init="latestWines()">
 						<div class="hero-widget well well-sm">
 							<div class="icon">
 								 <i class="fa fa-cart-plus fa-2x"></i>
 							</div>
 							<div class="text">
 								<label class="text-muted">Darrers vins afegits</label>
+								<table class="table">
+									<tr ng-repeat="wine in latestWines">
+										<td>{{wine.name}}</td>
+										<td>{{wine.createAt | date:'medium'}}</td>
+									</tr>
+								</table>
 							</div>
 						</div>
 					</div>

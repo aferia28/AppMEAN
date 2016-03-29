@@ -142,7 +142,14 @@ exports.latestLogin = function(req, res) {
 		], function(err, personas) {
 		if(!err)
 		{
-			res.send(personas)
+			var users = personas;
+			for(var i=0; i<users.length; i++)
+			{
+				if (users[i].lastLogIn == null || users[i].lastLogIn == undefined || users[i].lastLogIn == '') {
+					users.splice(i);
+				}
+			}
+			res.send(users)
 		}else{
 			res.send(err)
 		}

@@ -11,16 +11,23 @@
 					<div class="col-sm-12">
 						<table class="table">
 							<tr>
-								<td><label>Nombre</label></td>
+								<td><label>Nom</label></td>
 								<td><input type="text" class="form-control" ng-model="userProfile.nombre"></td>
 							</tr>
 							<tr>
-								<td><label>Apellidos</label></td>
+								<td><label>Cognoms</label></td>
 								<td><input type="text" class="form-control" ng-model="userProfile.apellidos"></td>
 							</tr>
 							<tr>
 								<td><label>Email</label></td>
 								<td><input type="text" class="form-control" ng-model="userProfile.email"></td>
+							</tr>
+							<tr>
+								<td><label>Verificat</label></td>
+								<td>
+									<p ng-if="userProfile.verified">Si</p>
+									<p ng-if="!userProfile.verified">No</p>
+								</td>
 							</tr>
 							<tr>
 								<td><label>Admin</label></td>
@@ -32,8 +39,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td><label>Password</label></td>
-								<td>Resetear password</td>
+								<td><label>Contrasenya</label></td>
+								<td>Reactivar contrasenya</td>
 							</tr>
 						</table>
 					</div>
@@ -43,7 +50,7 @@
 								<button class="btn btn-primary" ng-click="updateProfile()">Modificar</button>
 							</div>
 							<div class="col-sm-6">
-								<button class="btn btn-danger" ng-click="deleteProfile()">Borrar Usuario</button>
+								<button class="btn btn-danger" ng-click="deleteProfile()">Borrar Usuari</button>
 							</div>
 						</div>
 					</div>
