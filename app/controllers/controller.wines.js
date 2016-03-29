@@ -769,6 +769,29 @@ exports.updateWine = function(req, res) {
 
 }
 
+exports.latestWines = function(req, res) {
+
+	Vino.aggregate(
+		[
+			{$sort: {createAt: -1}},
+			{$limit: 3}
+		], function(err, vinos) {
+		if(!err)
+		{
+			var vi = vinos;
+			for(var i=0; i<vi.length; i++)
+			{
+				if (vi[i].createAt == null || vi[i].createAt == undefined || vi[i].createAt == '') {
+					vi.splice(i);
+				}
+			}
+			res.send(vi)
+		}else{
+			res.send(err)
+		}
+	})
+}
+
 	//DELETE
 exports.deleteWine = function(req, res) {
 

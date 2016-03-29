@@ -80,4 +80,17 @@ admin_app.controller('profilesController', ['$scope', '$http', '$stateParams','$
 		})
 	}
 
+	$scope.latestWines = function() {
+
+		$http.get('/latestWines')
+		.then(function(response) {
+
+			console.log(response.data);
+			$scope.latestWines = response.data;
+
+		}, function(response){
+			//handle error
+		})
+	}
+
 }]);

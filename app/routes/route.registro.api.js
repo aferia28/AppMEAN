@@ -54,6 +54,10 @@ module.exports = function(app) {
 
 	app.delete('/eliminarVino/:id', wineController.deleteWine);
 
+	app.get('/latestWines', wineController.latestWines);
+
+
+
 	app.get('/admin', middlewareAdmin.ensureAdmin, function(req,res) {
 		res.render('layouts/admin.html');
 	});
