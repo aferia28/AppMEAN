@@ -80,6 +80,15 @@ admin_app.controller('profilesController', ['$scope', '$http', '$stateParams','$
 		})
 	}
 
+	$scope.showAllWines = function() {
+
+		$http.get('/adminallwines')
+			.success(function(data) {
+				$scope.allWines = data
+				console.log(data);
+			});
+	}
+
 	$scope.latestWines = function() {
 
 		$http.get('/latestWines')
@@ -90,6 +99,47 @@ admin_app.controller('profilesController', ['$scope', '$http', '$stateParams','$
 
 		}, function(response){
 			//handle error
+		})
+	}
+
+	$scope.adminGetWineById = function() {
+
+		var wineId = $stateParams.id;
+
+		$http.get('/adminwineid/' + wineId)
+		.success(function(data){
+			console.log(data);
+			$scope.wine = data;
+		})
+	}
+
+	$scope.deleteWine = function() {
+
+		var wineId = $stateParams.id;
+
+		$http.delete('/eliminarVino/'+ wineId)
+		.success(function(){
+			console.log('Vino eliminado');
+			$location.path('/vinos.all');
+		})
+	}
+
+	$scope.updateWine = function(newProfile) {
+
+		var id = $stateParams.id;
+
+		$http({
+			url:/modificarVino/ + id,
+			method:'PUT',
+			data:$scope.wine
+		})
+		.success(function(data) {
+			console.log('Vino modificado correctamente');
+			$scope.wine = data;
+			$location.path('/vinos.all');
+		})
+		.error(function(err) {
+			console.log('Error' + err);
 		})
 	}
 

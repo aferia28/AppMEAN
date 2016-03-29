@@ -752,10 +752,13 @@ exports.getTopWines = function (req, res) {
 	//PUT
 exports.updateWine = function(req, res) {
 
+	console.log('Body', req.body);
+
 	Vino.findById(req.params.id, function(err, vino) {
 		vino.name 		= req.body.name;
 		vino.type 		= req.body.type;
 		vino.winery 	= req.body.winery;
+		vino.region 	= req.body.region;
 		vino.varietal	= req.body.varietal;
 		vino.year 		= req.body.year;
 		vino.alcohol 	= req.body.alcohol;
@@ -792,6 +795,17 @@ exports.latestWines = function(req, res) {
 	})
 }
 
+exports.allWines = function(req, res) {
+
+	Vino.find({createAt: {$exists: true}}, function(err, vinos) {
+		if(!err)
+		{
+			res.send(vinos)
+		}else{
+			res.send(err);
+		}
+	})
+}
 	//DELETE
 exports.deleteWine = function(req, res) {
 

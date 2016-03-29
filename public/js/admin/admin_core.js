@@ -28,7 +28,17 @@ admin_app.config(function($stateProvider, $urlRouterProvider)
   })
   	.state('vinos',{
   		url: '/vinos',
-  		controller: '',
+  		controller: 'profilesController',
     	templateUrl: 'views/admin/admin_vinos.html',
+  })
+    .state('vinos.all', {
+      url: '/allwines',
+      controller: 'profilesController',
+      templateUrl: 'views/admin/partials/partials.allwines.html',
+  })
+    .state('vinos.winesid', {
+      url: '/wines/:id',
+      controller: 'profilesController',
+      templateUrl: 'views/admin/partials/partials.wineid.html',
   })
 });
