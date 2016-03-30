@@ -82,22 +82,36 @@ exports.findAllWines =  function(req, res) {
 						} else {
 							console.log('Buscando vinos sin DO ni vintage definidos en nuestra propia BDD...');
 							ownWines = vinos;
-							var twoArrays = ownWines.concat(snoothWines.wines);
-
-							console.log(twoArrays);
-							for (var i = 0; i < twoArrays.length; i++)
+							if (snoothWines != undefined) // There are results in Snooth for the search
 							{
-								for (var j = i + 1; j < twoArrays.length; j++)
+								var twoArrays = ownWines.concat(snoothWines.wines);
+
+								console.log(twoArrays);
+								for (var i = 0; i < twoArrays.length; i++)
 								{
-									if (twoArrays[j] == undefined)
+									for (var j = i + 1; j < twoArrays.length; j++)
 									{
-										return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
-									} else if (twoArrays[i].code === twoArrays[j].code) {
-										twoArrays.splice(j--, 1); // Remove the duplicate wine
+										if (twoArrays[i].code === twoArrays[j].code)
+										{
+											twoArrays.splice(j--, 1); // Remove the duplicate wine
+										}
 									}
 								}
+								res.send(twoArrays);
+							} else {
+								for (var i = 0; i < ownWines.length; i++)
+								{
+									for (var j = i + 1; j < ownWines.length; j++)
+									{
+										if (ownWines[i].code === ownWines[j].code)
+										{
+											ownWines.splice(j--, 1); // Remove the duplicate wine
+										}
+									}
+								}
+								res.send(ownWines);
 							}
-							res.send(twoArrays);
+
 						}
 					} else {
 						res.send(err);
