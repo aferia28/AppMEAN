@@ -16,7 +16,7 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         .error(function(response) {
 
         })
-    }
+    };
 
     dataFactory.getWine = function (inData) {
 

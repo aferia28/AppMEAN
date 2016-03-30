@@ -40,14 +40,12 @@ exports.findAllWines =  function(req, res) {
 			host: host,
 			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + region
 		};
-	} else if (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null)
-	{
+	} else if (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null) {
 		var options = {
 			host: host,
 			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + region + '+' + vintage
 		};
-	} else if (vintage == '' || vintage == undefined || vintage == null)
-	{
+	} else if (vintage == '' || vintage == undefined || vintage == null) {
 		var options = {
 			host: host,
 			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + region + '+' + designationOrigin
@@ -86,13 +84,16 @@ exports.findAllWines =  function(req, res) {
 							ownWines = vinos;
 							var twoArrays = ownWines.concat(snoothWines.wines);
 
+							console.log(twoArrays);
 							for (var i = 0; i < twoArrays.length; i++)
 							{
 								for (var j = i + 1; j < twoArrays.length; j++)
 								{
-									if (twoArrays[i].code === twoArrays[j].code)
+									if (twoArrays[j] == undefined)
 									{
-										twoArrays.splice(j--, 1);
+										return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
+									} else if (twoArrays[i].code === twoArrays[j].code) {
+										twoArrays.splice(j--, 1); // Remove the duplicate wine
 									}
 								}
 							}
@@ -103,36 +104,38 @@ exports.findAllWines =  function(req, res) {
 						console.log('ERROR: ' + err.message);
 					}
 				})
-			} else if (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null)
-			{
+			} else if (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null) {
 				Vino.find({$and:[
 						{type: ownType},
 						{year: vintage}
-					]},function(err, vinos) {
-						if(!err)
+					]}, function(err, vinos) {
+						if (!err)
 						{
-							if(vinos == null || vinos == undefined || vinos == '')
+							if (vinos == null || vinos == undefined || vinos == '')
 							{
 								console.log('No hay vinos de este tipo/color en nuestra BDD... [DO]');
 								res.send(snoothWines.wines);
-							}else{
+							} else {
 								console.log('Buscando vinos del ' + vintage + ' en nuestra propia BDD...');
 								ownWines = vinos;
 								var twoArrays = ownWines.concat(snoothWines.wines);
 
-								for(var i=0; i<twoArrays.length; i++)
+								console.log(twoArrays);
+								for (var i = 0; i < twoArrays.length; i++)
 								{
-									for(var j=i+1; j<twoArrays.length; j++)
+									for (var j = i + 1; j < twoArrays.length; j++)
 									{
-										if(twoArrays[i].code === twoArrays[j].code)
+										if (twoArrays[j] == undefined)
 										{
-											twoArrays.splice(j--,1);
+											return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
+										} else if (twoArrays[i].code === twoArrays[j].code) {
+											twoArrays.splice(j--, 1); // Remove the duplicate wine
 										}
 									}
 								}
 								res.send(twoArrays);
 							}
-						}else{
+						} else {
 							res.send(err);
 							console.log('ERROR: '+ err.message);
 						}
@@ -143,32 +146,36 @@ exports.findAllWines =  function(req, res) {
 						{type: ownType},
 						{region: {$in: [designationOrigin]}}
 					]}, function(err, vinos) {
-						if(!err)
+						if (!err)
 						{
-							if(vinos == null || vinos == undefined || vinos == '')
+							if (vinos == null || vinos == undefined || vinos == '')
 							{
 								console.log('No hay vinos de este tipo/color en nuestra BDD... [vintage]');
 								res.send(snoothWines.wines);
-							}else{
+							} else {
 								console.log('Buscando vinos de ' + designationOrigin + ' en nuestra BDD...');
 								ownWines = vinos;
 								var twoArrays = ownWines.concat(snoothWines.wines);
 
-								for(var i=0; i<twoArrays.length; i++)
+								console.log(twoArrays);
+								for (var i = 0; i < twoArrays.length; i++)
 								{
-									for(var j=i+1; j<twoArrays.length; j++)
+									for (var j = i + 1; j < twoArrays.length; j++)
 									{
-										if(twoArrays[i].code === twoArrays[j].code)
+										if (twoArrays[j] == undefined)
 										{
-											twoArrays.splice(j--,1); // Remove the duplicate wine
+											return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
+										} else if (twoArrays[i].code === twoArrays[j].code)
+										{
+											twoArrays.splice(j--, 1); // Remove the duplicate wine
 										}
 									}
 								}
 								res.send(twoArrays);
 							}
-						}else{
+						} else {
 							res.send(err);
-							console.log('ERROR: '+ err.message);
+							console.log('ERROR: ' + err.message);
 						}
 					})
 			} else
@@ -179,35 +186,39 @@ exports.findAllWines =  function(req, res) {
 						{region: {$in: designationOrigin}},
 						{vintage: vintage}
 					]}, function(err, vinos) {
-				if(!err)
-				{
-					if(vinos == null || vinos == undefined || vinos == "")
+					if (!err)
 					{
-						console.log('No hay vinos de este tipo/color en nuestra BDD... [DO + vintage == defined]');
-						res.send(snoothWines.wines);
-					}else{
-						ownWines = vinos;
-						var twoArrays = ownWines.concat(snoothWines.wines);
-
-						for(var i=0; i<twoArrays.length; i++)
+						if (vinos == null || vinos == undefined || vinos == "")
 						{
-							for(var j=i+1; j<twoArrays.length; j++)
+							console.log('No hay vinos de este tipo/color en nuestra BDD... [DO + vintage == defined]');
+							res.send(snoothWines.wines);
+						} else {
+							ownWines = vinos;
+							var twoArrays = ownWines.concat(snoothWines.wines);
+
+							console.log(twoArrays);
+							for (var i = 0; i < twoArrays.length; i++)
 							{
-								if(twoArrays[i].code === twoArrays[j].code)
+								for (var j = i + 1; j < twoArrays.length; j++)
 								{
-									twoArrays.splice(j--,1);
+									if (twoArrays[j] == undefined)
+									{
+										return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
+									} else if (twoArrays[i].code === twoArrays[j].code)
+									{
+										twoArrays.splice(j--, 1); // Remove the duplicate wine
+									}
 								}
 							}
+							res.send(twoArrays);
 						}
-						res.send(twoArrays);
+					} else {
+						res.send(err);
+						console.log('ERROR: ' + err.message);
 					}
-				}else{
-					res.send(err);
-					console.log('ERROR: '+ err.message);
-				}
-			})
-		}
-  	})
+				})
+			}
+  		})
 
   	}
 
