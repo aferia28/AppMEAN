@@ -29,7 +29,6 @@ module.exports = function(app) {
 	app.get('/lastSignup', Controller.lastSignUp)
 
 	app.get('/send/:email', verification.sendEmail);
-
 	app.get('/verify', verification.verifiedEmail);
 
 
@@ -37,6 +36,9 @@ module.exports = function(app) {
 	app.post('/addFavorite/:codeWine', wineController.addFavorite);
 
 	app.post('/addCommentWine/:codeWine', wineController.addComment);
+
+	app.put('/deleteComment/:id', wineController.deleteComment);
+
 
 	app.get('/topwines', wineController.getTopWines)
 

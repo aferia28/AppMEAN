@@ -255,14 +255,15 @@
 				  	<div class="col-sm-6">
 				  		<button ng-click="clickToOpen()">Comentar</button>
 				  	</div>
-					<div class="reviews row" ng-repeat="comment in product.com">
+					<div class="reviews row" ng-repeat="comment in product.comentarios">
 						<div class="col-sm-12">
 							<p>
-								<strong>{{comment.usuario}}</strong> on: {{comment.time | date}}
+								<strong>{{comment.usuario_name}}</strong> on: {{comment.time | date}}
 							</p>
 							<p>
 								{{comment.texto}}
 							</p>
+							<i ng-click="deleteComment(comment._id)" ng-if="comment.usuario == user._id" class="fa fa-trash" style="color:red; cursor: pointer"></i>
 							<hr>
 						</div>
 					</div>
@@ -288,11 +289,6 @@
 <style type="text/css">
 .ngdialog-theme-default{
 	background-color: transparent;
-}
-.ngdialog-theme-default > .ngdialog-content{
-	border: 3px solid red;
-	border-radius: 0px !important;
-	background: #444 !important;
 }
 .ngdialog-theme-default > .ngdialog-content > .modal-text > input{
 	height: 300px;
