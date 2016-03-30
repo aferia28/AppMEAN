@@ -125,7 +125,6 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		.then(function(response) {
 			console.log(response.data);
 			$scope.product.comentarios = response.data.comentarios;
-			//$scope.product.com = response.data;
 		}, function(response) {
 
 		})
