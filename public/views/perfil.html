@@ -14,11 +14,10 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<img class="profile-photo">
-							<!--"-->
 						</div>
 						<div class="col-sm-12">
 							<div class="row">
-								<div class="favourites" ng-click="showFavourites = !showFavourites">Favorits</div>
+								<button type="button" ng-click="showFavourites = !showFavourites" class="col-sm-offset-2 button button-black">Favorits</button>
 							</div>
 						</div>
 						<div class="col-sm-12 box-favorites" ng-show="showFavourites">
@@ -97,7 +96,7 @@
 										</tr>
 									</tbody>
 								</table>
-								<button class="btn-save" ng-click="updateProfile()"> Guardar</button>
+								<button type="submit" ng-click="updateProfile()" class="col-sm-offset-2 button button-black">Guardar</button>
 							</form>
 						</div>
 					</div>
@@ -106,4 +105,3 @@
 		</div>
 	</div>
 </div>
-
