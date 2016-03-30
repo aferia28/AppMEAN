@@ -2,7 +2,7 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
 
     var dataFactory = {};
 
-    dataFactory.getAllWines = function(paramsSearch) {
+    dataFactory.getAllWines = function( paramsSearch ) {
         console.log(paramsSearch);
 
         return $http({
@@ -18,7 +18,7 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         })
     };
 
-    dataFactory.getWine = function (inData) {
+    dataFactory.getWine = function ( inData ) {
 
         return $http({
             url: '/getWine/',
@@ -33,7 +33,7 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         });
     };
 
-    dataFactory.insertRank = function (inData) {
+    dataFactory.insertRank = function ( inData ) {
         var codeWine = inData.codeWine;
         console.log(inData);
         return $http({
@@ -49,7 +49,7 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         })
     };
 
-    dataFactory.addFavorite = function (inData) {
+    dataFactory.addFavorite = function ( inData ) {
 
         var codeWine = inData.codeWine;
         return $http({
@@ -64,7 +64,7 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         })
     };
 
-    dataFactory.addComment = function (inData) {
+    dataFactory.addComment = function ( inData ) {
 
         var defer = $q.defer();
         var codeWine = inData.codeWine;
@@ -74,7 +74,7 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
             method: 'POST',
             params: inData
         }).success(function(response) {
-            defer.resolve(response.comentarios)
+            defer.resolve(response)
         })
         .error(function(error) {
             defer.reject();
@@ -95,7 +95,7 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
         })
 
     }
-    dataFactory.addWine = function (wine) {
+    dataFactory.addWine = function ( wine ) {
 
         console.log(wine);
         return $http.post('/addWine', wine)
@@ -106,6 +106,20 @@ app.factory('dataFactory', ['$http','$q', function($http, $q) {
                 return error;
             })
     };
+
+    dataFactory.deleteComment = function( comment_id, codeWine ) {
+
+        return $http({
+            url: '/deleteComment/' + comment_id,
+            method: 'PUT',
+            params: {wineCode: codeWine}
+        }).success(function(response) {
+            return response;
+        })
+        .error(function(error) {
+            return error;
+        })
+    }
 
     return dataFactory;
 }]);

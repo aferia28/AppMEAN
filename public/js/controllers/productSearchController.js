@@ -1,4 +1,4 @@
-app.controller('productSearcherController', ['$scope', '$http','$rootScope','$routeParams','$route','$location','ngDialog','serviceAdmin','dataFactory', function($scope, $http, $rootScope,$routeParams, $route, $location, ngDialog,serviceAdmin, dataFactory) {
+app.controller('productSearcherController', ['$scope', '$http','$rootScope','$routeParams','$route','$location','ngDialog','serviceAdmin','dataFactory','serviceRequestErrors', function($scope, $http, $rootScope,$routeParams, $route, $location, ngDialog,serviceAdmin, dataFactory,serviceRequestErrors) {
 
 	$scope.pageClass = 'page-product';
 
@@ -8,6 +8,7 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 	var wine;
 	var usuario 	= serviceAdmin.getProperty();
+	$scope.user 	= usuario;
 	var codeWine 	= $routeParams.wineCode;
 
 	var inData = {
@@ -27,7 +28,7 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 		wine = response.data;
 		$scope.product = response.data;
-		$scope.product.com = wine.comentarios;
+		//$scope.product.comentarios = wine.comentarios;
 		inData.wine = wine;
 
 		if(wine.type == "")
@@ -72,9 +73,8 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		dataFactory.addFavorite(inData)
 		.then(function(response) {
 			console.log('Vino añadido a favoritos', response.data);
-		})
-		.catch(function(response) {
-			//error a tratar
+		}, function(response) {
+			serviceRequestErrors.popupError(response);
 		})
 	}
 
@@ -108,15 +108,26 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 			    	dataFactory.addComment(inData)
 			    	.then(function(response) {
-			    		console.log('Comentario Anadido', response);
-						$scope.product.com = response;
+			    		console.log('Comentario Anadido', response.comentarios);
+						$scope.product.comentarios = response.comentarios;
 						ngDialog.close();
-			    	})
-			    	.catch(function(response) {
-			    		//tratar
+			    	}, function(response) {
+			    		serviceRequestErrors.popupError(response);
 			    	})
 			    }
 			}]
 		});
 	};
+
+	$scope.deleteComment = function(id) {
+
+		dataFactory.deleteComment(id, codeWine)
+		.then(function(response) {
+			console.log(response.data);
+			$scope.product.comentarios = response.data.comentarios;
+			//$scope.product.com = response.data;
+		}, function(response) {
+
+		})
+	}
 }]);
