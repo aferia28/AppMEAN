@@ -299,6 +299,9 @@ html {
   font-size: 34px;
   color: black;
 }
+/*-------------------------------*/
+/*            Home               */
+/*-------------------------------*/
 .home {
   height: 100%;
   background: url('../img/home-header.jpg') no-repeat center center;
@@ -317,18 +320,6 @@ html {
   display: inline-block;
   margin-left: 40px;
 }
-.home .round-button-circle {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
-  border-radius: 50%;
-  border: 1px solid white;
-  overflow: hidden;
-  background-color: transparent;
-}
-.home .round-button-circle:hover {
-  border: 2px solid white;
-}
 .home .round-button a {
   display: block;
   float: left;
@@ -342,6 +333,18 @@ html {
   color: white;
   font-size: 1.2em;
   text-decoration: none;
+}
+.home .round-button-circle {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 50%;
+  border: 1px solid white;
+  overflow: hidden;
+  background-color: transparent;
+}
+.home .round-button-circle:hover {
+  border: 2px solid white;
 }
 .home-logged .section-header {
   height: 100vh;
@@ -414,6 +417,22 @@ html {
   padding: 15px 50px 15px 50px;
 }
 .button a {
+  text-decoration: none;
+}
+.button-round {
+  text-align: center;
+  border-style: solid;
+  border-radius: 50%;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+  background-color: unset;
+  margin-top: 20px;
+  padding: 30px;
+}
+.button-round a {
   text-decoration: none;
 }
 .button-white {
