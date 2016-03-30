@@ -46,7 +46,7 @@
     background: #000;
     background-size:cover;
 
-    border: 3px solid #3F3F3F;
+    border: 3px solid #fff;
 
     /* keep padding & borders inside box size */
     box-sizing:border-box;
@@ -189,7 +189,7 @@ cardflow .cardflow-card.cardflow-active {
 }*/
 
 .page .cardflow-card.cardflow-active {
-    border: 5px solid indigo;
+    border: 5px solid #1A1A1A;
     -webkit-box-shadow: none;
     box-shadow: none;
     -webkit-transform: scale(1);
