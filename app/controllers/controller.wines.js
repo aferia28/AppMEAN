@@ -8,18 +8,18 @@ var fs 			= require('fs');
 	//GET
 exports.findAllWines =  function(req, res) {
 
-	var host 			= 'api.snooth.com';
-	var typeSearch 		= '/wines/';
-	var apiKey 			= 'mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17';
-	var productType 	= 'wine';
-	var numberResults 	= 30;
+	var host 				= 'api.snooth.com';
+	var typeSearch 			= '/wines/';
+	var apiKey 				= 'mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17';
+	var productType 		= 'wine';
+	var numberResults 		= 30;
 	// var availableWines	= 0; // 0 = all | 1 = in stock
-	var sort 			= 'qpr';
-	var region 			= 'Catalunya'; // && Cataluña && Catalonia
+	var sort 				= 'qpr';
+	var region 				= 'Catalunya'; // && Cataluña && Catalonia
 
-	var type  			= req.query.type;
-	var vintage 		= req.query.vintage;
-	var dO  			= req.query.do;
+	var type  				= req.query.type;
+	var vintage 			= req.query.vintage;
+	var designationOrigin  	= req.query.do;
 
 
 	var ownType;
@@ -28,28 +28,34 @@ exports.findAllWines =  function(req, res) {
 
 	if (type == 'red') {
 		ownType = 'Negre'
-	}else if (type == 'white') {
+	} else if (type == 'white') {
 		ownType = 'Blanc'
-	}else if (type == 'rose') {
+	} else if (type == 'rose') {
 		ownType = 'Rosat'
 	}
 
-	if(dO == '' || dO == undefined || dO == null)
+	if ( (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null) && (vintage == '' || vintage == undefined || vintage == null) )
 	{
 		var options = {
-			host: 'api.snooth.com',
+			host: host,
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + region
+		};
+	} else if (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null)
+	{
+		var options = {
+			host: host,
 			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + region + '+' + vintage
 		};
-	}else if(vintage == '' || vintage == undefined || vintage == null)
+	} else if (vintage == '' || vintage == undefined || vintage == null)
 	{
 		var options = {
-			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q='+ dO
+			host: host,
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + region + '+' + designationOrigin
 		};
-	}else{
+	} else { // DO + vintage == defined
 		var options = {
-			host: 'api.snooth.com',
-			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + dO + '+' + vintage
+			host: host,
+			path: typeSearch + '?akey=' + apiKey + '&color=' + type + '&n=' + numberResults + /*'&a=' + availableWines +*/ '&s=' + sort + '&q=' + region + '+' + designationOrigin + '+' + vintage
 		};
 	}
 
@@ -64,7 +70,40 @@ exports.findAllWines =  function(req, res) {
   		response.on('end', function () {
   			snoothWines = JSON.parse(string);
 
-  			if(dO == '' || dO == undefined || dO == null)
+			if ( (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null) && (vintage == '' || vintage == undefined || vintage == null) )
+			{
+				Vino.find({$and:[
+					{type: ownType}
+				]}, function (err, vinos) {
+					if (!err)
+					{
+						if (vinos == null || vinos == undefined || vinos == '')
+						{
+							console.log('No hay vinos de este tipo/color en nuestra propia BDD... [DO + vintage == undefinded/null]');
+							res.send(snoothWines.wines);
+						} else {
+							console.log('Buscando vinos sin DO ni vintage definidos en nuestra propia BDD...');
+							ownWines = vinos;
+							var twoArrays = ownWines.concat(snoothWines.wines);
+
+							for (var i = 0; i < twoArrays.length; i++)
+							{
+								for (var j = i + 1; j < twoArrays.length; j++)
+								{
+									if (twoArrays[i].code === twoArrays[j].code)
+									{
+										twoArrays.splice(j--, 1);
+									}
+								}
+							}
+							res.send(twoArrays);
+						}
+					} else {
+						res.send(err);
+						console.log('ERROR: ' + err.message);
+					}
+				})
+			} else if (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null)
 			{
 				Vino.find({$and:[
 						{type: ownType},
@@ -74,10 +113,10 @@ exports.findAllWines =  function(req, res) {
 						{
 							if(vinos == null || vinos == undefined || vinos == '')
 							{
-								console.log('No hay vinos de este tipo en la BD..');
+								console.log('No hay vinos de este tipo/color en nuestra BDD... [DO]');
 								res.send(snoothWines.wines);
 							}else{
-								console.log('Buscando los vino de ' + vintage + 'en la BD...');
+								console.log('Buscando vinos del ' + vintage + ' en nuestra propia BDD...');
 								ownWines = vinos;
 								var twoArrays = ownWines.concat(snoothWines.wines);
 
@@ -94,24 +133,24 @@ exports.findAllWines =  function(req, res) {
 								res.send(twoArrays);
 							}
 						}else{
-							res.send(err)
+							res.send(err);
 							console.log('ERROR: '+ err.message);
 						}
 				})
-			}else if(vintage == '' || vintage == undefined || vintage == null)
+			} else if (vintage == '' || vintage == undefined || vintage == null)
 			{
 				Vino.find({$and: [
 						{type: ownType},
-						{region: {$in: [dO]}}
+						{region: {$in: [designationOrigin]}}
 					]}, function(err, vinos) {
 						if(!err)
 						{
 							if(vinos == null || vinos == undefined || vinos == '')
 							{
-								console.log('No hay vinos de este tipo en la BD..');
+								console.log('No hay vinos de este tipo/color en nuestra BDD... [vintage]');
 								res.send(snoothWines.wines);
 							}else{
-								console.log('Buscando los vino de ' + dO + 'en la BD...');
+								console.log('Buscando vinos de ' + designationOrigin + ' en nuestra BDD...');
 								ownWines = vinos;
 								var twoArrays = ownWines.concat(snoothWines.wines);
 
@@ -121,29 +160,30 @@ exports.findAllWines =  function(req, res) {
 									{
 										if(twoArrays[i].code === twoArrays[j].code)
 										{
-											twoArrays.splice(j--,1);
+											twoArrays.splice(j--,1); // Remove the duplicate wine
 										}
 									}
 								}
 								res.send(twoArrays);
 							}
 						}else{
-							res.send(err)
+							res.send(err);
 							console.log('ERROR: '+ err.message);
 						}
 					})
-			}else{
-				//dO + vintage
+			} else
+			{
+				// DO + vintage == defined
 				Vino.find({$and: [
 						{type: ownType},
-						{region: {$in: dO}},
+						{region: {$in: designationOrigin}},
 						{vintage: vintage}
 					]}, function(err, vinos) {
 				if(!err)
 				{
 					if(vinos == null || vinos == undefined || vinos == "")
 					{
-						console.log('No hay vinos de este tipo en la BD..')
+						console.log('No hay vinos de este tipo/color en nuestra BDD... [DO + vintage == defined]');
 						res.send(snoothWines.wines);
 					}else{
 						ownWines = vinos;
@@ -162,7 +202,7 @@ exports.findAllWines =  function(req, res) {
 						res.send(twoArrays);
 					}
 				}else{
-					res.send(err)
+					res.send(err);
 					console.log('ERROR: '+ err.message);
 				}
 			})
