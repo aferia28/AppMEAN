@@ -436,18 +436,12 @@ html{
 		height: 350px;
 		background: url('../img/langhe.jpg') no-repeat center center;
 		background-size: cover;
-		.button-add-wine {
-			margin-top: 50px;
-			padding: 15px 50px 15px 50px;
-			border-color: @base-color;
-			color: @base-color;
-			&:hover {
-				color: @alternative-color;
-				background-color: @base-color;
-			}
-		}
 	}
 }
+
+/*-------------------------------*/
+/*            Buttons            */
+/*-------------------------------*/
 
 .button {
 	text-align: center;
@@ -459,7 +453,32 @@ html{
 	-o-transition: all 1s ease;
 	transition: all 1s ease;
 	background-color: unset;
+	margin-top: 20px;
+	padding: 15px 50px 15px 50px;
+	a {
+		text-decoration: none;
+	}
 }
+
+.button-white {
+	border-color: @base-color;
+	color: @base-color;
+	&:hover {
+		color: @alternative-color;
+		background-color: @base-color;
+	}
+}
+
+.button-black {
+	border-color: @alternative-color;
+	color: @alternative-color;
+	&:hover {
+		color: @base-color;
+		background-color: @alternative-color;
+	}
+}
+
+/*-------------------------------*/
 
 .section-add-wine{
 	background-color: #F8F8F8;
@@ -544,7 +563,7 @@ html{
 	opacity: 0.8;
 	.wine-searcher {
 		// background-image: url(../img/grapes.jpeg);
-		.wine-searcher .background-image {
+		.background-image {
 			-webkit-filter: blur(3px); /* Chrome, Safari, Opera */
 	    	filter: blur(3px);
 	    	position: fixed;
@@ -572,54 +591,6 @@ html{
 			}
 			#selectDo {
 				text-align-last: center; // aligns the selected option
-			}
-			.search-button {
-				padding-top: 15px;
-			}
-			button {
-				-moz-box-shadow:inset 0px 1px 0px 0px #e6cafc;
-				-webkit-box-shadow:inset 0px 1px 0px 0px #e6cafc;
-				box-shadow:inset 0px 1px 0px 0px #e6cafc;
-				background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #c579ff), color-stop(1, #a341ee) );
-				background:-moz-linear-gradient( center top, #c579ff 5%, #a341ee 100% );
-				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c579ff', endColorstr='#a341ee');
-				background-color:#c579ff;
-				-webkit-border-top-left-radius:20px;
-				-moz-border-radius-topleft:20px;
-				border-top-left-radius:20px;
-				-webkit-border-top-right-radius:20px;
-				-moz-border-radius-topright:20px;
-				border-top-right-radius:20px;
-				-webkit-border-bottom-right-radius:20px;
-				-moz-border-radius-bottomright:20px;
-				border-bottom-right-radius:20px;
-				-webkit-border-bottom-left-radius:20px;
-				-moz-border-radius-bottomleft:20px;
-				border-bottom-left-radius:20px;
-				text-indent:0;
-				border:1px solid #a946f5;
-				display:inline-block;
-				color:#ffffff;
-				font-family:Arial;
-				font-size:15px;
-				font-weight:bold;
-				font-style:normal;
-				height:65px;
-				line-height:65px;
-				width:131px;
-				text-decoration:none;
-				text-align:center;
-				text-shadow:1px 1px 0px #8628ce;
-			}
-			button:hover {
-				background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a341ee), color-stop(1, #c579ff) );
-				background:-moz-linear-gradient( center top, #a341ee 5%, #c579ff 100% );
-				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a341ee', endColorstr='#c579ff');
-				background-color:#a341ee;
-			}
-			button:active {
-				position:relative;
-				top:1px;
 			}
 		}
 		.wine-search-results {
@@ -654,6 +625,8 @@ html{
 		}
 	}
 }
+
+/*-------------------------------*/
 
 .page-product{
 	.product-content{
@@ -1053,6 +1026,6 @@ html{
 /*============================================================================= */
 
 
-footer{
+footer {
 	background-color: black;
 }
