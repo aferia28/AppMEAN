@@ -1,6 +1,6 @@
 <div class="row">
 	<div id="product-header" class="col-sm-12 product-content"
-	ng-class="{'product-header-white': type=='white', 'product-header-red': type=='red', 'product-header-rose': type == 'rosé'}">
+	ng-class="{'product-header-white': type=='white' || type=='blanc', 'product-header-red': type=='red' || type=='negre', 'product-header-rose': type == 'rosé' || type=='rosat'}">
 		<a href="#/winesearcher"><i class="fa fa-angle-double-left"></i></a>
 		<div class="col-sm-12 product-title">
 			<h2>{{product.name}}</h2>
@@ -78,7 +78,7 @@
 				<div class="row">
 					<div class="col-sm-2 product-price">
 						<span ng-if="product.price > 0">{{product.price | number}} €</span>
-						<span ng-if="product.price < 0.1">Precio no disponible</span>
+						<span ng-if="product.price < 0.1 || product.price == undefined">N/D</span>
 					</div>
 					<div class="col-sm-4 box-add">
 						<div class="row">
