@@ -67,38 +67,13 @@ exports.findAllWines =  function(req, res) {
 
   		response.on('end', function () {
   			snoothWines = JSON.parse(string);
-
+  			console.log('Snooth Api wines returned: ', snoothWines);
 			if ( (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null) && (vintage == '' || vintage == undefined || vintage == null) )
 			{
-				Vino.find({$and:[
-					{type: ownType}
-				]}, function (err, vinos) {
+				Vino.find({type: ownType}, function (err, vinos) {
 					if (!err)
 					{
-						if (vinos == null || vinos == undefined || vinos == '')
-						{
-							console.log('No hay vinos de este tipo/color en nuestra propia BDD... [DO + vintage == undefinded/null]');
-							res.send(snoothWines.wines);
-						} else {
-							console.log('Buscando vinos sin DO ni vintage definidos en nuestra propia BDD...');
-							ownWines = vinos;
-							var twoArrays = ownWines.concat(snoothWines.wines);
-
-							console.log(twoArrays);
-							for (var i = 0; i < twoArrays.length; i++)
-							{
-								for (var j = i + 1; j < twoArrays.length; j++)
-								{
-									if (twoArrays[j] == undefined)
-									{
-										return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
-									} else if (twoArrays[i].code === twoArrays[j].code) {
-										twoArrays.splice(j--, 1); // Remove the duplicate wine
-									}
-								}
-							}
-							res.send(twoArrays);
-						}
+						res.send(compareWines(snoothWines, vinos));
 					} else {
 						res.send(err);
 						console.log('ERROR: ' + err.message);
@@ -111,30 +86,7 @@ exports.findAllWines =  function(req, res) {
 					]}, function(err, vinos) {
 						if (!err)
 						{
-							if (vinos == null || vinos == undefined || vinos == '')
-							{
-								console.log('No hay vinos de este tipo/color en nuestra BDD... [DO]');
-								res.send(snoothWines.wines);
-							} else {
-								console.log('Buscando vinos del ' + vintage + ' en nuestra propia BDD...');
-								ownWines = vinos;
-								var twoArrays = ownWines.concat(snoothWines.wines);
-
-								console.log(twoArrays);
-								for (var i = 0; i < twoArrays.length; i++)
-								{
-									for (var j = i + 1; j < twoArrays.length; j++)
-									{
-										if (twoArrays[j] == undefined)
-										{
-											return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
-										} else if (twoArrays[i].code === twoArrays[j].code) {
-											twoArrays.splice(j--, 1); // Remove the duplicate wine
-										}
-									}
-								}
-								res.send(twoArrays);
-							}
+							res.send(compareWines(snoothWines, vinos));
 						} else {
 							res.send(err);
 							console.log('ERROR: '+ err.message);
@@ -148,31 +100,7 @@ exports.findAllWines =  function(req, res) {
 					]}, function(err, vinos) {
 						if (!err)
 						{
-							if (vinos == null || vinos == undefined || vinos == '')
-							{
-								console.log('No hay vinos de este tipo/color en nuestra BDD... [vintage]');
-								res.send(snoothWines.wines);
-							} else {
-								console.log('Buscando vinos de ' + designationOrigin + ' en nuestra BDD...');
-								ownWines = vinos;
-								var twoArrays = ownWines.concat(snoothWines.wines);
-
-								console.log(twoArrays);
-								for (var i = 0; i < twoArrays.length; i++)
-								{
-									for (var j = i + 1; j < twoArrays.length; j++)
-									{
-										if (twoArrays[j] == undefined)
-										{
-											return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
-										} else if (twoArrays[i].code === twoArrays[j].code)
-										{
-											twoArrays.splice(j--, 1); // Remove the duplicate wine
-										}
-									}
-								}
-								res.send(twoArrays);
-							}
+							res.send(compareWines(snoothWines, vinos));
 						} else {
 							res.send(err);
 							console.log('ERROR: ' + err.message);
@@ -188,30 +116,7 @@ exports.findAllWines =  function(req, res) {
 					]}, function(err, vinos) {
 					if (!err)
 					{
-						if (vinos == null || vinos == undefined || vinos == "")
-						{
-							console.log('No hay vinos de este tipo/color en nuestra BDD... [DO + vintage == defined]');
-							res.send(snoothWines.wines);
-						} else {
-							ownWines = vinos;
-							var twoArrays = ownWines.concat(snoothWines.wines);
-
-							console.log(twoArrays);
-							for (var i = 0; i < twoArrays.length; i++)
-							{
-								for (var j = i + 1; j < twoArrays.length; j++)
-								{
-									if (twoArrays[j] == undefined)
-									{
-										return res.send(twoArrays); // If it's not returned, the error message 'Can\'t set headers after they are sent.' appears
-									} else if (twoArrays[i].code === twoArrays[j].code)
-									{
-										twoArrays.splice(j--, 1); // Remove the duplicate wine
-									}
-								}
-							}
-							res.send(twoArrays);
-						}
+						res.send(compareWines(snoothWines, vinos));
 					} else {
 						res.send(err);
 						console.log('ERROR: ' + err.message);
@@ -342,7 +247,7 @@ exports.addComment = function(req, res) {
 
 	var wi  	= JSON.parse(wine);
 	var usu  	= JSON.parse(usuario);
-
+	console.log(usu.nombre);
 	Vino.findOne({code: wi.code}).populate({path: 'comentarios'}).exec(function(err, vino) {
 		if(!err)
 		{
@@ -360,9 +265,10 @@ exports.addComment = function(req, res) {
 					type = 'Rosat';
 				}
 				var comentario = new Comentario({
-					usuario: usu,
-					texto: comment,
-					time: Date.now()
+					usuario 		: usu,
+					usuario_name 	: usu.nombre,
+					texto 			: comment,
+					time 			: Date.now()
 				})
 
 				comentario.save(function(err) {
@@ -397,6 +303,7 @@ exports.addComment = function(req, res) {
 				console.log(vino);
 				var comentario = new Comentario({
 					usuario: usu,
+					usuario_name 	: usu.nombre,
 					texto: comment,
 					time: Date.now()
 				})
@@ -417,6 +324,7 @@ exports.addComment = function(req, res) {
 	    		})
 			}
 		}else{
+			res.status(500).send({message: err.message});
 			console.log('ERROR: ' + err);
 		}
 	})
@@ -452,6 +360,7 @@ exports.addFavorite = function(req, res) {
 					}
 				})
 			}else{
+				res.status(400).send({message: "Este vino ya lo tienes en favoritos =)"});;
 				console.log('El vino ya lo tienes en favoritos');
 			}
 		}else{
@@ -866,4 +775,78 @@ exports.deleteWine = function(req, res) {
 			else console.log('ERROR: ' + err);
 		});
 	});
+}
+
+exports.deleteComment = function(req, res) {
+	//, match: { _id: {$eq:req.params.id}}
+	console.log(req.query.wineCode);
+
+	/*Vino.findOne({code: req.query.wineCode}).populate({path: 'comentarios', match: { _id: {$eq:req.params.id}}}).exec(function (err, vino) {
+ 		if(!err)
+ 		{
+ 			//res.send(vino)
+ 			console.log(vino);
+ 			vino.comentarios[0].remove(function(err) {
+ 				if(!err) console.log('comentario eliminado')
+ 				else {console.log(err)}
+
+ 				res.send(vino)
+ 			})
+ 		}
+ 	})*/
+	Comentario.findById(req.params.id, function(err, comentario) {
+		comentario.remove( function (err) {
+			 if(!err){
+			 	console.log('Comentario Eliminado');
+			 	Vino.findOne({code: req.query.wineCode}).populate({path: 'comentarios'}).exec(function (err, vino) {
+			 		if(!err)
+			 		{
+			 			res.send(vino);
+			 		}
+			 	})
+			 }
+			 else console.log('ERROR' + err);
+		})
+	})
+}
+
+function compareWines( snoothWines, vinos ) {
+	if (vinos == null || vinos == undefined || vinos == '')
+	{
+		console.log('No hay vinos de este tipo/color en nuestra propia BDD...');
+		//console.log('No hay vinos de este tipo/color en nuestra propia BDD... [DO + vintage == undefinded/null]');
+		return snoothWines.wines;
+	} else {
+		console.log('Buscando vinos en nuestra propia BDD...');
+		ownWines = vinos;
+		if (snoothWines.wines != undefined) // There are results in Snooth for the search
+		{
+			var twoArrays = ownWines.concat(snoothWines.wines);
+
+			console.log(twoArrays);
+			for (var i = 0; i < twoArrays.length; i++)
+			{
+				for (var j = i + 1; j < twoArrays.length; j++)
+				{
+					if (twoArrays[i].code === twoArrays[j].code)
+					{
+						twoArrays.splice(j--, 1); // Remove the duplicate wine
+					}
+				}
+			}
+			return twoArrays
+		} else {
+			for (var i = 0; i < ownWines.length; i++)
+			{
+				for (var j = i + 1; j < ownWines.length; j++)
+				{
+					if (ownWines[i].code === ownWines[j].code)
+					{
+						ownWines.splice(j--, 1); // Remove the duplicate wine
+					}
+				}
+			}
+			return ownWines;
+		}
+	}
 }
