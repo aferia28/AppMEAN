@@ -593,6 +593,17 @@ body, html {
 	    	// top: 0;
 	    	// bottom: 0;
 		}
+		.header {
+			height: 350px;
+			background: url('../img/grapes.jpeg') no-repeat center center;
+			background-size: cover;
+			h1 {
+				text-align: center;
+				font-size: 60px;
+				padding-top: 80px;
+				color: @base-color;
+			}
+		}
 		.wine-color {
 			// background: rgba(255, 255, 255, 255.9);
 			// border-radius: 0px;
@@ -607,9 +618,7 @@ body, html {
 			padding: 15px 45px 15px 45px; // top right bottom left
 			background-color: @alternative-color;
 			border-radius: 5px;
-			h4 {
-				color: @base-color;
-			}
+			color: @base-color;
 			#selectDo {
 				text-align-last: center; // aligns the selected option
 			}
@@ -647,6 +656,8 @@ body, html {
 	}
 }
 
+/*-------------------------------*/
+/*  Wine Record Card / Product   */
 /*-------------------------------*/
 
 .page-product{
@@ -766,52 +777,58 @@ body, html {
 	}
 
 }
-.header-top-wines{
-	.section-header-min{
+
+/*-------------------------------*/
+/*            Top Wines          */
+/*-------------------------------*/
+
+.header-top-wines {
+	.section-header {
 		height: 350px;
 		background: url('../img/home-top.jpg') no-repeat center center;
 		background-size: cover;
 	}
 }
-.page-top-wines{
-	.nav-tabs{
+
+.page-top-wines {
+	.nav-tabs {
 		text-align: center;
 		border: 0;
 		margin-top: 25px;
 		margin-bottom: 25px;
-		li{
+		li {
 			float: none;
 			display: inline-block;
-			a{
+			a {
 				color: #3F3F3F;
 				font-size: 25px;
 			}
 		}
 	}
-	.box-wine{
-		h2,h3,h4,h5{
+	.box-wine {
+		h2, h3, h4, h5 {
 			text-align: center;
 		}
-		.box-name-rate{
+		.box-name-rate {
 			background-color: #333333;
 			height: 331px;
 			color: white;
 		}
-		.box-celler{
+		.box-celler {
 			background-color: #3F3F3F;
 			height: 331px;
 			color: white;
 		}
-		.white-box{
+		.white-box {
 			height: 331px;
 			background-color: white;
-			h3{
+			h3 {
 				color: #333333;
 			}
 		}
-		.box{
+		.box {
 			display: table;
-			.cell{
+			.cell {
 				display: table-cell;
 				vertical-align: middle;
 				color: #999999;

@@ -15,7 +15,7 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', 'dataFa
 
     // Generate the cards
     $scope.cardflow.cards = [];
-    var types = ['red','white','rose'];
+    var types = ['Negre','Blanc','Rosat'];
     for (indexCardflow = 0; indexCardflow < 3; indexCardflow++) {
         var t = types[indexCardflow % types.length];
         $scope.cardflow.cards.push({image:'../img/' + t + '-wine-cardflow.jpg', title: t});
