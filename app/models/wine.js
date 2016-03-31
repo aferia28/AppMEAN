@@ -11,6 +11,7 @@ var wineSchema = new Schema({
   					enum: ['Negre','Blanc','Rosat']
   			   },
   winery        : { type: String }, //Viñedo
+  price         : { type: String },
   varietal      : { type: String }, //tipo de uva
   region        : { type: String},
   vintage          : { type: Number }, // añada

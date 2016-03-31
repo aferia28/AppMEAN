@@ -28,6 +28,7 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 		wine = response.data;
 		$scope.product = response.data;
+		console.log(response);
 		//$scope.product.comentarios = wine.comentarios;
 		inData.wine = wine;
 
@@ -44,11 +45,13 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		{
 			$('.rating > span').css('opacity', 0.5);
 			$scope.isDisabled = true;
+
 		}
 		else
 		{
 			$scope.isDisabled = false;
 		}
+		//console.log($scope.isDisabled);
 	})
 	.catch(function() {
 		//tratar error

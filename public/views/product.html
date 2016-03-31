@@ -1,7 +1,7 @@
 <div class="row">
 	<div id="product-header" class="col-sm-12 product-content"
 	ng-class="{'product-header-white': type=='white' || type=='blanc', 'product-header-red': type=='red' || type=='negre', 'product-header-rose': type == 'rosé' || type=='rosat'}">
-		<a href="#/winesearcher"><i class="fa fa-angle-double-left"></i></a>
+		<go-back back="back" style="cursor: pointer"></go-back>
 		<div class="col-sm-12 product-title">
 			<h2>{{product.name}}</h2>
 		</div>
@@ -48,6 +48,7 @@
 				</div>
 			</div>
 			<div class="col-sm-12 rank-box product-rate">
+						<span ng-if="product.snoothrank == 'n/a'">S/N</span>
 						<span ng-if="product.snoothrank >= 0.6 && product.snoothrank <= 1.5">
 							<i class="fa fa-glass"></i>
 						</span>

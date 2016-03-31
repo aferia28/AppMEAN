@@ -237,8 +237,8 @@ exports.findWine = function(req, res) {
 		    			vintage 	: puntuaciones.vintage,
 		    			alcohol		: puntuaciones.alcohol,
 		    			//image_url	: puntuaciones.image,
-		    			reviews 	: puntuaciones.reviews,
-		    			wm_notes 	: puntuaciones.wm_notes,
+		    			//reviews 	: puntuaciones.reviews,
+		    			//wm_notes 	: puntuaciones.wm_notes,
 		    			snoothrank 	: puntuacionTotal,
 		    			comentarios : puntuaciones.comentarios, //aqui las puntuaciones en realidad es un vino
 		    			canrate 	: canrate
@@ -307,7 +307,7 @@ exports.findWine = function(req, res) {
 								code 		: apiWine.code,
 				    			name 		: apiWine.name,
 				    			price 		: apiWine.price,
-				    			type 		: apiWine.type,
+				    			type 		: apiWine.color || apiWine.type,
 				    			region 		: apiWine.region,
 				    			winery 		: apiWine.winery,
 				    			varietal	: apiWine.varietal,
@@ -741,6 +741,7 @@ exports.getTopWines = function (req, res) {
 													if(!err)
 													{
 														roseWines = vinos;
+														console.log('>>>>>>', roseWines);
 														var options = {
 															host: 'api.snooth.com',
 															path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=rose"
