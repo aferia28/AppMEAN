@@ -7,11 +7,13 @@
 	<div class="row">
 		<div class="col-md-12 wine-color">
 			<h2 class="text-center">Tipus de vi</h2>
-			<cardflow model="cardflow">
-				<div class="cardflow-card" ng-repeat="card in cardflow.cards" style="background-image: url( {{card.image}} )">
-					<span>{{ card.name }}</span>
-				</div>
-			</cardflow>
+			<div class="row">
+				<cardflow model="cardflow">
+					<div class="cardflow-card col-md-4" ng-repeat="card in cardflow.cards" style="background-image: url( {{card.image}} )">
+						<span>{{ card.name }}</span>
+					</div>
+				</cardflow>
+			</div>
 		</div>
 	</div>
 	<div class="row">
@@ -40,7 +42,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-xs-offset-5 col-md-2 col-md-offset-1">
+						<div class="col-xs-offset-3 col-sm-offset-5 col-md-2 col-md-offset-1">
 							<button type="submit" ng-click="search()" class="button button-white">Cercar</button>
 						</div>
 					</div>
