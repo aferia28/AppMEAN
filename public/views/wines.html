@@ -6,10 +6,10 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12 wine-color">
-			<h2 class="text-center">Selecciona el tipus de vi</h2>
+			<h2 class="text-center">Tipus de vi</h2>
 			<cardflow model="cardflow">
 				<div class="cardflow-card" ng-repeat="card in cardflow.cards" style="background-image: url( {{card.image}} )">
-					<span>{{ card.title }}</span>
+					<span>{{ card.name }}</span>
 				</div>
 			</cardflow>
 		</div>
