@@ -52,10 +52,9 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 			$scope.isDisabled = false;
 		}
 		//console.log($scope.isDisabled);
+	}, function(response) {
+		//handle error
 	})
-	.catch(function() {
-		//tratar error
-	});
 
 	$scope.addOwnWine = function(rank) {
 
@@ -65,9 +64,8 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		.then(function(response) {
 			console.log('Puntuación añadida', response.data)
 			$scope.isDisabled = true;
-		})
-		.catch(function(response) {
-			//tratar el error
+		}, function(response) {
+			//handle error
 		})
 	}
 

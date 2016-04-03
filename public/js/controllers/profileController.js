@@ -23,13 +23,12 @@ app.controller('profileController', ['$scope', '$http','$rootScope','$routeParam
 				method: 'PUT',
 				data: {profile:profile}
 			})
-			.success(function(data) {
-				$scope.userProfile = data;
-				console.log('Perfil actualitzat! ', data);
-			})
-			.error(function(response) {
+			.then(function(response) {
+				$scope.userProfile = response.data;
+				console.log('Perfil actualitzat! ', response.data);
+			}, function(response) {
 				//handle error
-			})
+			});
 		}else{
 
 			console.log($scope.picFile);

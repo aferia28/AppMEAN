@@ -1,12 +1,10 @@
-app.controller('topWinesController', ['$scope', '$http','dataFactory', function($scope, $http, dataFactory) {
+app.controller('topWinesController', ['$scope','dataFactory', function($scope, dataFactory) {
 
-dataFactory.getTopWines()
-.then(function(response) {
-	$scope.topWines = response.data;
-	console.log(response);
-})
-.catch(function(response) {
-
-})
-
+	dataFactory.getTopWines()
+	.then(function(response) {
+		$scope.topWines = response.data;
+		console.log(response);
+	}, function (response) {
+		 console.log('Status: ' + response.status + ' - ' + response.statusText);
+	})
 }]);
