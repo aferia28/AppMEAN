@@ -28,6 +28,7 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 
 		wine = response.data;
 		$scope.product = response.data;
+		console.log(response);
 		//$scope.product.comentarios = wine.comentarios;
 		inData.wine = wine;
 
@@ -44,27 +45,29 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 		{
 			$('.rating > span').css('opacity', 0.5);
 			$scope.isDisabled = true;
+
 		}
 		else
 		{
 			$scope.isDisabled = false;
 		}
+		//console.log($scope.isDisabled);
+	}, function(response) {
+		serviceRequestErrors.popupError(response);
 	})
-	.catch(function() {
-		//tratar error
-	});
 
-	$scope.addOwnWine = function(rank) {
+	$scope.addOwnWine = function($event) {
 
-		inData.rank = rank;
+		console.log($event.target.attributes['data-rate'].value);
+		inData.rank = $event.target.attributes['data-rate'].value;
 
 		dataFactory.insertRank(inData)
 		.then(function(response) {
 			console.log('Puntuación añadida', response.data)
 			$scope.isDisabled = true;
-		})
-		.catch(function(response) {
-			//tratar el error
+		}, function(response) {
+			console.log(response);
+			//serviceRequestErrors.popupError(response);
 		})
 	}
 
@@ -126,7 +129,7 @@ app.controller('productSearcherController', ['$scope', '$http','$rootScope','$ro
 			console.log(response.data);
 			$scope.product.comentarios = response.data.comentarios;
 		}, function(response) {
-
+			//serviceRequestErrors.popupError(response);
 		})
 	}
 }]);
