@@ -810,6 +810,7 @@ html {
   font-size: 20px;
   width: 70%;
   margin-top: 100px;
+  cursor: pointer;
 }
 .profile-content .btn-save {
   padding: 15px 50px 15px 50px;
