@@ -8,6 +8,21 @@ app.controller('addWineController', ['$scope', '$http','serviceAdmin','dataFacto
 	    	],
 	   };
 
+	   $scope.DOs = {
+	    	availableOptions: [
+				{	id: 'alella', 			name: 'Alella'				},
+				{	id: 'conca barbera', 	name: 'Conca de Barberà'	},
+				{	id: 'costers segre',	name: 'Costers del Segre'	},
+				{	id: 'emporda', 			name: 'Emporda'				},
+				{	id: 'montsant', 		name: 'Montsant'			},
+				{	id: 'penedes', 			name: 'Penedès'				},
+				{	id: 'pla bages', 		name: 'Pla de Bages'		},
+				{	id: 'priorat', 			name: 'Priorat'				},
+				{	id: 'tarragona', 		name: 'Tarragona'			},
+				{	id: 'terra+alta', 		name: 'Terra Alta'			}
+	    	],
+	   };
+
 	$scope.addWine = function(file) {
 
 		var wine = $scope.wine;
