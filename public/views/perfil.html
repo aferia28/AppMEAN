@@ -17,7 +17,7 @@
 						</div>
 						<div class="col-sm-12">
 							<div class="row">
-								<button type="button" ng-click="showFavourites = !showFavourites" class="col-sm-offset-2 button button-black">Favorits</button>
+								<div class="favourites col-sm-offset-2 button button-black" ng-click="showFavourites = !showFavourites">Favorits</div>
 							</div>
 						</div>
 						<div class="col-sm-12 box-favorites" ng-show="showFavourites">
@@ -97,8 +97,7 @@
 										</tr>
 									</tbody>
 								</table>
-								<button type="submit" ng-click="updateProfile()" class="col-sm-offset-5 button button-black">Guardar</button>
-								<span ng-show="updateShow">{{updateMessage}}</span>
+								<button type="submit" class="col-sm-offset-5 button button-black" ng-click="updateProfile()"> Guardar</button>
 							</form>
 						</div>
 					</div>
@@ -107,3 +106,4 @@
 		</div>
 	</div>
 </div>
+
