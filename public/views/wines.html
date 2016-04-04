@@ -35,6 +35,7 @@
 			</div>
 			<div class="col-sm-12 wine-search-results">
 	            <div class="row">
+	            	<span ng-if="fiveDay == ''">No 'sha trobat cap ví...</span>
 	            	<div ng-repeat="wine in fiveDay | filter:query" class="col-sm-4">
 	            		<div class="wine-box">
 	            			<a href="#product/{{wine.code}}">

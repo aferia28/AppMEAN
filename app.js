@@ -2,14 +2,14 @@
 var	path = require('path');
 
 // Load third party modules
-var express = require('express'),
-	mongoose  = require('mongoose');
+var express 	= require('express');
+var	mongoose  	= require('mongoose');
+var multiparty 	= require('connect-multiparty');
 
 // Start ExpressJS
 var app = express();
 
-multiparty = require('connect-multiparty'),
-multipartyMiddleware = multiparty(),
+multipartyMiddleware = multiparty();
 
 
 mongoose.connect('mongodb://localhost:27017/DBpersonas', function(error){
