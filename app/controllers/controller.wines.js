@@ -82,7 +82,7 @@ exports.findAllWines =  function(req, res) {
 			} else if (designationOrigin == '' || designationOrigin == undefined || designationOrigin == null) {
 				Vino.find({$and:[
 						{type: ownType},
-						{year: vintage}
+						{vintage: vintage}
 					]}, function(err, vinos) {
 						if (!err)
 						{
@@ -94,10 +94,15 @@ exports.findAllWines =  function(req, res) {
 				})
 			} else if (vintage == '' || vintage == undefined || vintage == null)
 			{
-				Vino.find({$and: [
+				if (designationOrigin.indexOf('+') > -1) {
+					var tags = designationOrigin.split('+');
+					var tag = new RegExp(tags[1]);
+					console.log(tag);
+					Vino.find({$and: [
 						{type: ownType},
-						{region: {$in: [designationOrigin]}}
+						{region: {$regex: tag, $options:'i'}}
 					]}, function(err, vinos) {
+						console.log(vinos);
 						if (!err)
 						{
 							res.send(compareWines(snoothWines, vinos));
@@ -106,22 +111,59 @@ exports.findAllWines =  function(req, res) {
 							console.log('ERROR: ' + err.message);
 						}
 					})
+				}else{
+
+					Vino.find({$and: [
+						{type: ownType},
+						{region: {$in: [designationOrigin]}}
+					]}, function(err, vinos) {
+						console.log(vinos);
+						if (!err)
+						{
+							res.send(compareWines(snoothWines, vinos));
+						} else {
+							res.send(err);
+							console.log('ERROR: ' + err.message);
+						}
+					})
+				}
 			} else
 			{
-				// DO + vintage == defined
-				Vino.find({$and: [
+				if (designationOrigin.indexOf('+') > -1) {
+					var tags = designationOrigin.split('+');
+					var tag = new RegExp(tags[1]);
+					console.log(tag);
+					Vino.find({$and: [
 						{type: ownType},
-						{region: {$in: designationOrigin}},
-						{vintage: vintage}
+						{vintage: vintage},
+						{region: {$regex: tag, $options:'i'}}
 					]}, function(err, vinos) {
-					if (!err)
-					{
-						res.send(compareWines(snoothWines, vinos));
-					} else {
-						res.send(err);
-						console.log('ERROR: ' + err.message);
-					}
-				})
+						console.log(vinos);
+						if (!err)
+						{
+							res.send(compareWines(snoothWines, vinos));
+						} else {
+							res.send(err);
+							console.log('ERROR: ' + err.message);
+						}
+					})
+				}else{
+
+					Vino.find({$and: [
+						{type: ownType},
+						{vintage: vintage},
+						{region: {$in: [designationOrigin]}}
+					]}, function(err, vinos) {
+						console.log(vinos);
+						if (!err)
+						{
+							res.send(compareWines(snoothWines, vinos));
+						} else {
+							res.send(err);
+							console.log('ERROR: ' + err.message);
+						}
+					})
+				}
 			}
   		})
 
@@ -157,6 +199,56 @@ exports.findWine = function(req, res) {
   		response.on('end', function () {
 
     		var x = JSON.parse(string);
+    		if (x.wines == undefined) {
+    			Vino.find({code: codeWine}).populate({path: 'rates', match: { usuario: {$eq:xuser._id}}}).exec(function(err, puntuacion) {
+					if(puntuacion[0].rates != '')
+					{
+						if(puntuacion[0].rates[0].usuario == xuser._id)
+						{
+							console.log('ESTE USUARIO YA HA PUNTUADO ESTE VINO');
+							canrate = false;
+						}else{
+							console.log('ESTE USUARIO TODAVÍA NO HA PUNTUADO ESTE VINO');
+							canrate = true
+						}
+					}
+				});
+
+				Vino.findOne({code: codeWine}).populate({path: 'rates'}).populate({path: 'comentarios'}).exec(function(err, puntuaciones) {
+					var c=0;
+
+					for(var i = 0; i<puntuaciones.rates.length; i++)
+					{
+						c = c + puntuaciones.rates[i].puntuacion;
+					}
+					puntuacionPropia = c / puntuaciones.rates.length;
+					console.log('Puntuacion media nuesttra: ' + puntuacionPropia);
+					puntuacionTotal = puntuacionPropia
+					console.log(puntuacionTotal);
+
+					var objectToSend = {
+						code 		: puntuaciones.code,
+		    			name 		: puntuaciones.name,
+		    			price 		: puntuaciones.price,
+		    			type 		: puntuaciones.type,
+		    			region 		: puntuaciones.region,
+		    			winery 		: puntuaciones.winery,
+		    			varietal	: puntuaciones.varietal,
+		    			vintage 	: puntuaciones.vintage,
+		    			alcohol		: puntuaciones.alcohol,
+		    			//image_url	: puntuaciones.image,
+		    			//reviews 	: puntuaciones.reviews,
+		    			//wm_notes 	: puntuaciones.wm_notes,
+		    			snoothrank 	: puntuacionTotal,
+		    			comentarios : puntuaciones.comentarios, //aqui las puntuaciones en realidad es un vino
+		    			canrate 	: canrate
+		    		}
+		    		res.send(objectToSend);
+				});
+
+
+    		}else{
+
     		apiWine = x.wines[0];
 
     		puntuacionApi = apiWine.snoothrank;
@@ -215,7 +307,7 @@ exports.findWine = function(req, res) {
 								code 		: apiWine.code,
 				    			name 		: apiWine.name,
 				    			price 		: apiWine.price,
-				    			type 		: apiWine.type,
+				    			type 		: apiWine.color || apiWine.type,
 				    			region 		: apiWine.region,
 				    			winery 		: apiWine.winery,
 				    			varietal	: apiWine.varietal,
@@ -233,6 +325,7 @@ exports.findWine = function(req, res) {
     				}
     			}
     		})
+    		}
   		});
 	}
 
@@ -427,13 +520,14 @@ exports.findWineByCode = function(req, res) {
 					type 		: type,
 					region 		: x.region,
 					winery 		: x.winery,
+					vintage		: x.vintage,
 					varietal	: x.varietal,
 					alcohol		: x.alcohol,
 					image_url 	: x.image,
 					reviews		: x.reviews,
 					wm_notes 	: x.wm_notes,
 					snoothrank 	: x.snoothrank,
-					year 		: x.vintage,
+					vintage 	: x.vintage,
 					rates 		:[puntuacion]
     			})
 
@@ -500,7 +594,7 @@ exports.addWine = function(req, res) {
 		winery 	: req.body.wine.winery,
 		region 	: req.body.wine.region,
 		varietal: req.body.wine.varietal,
-		year 	: req.body.wine.vintage,
+		vintage : req.body.wine.vintage,
 		alcohol : req.body.wine.alcohol,
 		price 	: req.body.wine.price,
 		createAt: Date.now(),
@@ -648,6 +742,7 @@ exports.getTopWines = function (req, res) {
 													if(!err)
 													{
 														roseWines = vinos;
+														console.log('>>>>>>', roseWines);
 														var options = {
 															host: 'api.snooth.com',
 															path: "/wines/?akey=mi24ey8gwq286zony5uw51ghphnjed0yz0h6hpjs6l7rrr17&n=3&q=Catalunya&s=sr&xp=100&color=rose"
@@ -720,11 +815,15 @@ exports.updateWine = function(req, res) {
 		vino.winery 	= req.body.winery;
 		vino.region 	= req.body.region;
 		vino.varietal	= req.body.varietal;
-		vino.year 		= req.body.year;
+		vino.vintage 	= req.body.vintage;
 		vino.alcohol 	= req.body.alcohol;
 
 		vino.save(function(err) {
-			if(!err) console.log('Vino actualizado');
+			if(!err)
+			{
+				console.log('Vino actualizado');
+				res.send(vino);
+			}
 			else console.log('ERROR: ' + err);
 		});
 
@@ -757,7 +856,7 @@ exports.latestWines = function(req, res) {
 
 exports.allWines = function(req, res) {
 
-	Vino.find({createAt: {$exists: true}}, function(err, vinos) {
+	Vino.find(function(err, vinos) {
 		if(!err)
 		{
 			res.send(vinos)
@@ -771,7 +870,10 @@ exports.deleteWine = function(req, res) {
 
 	Vino.findById(req.params.id, function(err, vino) {
 		vino.remove(function(err) {
-			if(!err) console.log('Vino borrado!');
+			if(!err){
+				console.log('Vino borrado!');
+				res.status(200);
+			}
 			else console.log('ERROR: ' + err);
 		});
 	});

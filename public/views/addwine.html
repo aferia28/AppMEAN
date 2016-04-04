@@ -24,7 +24,7 @@
 						</div>
 						<div class="col-sm-8">
 							<div class="box-input">
-								<input type="text" ng-minlength="10" required name="nom" placeholder="* Nom del ví" ng-model="wine.name">
+								<input type="text" ng-minlength="7" required name="nom" placeholder="* Nom del ví" ng-model="wine.name">
 								<div ng-messages="formAddWine.nom.$error">
 									<div ng-messages-include="../views/messages.html"></div>
 								</div>
@@ -35,10 +35,9 @@
 							    </select>
 							</div>
 							<div class="box-input">
-								<input type="text" ng-minlength="8" required name="denominacio" placeholder="* Denominació" ng-model="wine.region">
-								<div ng-messages="formAddWine.denominacio.$error">
-									<div ng-messages-include="../views/messages.html"></div>
-								</div>
+								<select name="repeatSelectDo" required id="repeatSelectDo" ng-model="wine.region">
+							    	<option ng-repeat="do in DOs.availableOptions" value="{{do.id}}">{{do.name}}</option>
+							    </select>
 							</div>
 							<div class="box-input">
 								<input type="text" required ng-minlength="8" name="celler" placeholder="* Celler" ng-model="wine.winery">

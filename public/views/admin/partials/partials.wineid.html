@@ -16,11 +16,17 @@
 							</tr>
 							<tr>
 								<td><label>Tipus</label></td>
-								<td><input type="text" class="form-control" ng-model="wine.type"></td>
+								<td>
+									<!--<input type="text" class="form-control" ng-model="wine.type">-->
+									<select name="repeatSelect" required id="repeatSelect" ng-model="wine.type">
+							    	<option ng-repeat="option in types.availableOptions" value="{{option.id}}">		{{option.name}}
+							    	</option>
+							    </select>
+								</td>
 							</tr>
 							<tr>
 								<td><label>Anyada</label></td>
-								<td><input type="text" class="form-control" ng-model="wine.year"></td>
+								<td><input type="text" class="form-control" ng-model="wine.vintage"></td>
 							</tr>
 							<tr>
 								<td><label>Vinya</label></td>
@@ -28,7 +34,14 @@
 							</tr>
 							<tr>
 								<td><label>Region</label></td>
-								<td><input type="text" class="form-control" ng-model="wine.region"></td>
+								<td>
+									<!--<input type="text" class="form-control" ng-model="wine.region">-->
+									<select name="repeatSelectDo" required id="repeatSelectDo" ng-model="wine.region">
+							    	<option ng-repeat="do in DOs.availableOptions" value="{{do.id}}">
+							    		{{do.name}}
+							    	</option>
+							    </select>
+								</td>
 							</tr>
 							<tr>
 								<td><label>Varietat</label></td>
@@ -42,10 +55,15 @@
 					</div>
 					<div class="col-sm-12">
 						<div class="row">
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<button class="btn btn-primary" ng-click="updateWine()">Modificar</button>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
+								<span ng-show="updateShow">
+									{{updateMessage}}
+								</span>
+							</div>
+							<div class="col-sm-4">
 								<button class="btn btn-danger" ng-click="deleteWine()">Esborrar Ví</button>
 							</div>
 						</div>

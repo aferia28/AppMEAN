@@ -2,10 +2,7 @@ app.service('serviceAdmin', function ($http,$auth) {
     var user;
     var admin;
 
-    if(!$auth.getToken())
-    {
-        console.log('No hay persona logeada..');
-    }
+    if(!$auth.getToken()) console.log('No hay persona logeada..');
     else{
         $http.get('/persona')
         .success(function(data) {
