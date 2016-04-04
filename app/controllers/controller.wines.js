@@ -520,6 +520,7 @@ exports.findWineByCode = function(req, res) {
 					type 		: type,
 					region 		: x.region,
 					winery 		: x.winery,
+					vintage		: x.vintage,
 					varietal	: x.varietal,
 					alcohol		: x.alcohol,
 					image_url 	: x.image,
@@ -814,11 +815,15 @@ exports.updateWine = function(req, res) {
 		vino.winery 	= req.body.winery;
 		vino.region 	= req.body.region;
 		vino.varietal	= req.body.varietal;
-		vino.vintage 	= req.body.year;
+		vino.vintage 	= req.body.vintage;
 		vino.alcohol 	= req.body.alcohol;
 
 		vino.save(function(err) {
-			if(!err) console.log('Vino actualizado');
+			if(!err)
+			{
+				console.log('Vino actualizado');
+				res.send(vino);
+			}
 			else console.log('ERROR: ' + err);
 		});
 
@@ -851,7 +856,7 @@ exports.latestWines = function(req, res) {
 
 exports.allWines = function(req, res) {
 
-	Vino.find({createAt: {$exists: true}}, function(err, vinos) {
+	Vino.find(function(err, vinos) {
 		if(!err)
 		{
 			res.send(vinos)
@@ -865,7 +870,10 @@ exports.deleteWine = function(req, res) {
 
 	Vino.findById(req.params.id, function(err, vino) {
 		vino.remove(function(err) {
-			if(!err) console.log('Vino borrado!');
+			if(!err){
+				console.log('Vino borrado!');
+				res.status(200);
+			}
 			else console.log('ERROR: ' + err);
 		});
 	});

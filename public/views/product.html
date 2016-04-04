@@ -108,35 +108,42 @@
 							<button id='oneStar'
 							ng-class="{'fa fa-star fa-2x':hovering, 'fa fa-star-o fa-2x':!hovering}"
 							ng-mouseenter="hovering=true"
-							ng-mouseleave="hovering=false" ng-click="addOwnWine(1)" ng-disabled="isDisabled">
+							ng-mouseleave="hovering=false"
+							ng-click="addOwnWine($event)"
+							ng-disabled="isDisabled"
+							data-rate="1">
 							</button>
 							<button id='twoStars'
 							ng-class="{'fa fa-star fa-2x':hovering2, 'fa fa-star-o fa-2x':!hovering2}"
 							ng-mouseenter="hovering2=true;hovering=true"
 							ng-mouseleave="hovering2=false;hovering=false"
-							ng-click="addOwnWine(2)"
-							ng-disabled="isDisabled">
+							ng-click="addOwnWine($event)"
+							ng-disabled="isDisabled"
+							data-rate="2">
 							</button>
 							<button id='threeStars'
 							ng-class="{'fa fa-star fa-2x':hovering3, 'fa fa-star-o fa-2x':!hovering3}"
 							ng-mouseenter="hovering3=true;hovering2=true;hovering=true"
 							ng-mouseleave="hovering3=false;hovering2=false;hovering=false"
-							ng-click="addOwnWine(3)"
-							ng-disabled="isDisabled">
+							ng-click="addOwnWine($event)"
+							ng-disabled="isDisabled"
+							data-rate="3">
 							</button>
 							<button id='fourStars'
 							ng-class="{'fa fa-star fa-2x':hovering4, 'fa fa-star-o fa-2x':!hovering4}"
 							ng-mouseenter="hovering4=true;hovering3=true;hovering2=true;hovering=true"
 							ng-mouseleave="hovering4=false;hovering3=false;hovering2=false;hovering=false"
-							ng-click="addOwnWine(4)"
-							ng-disabled="isDisabled">
+							ng-click="addOwnWine($event)"
+							ng-disabled="isDisabled"
+							data-rate="4">
 							</button>
 							<button id='fiveStars'
 							ng-class="{'fa fa-star fa-2x':hovering5, 'fa fa-star-o fa-2x':!hovering5}"
 							ng-mouseenter="hovering5=true; hovering4=true; hovering3=true; hovering2=true; hovering=true"
 							ng-mouseleave="hovering5=false; hovering4=false;hovering3=false;hovering2=false;hovering=false"
-							ng-click="addOwnWine(5)"
-							ng-disabled="isDisabled">
+							ng-click="addOwnWine($event)"
+							ng-disabled="isDisabled"
+							data-rate="5">
 							</button>
 						</span>
 
@@ -266,7 +273,7 @@
 							<p>
 								{{comment.texto}}
 							</p>
-							<i ng-click="deleteComment(comment._id)" ng-if="comment.usuario == user._id" class="fa fa-trash" style="color:red; cursor: pointer"></i>
+							<i ng-click="deleteComment(comment._id)" ng-if="comment.usuario == user._id || user.isAdmin == true" class="fa fa-trash" style="color:red; cursor: pointer"></i>
 							<hr>
 						</div>
 					</div>

@@ -1,10 +1,10 @@
-app.controller('profileController', ['$scope', '$http','$rootScope','$routeParams', 'Upload', '$timeout', function($scope, $http, $rootScope,$routeParams, Upload, $timeout) {
+app.controller('profileController', ['$scope', '$http','$rootScope','$routeParams', 'Upload', '$timeout','serviceRequestErrors', function($scope, $http, $rootScope,$routeParams, Upload, $timeout, serviceRequestErrors) {
 
 	var userId = $routeParams.id;
 
 	$http.get('perfil/' + userId)
 	.success(function(data){
-		console.log(data);
+		//console.log(data);
 		$scope.userProfile = data;
 	});
 
@@ -15,7 +15,6 @@ app.controller('profileController', ['$scope', '$http','$rootScope','$routeParam
 
 		console.log($scope.picFile);
 
-		console.log(profile);
 		if ($scope.picFile === undefined || $scope.picFile === null) {
 
 			$http({
@@ -25,9 +24,16 @@ app.controller('profileController', ['$scope', '$http','$rootScope','$routeParam
 			})
 			.then(function(response) {
 				$scope.userProfile = response.data;
+				$scope.updateMessage = 'Guardado con exito';
+				$scope.updateShow = true;
+				setTimeout(function(){
+					$scope.$apply(function(){
+						$scope.updateShow = false;
+					})
+				}, 3000);
 				console.log('Perfil actualitzat! ', response.data);
 			}, function(response) {
-				//handle error
+				serviceRequestErrors.popupError(response);
 			});
 		}else{
 
@@ -69,3 +75,4 @@ app.controller('profileController', ['$scope', '$http','$rootScope','$routeParam
 	}
 	//$scope.pageClass = 'page-weather';
 }]);
+

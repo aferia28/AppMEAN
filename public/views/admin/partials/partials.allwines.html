@@ -10,7 +10,7 @@
 			<tr ng-repeat="wine in allWines | filter:wineQuery">
 				<td>{{ wine.name }}</td>
 				<td>{{ wine.type }}</td>
-				<td>{{ wine.year }}</td>
+				<td>{{ wine.vintage }}</td>
 				<td><a ui-sref="vinos.winesid({ id: wine._id })"><i class="fa fa-eye"></i><a/></td>
 			</tr>
 		</table>

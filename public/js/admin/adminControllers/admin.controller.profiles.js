@@ -124,6 +124,29 @@ admin_app.controller('profilesController', ['$scope', '$http', '$stateParams','$
 		})
 	}
 
+	$scope.types = {
+	    	availableOptions: [
+	      		{id: 'Negre', name: 'Negre'},
+	      		{id: 'Blanc', name: 'Blanc'},
+	      		{id: 'Rosat', name: 'Rosat'}
+	    	],
+	   };
+
+	   $scope.DOs = {
+	    	availableOptions: [
+				{	id: 'alella', 			name: 'Alella'				},
+				{	id: 'conca barbera', 	name: 'Conca de Barberà'	},
+				{	id: 'costers segre',	name: 'Costers del Segre'	},
+				{	id: 'emporda', 			name: 'Emporda'				},
+				{	id: 'montsant', 		name: 'Montsant'			},
+				{	id: 'penedes', 			name: 'Penedès'				},
+				{	id: 'pla bages', 		name: 'Pla de Bages'		},
+				{	id: 'priorat', 			name: 'Priorat'				},
+				{	id: 'tarragona', 		name: 'Tarragona'			},
+				{	id: 'terra+alta', 		name: 'Terra Alta'			}
+	    	],
+	   };
+
 	$scope.updateWine = function(newProfile) {
 
 		var id = $stateParams.id;
@@ -133,12 +156,17 @@ admin_app.controller('profilesController', ['$scope', '$http', '$stateParams','$
 			method:'PUT',
 			data:$scope.wine
 		})
-		.success(function(data) {
-			console.log('Vino modificado correctamente');
-			$scope.wine = data;
-			$location.path('/vinos.all');
-		})
-		.error(function(err) {
+		.then(function(response) {
+			console.log('Vino modificado correctamente: ', response.data);
+			$scope.wine = response.data;
+			$scope.updateMessage = 'Guardado con exito';
+			$scope.updateShow = true;
+			setTimeout(function(){
+				$scope.$apply(function(){
+					$scope.updateShow = false;
+				})
+			}, 3000);
+		}, function(response) {
 			console.log('Error' + err);
 		})
 	}
