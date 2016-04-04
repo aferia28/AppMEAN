@@ -35,13 +35,13 @@
 </script>
 <script type="text/ng-template" id="popupSignUp">
 	<div class="modal-header">
-		<h3>Get your account</h3>
-		<p>Please enter the follow fields to sign up:</p>
+		<h3>Registra't</h3>
+		<p>Omple els següents camps per validar el registre:</p>
 	</div>
 	<div class="modal-body">
 		<form role="form" method="post" class="registration-form" ng-submit="signup(signupForm.$valid)" name="signupForm">
 			<div class="form-group">
-				<input type="text" ng-model="persona.nombre" name="name" placeholder="Nombre" class="form-control form-first-name" required id="form-first-name">
+				<input type="text" ng-model="persona.nombre" name="name" placeholder="Nom" class="form-control form-first-name" required id="form-first-name">
 				<div ng-messages="signupForm.name.$error">
 					<div ng-messages-include="../views/messages.html">
 
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="text" ng-model="persona.apellidos" name="lastname" placeholder="Apellidos" class="form-control form-last-name" required id="form-last-name">
+				<input type="text" ng-model="persona.apellidos" name="lastname" placeholder="Cognoms" class="form-control form-last-name" required id="form-last-name">
 				<div ng-messages="signupForm.lastname.$error">
 					<div ng-messages-include="../views/messages.html">
 
@@ -65,19 +65,19 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="password" ng-minlength="8" ng-model="persona.password" name="password" placeholder="Contraseña" class="form-control form-password" required id="form-password">
+				<input type="password" ng-minlength="8" ng-model="persona.password" name="password" placeholder="Contrasenya" class="form-control form-password" required id="form-password">
 				<div ng-messages="signupForm.password.$error">
 					<div ng-messages-include="../views/messages.html"></div>
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="password" ng-model="persona.r_password" name="password_r" placeholder="Confirmar contraseña" class="form-control form-password" id="password_r" required compare-to="persona.password">
+				<input type="password" ng-model="persona.r_password" name="password_r" placeholder="Confirmar contrasenya" class="form-control form-password" id="password_r" required compare-to="persona.password">
 				<div ng-messages="signupForm.password_r.$error">
 					<div ng-messages-include="../views/messages.html">
 					</div>
 				</div>
 			</div>
-			<button class="btn" type="submit" id="send_email">Sign Up</button>
+			<button class="btn" type="submit" id="send_email">Registra't</button>
 			<span id="message"></span>
 		</form>
 	</div>
@@ -88,7 +88,7 @@
 		<p>Verifica el teu correu electronic</p>
 	</div>
 	<div class="modal-body">
-		<p>T'em enviat un correu electronic perque verifiquis la teva conta. Revisa'l siusplau =)</p>
+		<p>T'em enviat un correu electronic perque verifiquis la teva conta. Revisa'l siusplau</p>
 	</div>
 </script>
 <style type="text/css">

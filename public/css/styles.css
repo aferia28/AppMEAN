@@ -595,8 +595,8 @@ html {
 /*-------------------------------*/
 /*  Wine Record Card / Product   */
 /*-------------------------------*/
-.page-product .product-content .fa,
-.page-product .product-content .fa-arrow-left {
+.fa.fa-arrow-left,
+.fa-angle-double-left {
   color: white;
   font-size: 35px;
   margin-top: 15px;
