@@ -66,11 +66,16 @@
 									<img ng-src="{{wine.image_url}}">
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-12 wine-text"><!-- {{wine.type}}<br> -->{{wine.region.split(" > ").pop()}}</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12 wine-vintage">{{wine.vintage}}</div>
+							<div class="wine-text">
+								<div class="row">
+									<div class="col-md-12 wine-do">DO {{wine.region.split(" > ").pop()}}</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 wine-vintage">{{wine.vintage}}</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 wine-type">{{wine.type}}</div>
+								</div>
 							</div>
 						</div>
 						</a>

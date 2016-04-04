@@ -573,6 +573,9 @@ html {
   padding: 15px;
   margin-bottom: 15px;
   text-align: center;
+  /*.wine-do {
+					padding-top: 10px;
+				}*/
 }
 .page-weather .wine-searcher .wine-search-results .wine-box p {
   font-weight: bold;
@@ -585,11 +588,8 @@ html {
   margin: auto;
   border-radius: 5px;
 }
-.page-weather .wine-searcher .wine-search-results .wine-box .wine-text,
-.page-weather .wine-searcher .wine-search-results .wine-box .wine-vintage {
-  color: #1a1a1a;
-}
 .page-weather .wine-searcher .wine-search-results .wine-box .wine-text {
+  color: #1a1a1a;
   padding-top: 10px;
 }
 /*-------------------------------*/
