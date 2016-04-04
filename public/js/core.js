@@ -1,4 +1,4 @@
-var app = angular.module('VistasApp', ['ngRoute','satellizer','ngAnimate','ngMessages', 'ngCookies','720kb.socialshare', 'ngDialog', 'summernote', 'angular-cardflow','ngFileUpload']);
+var app = angular.module('VistasApp', ['ngRoute', 'satellizer', 'ngAnimate', 'ngMessages', 'ngCookies', '720kb.socialshare', 'ngDialog', 'summernote', 'angular-cardflow', 'ngFileUpload']);
 
 app.config(function($routeProvider, $authProvider, socialshareConfProvider)
 {
@@ -28,12 +28,12 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
   $authProvider.signupUrl   = 'http://localhost:8080/auth/signup';
   $authProvider.loginUrl    = 'http://localhost:8080/auth/login';
   $authProvider.tokenName   = 'token';
-  $authProvider.tokenPrefix = 'authenticationApp',
+  $authProvider.tokenPrefix = 'authenticationApp';
 
 	$routeProvider
     .when('/',{
       controller: 'homeController',
-      templateUrl: 'views/contentLogin.html',
+      templateUrl: 'views/home.html',
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if($auth.isAuthenticated()){
@@ -44,7 +44,7 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
   })
     .when('/home',{
       controller: 'homeController',
-      templateUrl: 'views/content.html',
+      templateUrl: 'views/homeLogged.html',
       resolve: {
         authenticated: ["$location", '$auth', function($location, $auth){
           if(!$auth.isAuthenticated()){
@@ -111,7 +111,7 @@ app.config(function($routeProvider, $authProvider, socialshareConfProvider)
   })
     .when('/logout',{
       controller: 'LogoutController',
-      templateUrl: 'views/contentLogin.html'
+      templateUrl: 'views/home.html'
   })
     .when('/admin/perfiles',{
       controller: '',

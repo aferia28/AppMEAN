@@ -15,10 +15,12 @@ app.controller('wineSearcherController', ['$scope', '$http', '$timeout', 'dataFa
 
     // Generate the cards
     $scope.cardflow.cards = [];
-    var types = ['red','white','rose'];
+    var color = ['Negre','Blanc','Rosat'];
+	var colour = ['red', 'white', 'rose'];
     for (indexCardflow = 0; indexCardflow < 3; indexCardflow++) {
-        var t = types[indexCardflow % types.length];
-        $scope.cardflow.cards.push({image:'../img/' + t + '-wine-cardflow.jpg', title: t});
+        var colourCat = color[indexCardflow % color.length];
+		var colourEng = colour[indexCardflow % colour.length];
+        $scope.cardflow.cards.push({image:'../img/' + colourEng + '-wine-cardflow.jpg', title: colourEng, name: colourCat});
     }
 
     /*
